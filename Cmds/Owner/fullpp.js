@@ -16,7 +16,7 @@ if (msgDreaded.imageMessage) {
     m.reply('This is not an image...'); return
   } ;
 
-var medis = await ryozingod.downloadAndSaveMediaMessage(media);
+var medis = await client.downloadAndSaveMediaMessage(media);
 
 
 
