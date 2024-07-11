@@ -67,7 +67,7 @@ menuText += `🔓 𝑴𝑶𝑫𝑬:- ${mode}\n`;
         };
 
         for (const category of categories) {
-            const commandFiles = fs.readdirSync(`./cmds/${category.name}`).filter((file) => file.endsWith('.js'));
+            const commandFiles = fs.readdirSync(`./Cmds/${category.name}`).filter((file) => file.endsWith('.js'));
 
             const fancyCategory = toFancyUppercaseFont(category.name.toUpperCase());
 
