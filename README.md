@@ -17,11 +17,11 @@ Our AI features use random APIs to run, so sometimes they may be down.
 
 ## SET-UP
 
-## Fork:
+## Fork
 
 <h2 align="center">   
 
-- ***You must `fork` this repo before fetching pairing code. Fork this repo by tapping  [`here`](https://github.com/Fortunatusmokaya/dreaded-v2/fork)***
+- ***You MUST `fork` this repo before fetching pairing code. Fork this repo by tapping  [`here`](https://github.com/Fortunatusmokaya/dreaded-v2/fork)***
 
 
 ## Pairing:
@@ -40,6 +40,8 @@ Our AI features use random APIs to run, so sometimes they may be down.
 - ***Now [`DEPLOY TO HEROKU`](https://dashboard.heroku.com/new?template=https://github.com/Fortunatusmokaya/dreaded-v2).***
 
 -***`Fill in all the required variables and deploy the bot.`***
+
+-***`If you plan to host the bot in your server, vps, locally or panel you can carefully edit the file settings.js`***
 
 
 # Credits
