@@ -17,7 +17,7 @@ const gcpresence = process.env.GC_PRESENCE || 'true';
 const antionce = process.env.ANTIVIEWONCE || 'true';
 const sessionName = "session";
 const presence = process.env.WA_PRESENCE || 'typing';
-const autoview = process.env.AUTOVIEW || 'true';
+const autoview = process.env.AUTOVIEW_STATUS || 'true';
 const autoread = process.env.AUTOREAD || 'true';
 const autobio = process.env.AUTOBIO || 'true';
 
