@@ -1,5 +1,5 @@
 module.exports = async (context) => {
-    const { client, m, mime, UploadFileUgu, TelegraPh } = context;
+    const { client, m, mime, UploadFileUgu, TelegraPh, qmsg } = context;
  const fs = require("fs");
 const util = require("util");
 
