@@ -1,11 +1,11 @@
-/* const yts= require("yt-search")
+ const yts= require("yt-search")
 
-const ytdl = require("../../lib/musicdl.js");
+const YT = require("../../lib/musicdl.js");
 const fs = require("fs");
 
 
 module.exports = async (context) => {
-    const { client, m, text } = context;     
+    const { client, m, text, fetchBuffer } = context;     
 
 
 if (!text) {
@@ -20,47 +20,27 @@ if (!text) {
 let dreaded = search.videos[0]
 const sk = await YT.mp3(dreaded.url)
 
+await client.sendMessage(m.chat,{
+    audio: fs.readFileSync(sk.path),
+    fileName: dreaded.title + '.mp3',
+    mimetype: 'audio/mpeg',
+    contextInfo:{
+        externalAdReply:{
+            title:dreaded.title,
+            body: "DREADED V2",
+            thumbnail: await fetchBuffer(sk.meta.image),
+            mediaType:2,
+            mediaUrl:dreaded.url,
+        }
 
+    },
+},{quoted:m})
 
             
 
-            const getRandonm = (ext) => {
-                return `${Math.floor(Math.random() * 10000)}${ext}`;
-            };
-            let titleYt = infoYt.videoDetails.title;
-            let randomName = getRandonm(".mp3");
-            const stream = ytdl(urlYt, {
-                    filter: (info) => info.audioBitrate == 160 || info.audioBitrate == 128,
-                })
-                .pipe(fs.createWriteStream(`./${randomName}`));
-            console.log("Audio downloading ->", urlYt);
             
-            await new Promise((resolve, reject) => {
-                stream.on("error", reject);
-                stream.on("finish", resolve);
-            });
-
-            let stats = fs.statSync(`./${randomName}`);
-            let fileSizeInBytes = stats.size;
-            
-            let fileSizeInMegabytes = fileSizeInBytes / (1024 * 1024);
-            
-
-
-                await client.sendMessage(
-                    m.chat, {
-                        document: fs.readFileSync(`./${randomName}`),
-                        mimetype: "audio/mpeg",
-                        fileName: titleYt + ".mp3",
-                    }, {
-                        quoted: m
-                    }
-                );
-
-            fs.unlinkSync(`./${randomName}`);
         } catch (e) {
             m.reply(e.toString())
         }
     }
 
-*/
