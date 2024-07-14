@@ -20,7 +20,7 @@ let dreaded = search.videos[0]
 
 const sk = await YT.mp3(dreaded.url)
 console.log(sk)
-await client.sendMessage(m.chat,{
+/* await client.sendMessage(m.chat,{
     audio: fs.readFileSync(sk.path),
     fileName: dreaded.title + '.mp3',
     mimetype: 'audio/mpeg',
@@ -35,6 +35,7 @@ await client.sendMessage(m.chat,{
 
     },
 },{quoted:m})
+*/
 
             
 
@@ -43,6 +44,6 @@ await client.sendMessage(m.chat,{
             m.reply(e.toString())
         }
 
-await fs.unlinkSync(sk.path)
+
     }
 
