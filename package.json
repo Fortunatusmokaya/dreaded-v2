@@ -23,7 +23,7 @@
   "license": "MIT",
   "dependencies": {
          
-  "@whiskeysockets/baileys": "github:WhiskeySockets/Baileys#main",
+  "@whiskeysockets/baileys": "^6.6.0",
 
     "@bochilteam/scraper": "4.0.22-alpha.0",
     "@adiwajshing/keyed-db": "^0.2.4",
