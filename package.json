@@ -22,7 +22,9 @@
   "author": "Fortunatus/yusril",
   "license": "MIT",
   "dependencies": {
-          "@whiskeysockets/baileys": "latest",
+         
+  "@whiskeysockets/baileys": "github:WhiskeySockets/Baileys#main",
+
     "@bochilteam/scraper": "4.0.22-alpha.0",
     "@adiwajshing/keyed-db": "^0.2.4",
     "@hapi/boom": "^10.0.0",
