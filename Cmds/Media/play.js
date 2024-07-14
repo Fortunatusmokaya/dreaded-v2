@@ -16,10 +16,10 @@ if (!text) {
            let search = await yts(text);
             
 let dreaded = search.videos[0]
-console.log(dreaded)
+
 
 const sk = await YT.mp3(dreaded.url)
-
+console.log(sk)
 await client.sendMessage(m.chat,{
     audio: fs.readFileSync(sk.path),
     fileName: dreaded.title + '.mp3',
