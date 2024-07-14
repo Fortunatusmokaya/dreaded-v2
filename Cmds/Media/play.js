@@ -13,9 +13,7 @@ if (!text) {
             return;
         }
         try {
-            const {
-                search
-            } = await yts(text);
+           let search = await yts(text);
             
 let dreaded = search.videos[0]
 const sk = await YT.mp3(dreaded.url)
