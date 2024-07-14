@@ -3,7 +3,7 @@ const fs = require("fs");
 const util = require("util");
 const chalk = require("chalk");
 const speed = require("performance-now");
-const { smsg, formatp, tanggal, formatDate, getTime, sleep, clockString, fetchJson, getBuffer, jsonformat, generateProfilePicture, parseMention, getRandom } = require('./lib/botFunctions.js');
+const { smsg, formatp, tanggal, formatDate, getTime, sleep, clockString, fetchJson, getBuffer, jsonformat, generateProfilePicture, parseMention, getRandom, fetchBuffer } = require('./lib/botFunctions.js');
 const { exec, spawn, execSync } = require("child_process");
 const {  TelegraPh, UploadFileUgu } = require("./lib/toUrl");
 const path = require('path');
@@ -87,7 +87,7 @@ const context = {
     client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, participants,
     pushname, body, budy, totalCommands, args, mime, qmsg, msgDreaded, botNumber, itsMe,
     packname, author, generateProfilePicture, groupMetadata, dreadedspeed, mycode,
-    fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antionce
+    fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antionce, fetchBuffer 
 };
 if (cmd && mode === 'private' && !itsMe && !Owner) {
 return;
