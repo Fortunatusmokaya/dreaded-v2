@@ -1,6 +1,6 @@
+/* const yts= require("yt-search")
 
-const yts = require("yt-search");
-const ytdl = require("ytdl-core");
+const ytdl = require("../../lib/musicdl.js");
 const fs = require("fs");
 
 
@@ -14,15 +14,15 @@ if (!text) {
         }
         try {
             const {
-                videos
+                search
             } = await yts(text);
-            if (!videos || videos.length <= 0) {
-                reply(`No songs found.`)
-                return;
-            }
-            let urlYt = videos[0].url
-            let infoYt = await ytdl.getInfo(urlYt);
+            
+let dreaded = search.videos[0]
+const sk = await YT.mp3(dreaded.url)
 
+
+
+            
 
             const getRandonm = (ext) => {
                 return `${Math.floor(Math.random() * 10000)}${ext}`;
@@ -62,3 +62,5 @@ if (!text) {
             m.reply(e.toString())
         }
     }
+
+*/
