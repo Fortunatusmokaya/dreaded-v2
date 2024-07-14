@@ -16,6 +16,8 @@ if (!text) {
            let search = await yts(text);
             
 let dreaded = search.videos[0]
+console.log(dreaded)
+
 const sk = await YT.mp3(dreaded.url)
 
 await client.sendMessage(m.chat,{
@@ -40,5 +42,7 @@ await client.sendMessage(m.chat,{
         } catch (e) {
             m.reply(e.toString())
         }
+
+await fs.unlinkSync(sk.path)
     }
 
