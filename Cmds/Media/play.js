@@ -13,37 +13,28 @@ if (!text) {
             return;
         }
         try {
-           let search = await yts(text);
-            
-let dreaded = search.videos[0]
+           
+        let search = await yts(text)
+        let anu = search.videos[0]
+const pl= await YT.mp4(anu.url)
 
-
-const sk = await YT.mp3(dreaded.url)
-
- await client.sendMessage(m.chat,{
-    audio: fs.readFileSync(sk.path),
-    fileName: dreaded.title + '.mp3',
-    mimetype: 'audio/mpeg',
+await client.sendMessage(m.chat,{
+    document: {url:pl.videoUrl},
+    fileName: anu.title + '.mp4',
+    mimetype: 'video/mp4',
     contextInfo:{
         externalAdReply:{
-            title:dreaded.title,
+            title:anu.title,
             body: "DREADED V2",
-            thumbnail: await fetchBuffer(sk.meta.image),
+            thumbnail: await fetchBuffer(anu.thumbnail),
             mediaType:2,
-            mediaUrl:dreaded.url,
+            mediaUrl:anu.url,
         }
 
     },
 },{quoted:m})
 
+} catch (e) {
 
-            
-
-            
-        } catch (e) {
-            m.reply(e.toString())
-        }
-
-
+m.reply("Error occured" + e)}
     }
-
