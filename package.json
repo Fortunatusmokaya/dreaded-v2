@@ -22,8 +22,8 @@
   "author": "Fortunatus/yusril",
   "license": "MIT",
   "dependencies": {
-         
-  "@whiskeysockets/baileys": "git+https://github.com/whiskeysockets/baileys.git",
+      
+  "@whiskeysockets/baileys": "6.7.5",
 
     "@bochilteam/scraper": "4.0.22-alpha.0",
     "@adiwajshing/keyed-db": "^0.2.4",
@@ -84,7 +84,7 @@
 "youtube-yts": "^2.0.0",
 "node-youtube-music": "^0.8.3",
 "node-id3": "^0.2.6",
-    "ytdl-core": "^4.11.5"
+    "@distube/ytdl-core": "^4.11.5"
   },
   "directories": {
     "lib": "lib",
