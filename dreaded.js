@@ -34,6 +34,11 @@ module.exports = dreaded = async (client, m, chatUpdate, store) => {
     : m.mtype === "extendedTextMessage"
     ? m.message.extendedTextMessage.text
     : "";
+    const Tag =
+      type == "extendedTextMessage" &&
+      m.message.extendedTextMessage.contextInfo != null
+        ? m.message.extendedTextMessage.contextInfo.mentionedJid
+        : [];
 
 var msgDreaded = m.message.extendedTextMessage?.contextInfo?.quotedMessage;
 
@@ -87,7 +92,7 @@ const context = {
     client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, participants,
     pushname, body, budy, totalCommands, args, mime, qmsg, msgDreaded, botNumber, itsMe,
     packname, author, generateProfilePicture, groupMetadata, dreadedspeed, mycode,
-    fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antionce, fetchBuffer 
+    fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antionce, fetchBuffer, Tag
 };
 if (cmd && mode === 'private' && !itsMe && !Owner) {
 return;
