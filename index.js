@@ -88,6 +88,9 @@ await client.readMessages([mek.key]);
 
 }
 
+if (mek.key && mek.key.remoteJid.endsWith('@s.whatsapp.net')) { 
+
+
 const Chat = mek.key.remoteJid;
 if(presence === 'online')
 
@@ -102,6 +105,7 @@ if(presence === 'online')
             {
                 await client.sendPresenceUpdate("unavailable", Chat);
             }
+}
 
 
       if (!client.public && !mek.key.fromMe && chatUpdate.type === "notify") return;
