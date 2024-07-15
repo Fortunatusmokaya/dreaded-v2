@@ -35,7 +35,7 @@ module.exports = dreaded = async (client, m, chatUpdate, store) => {
     ? m.message.extendedTextMessage.text
     : "";
     const Tag =
-      type == "extendedTextMessage" &&
+      m.mtype == "extendedTextMessage" &&
       m.message.extendedTextMessage.contextInfo != null
         ? m.message.extendedTextMessage.contextInfo.mentionedJid
         : [];
