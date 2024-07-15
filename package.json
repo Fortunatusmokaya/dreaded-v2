@@ -23,7 +23,7 @@
   "license": "MIT",
   "dependencies": {
          
-  "@whiskeysockets/baileys": "^6.7.5",
+  "@whiskeysockets/baileys": "git+https://github.com/whiskeysockets/baileys.git",
 
     "@bochilteam/scraper": "4.0.22-alpha.0",
     "@adiwajshing/keyed-db": "^0.2.4",
