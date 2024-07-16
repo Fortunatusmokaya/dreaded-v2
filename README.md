@@ -6,11 +6,13 @@
 |----|
 
 
+## 🚀 Create Your Own WhatsApp Bot
+
 ---
 
 > [!CAUTION]
 >
-> This bot is not created nor endorsed by WhatsApp. Your account might be banned. Be careful not to cause spam.
+> First You Need to Install [NodeJS](https://nodejs.org/en) in your bot building environment.
 
 ---
 
