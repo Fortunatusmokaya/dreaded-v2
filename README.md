@@ -6,12 +6,17 @@
 |----|
 
 
-# DISCLAIMER
+---
 
-***This bot is not created nor endorsed by WhatsApp. Your account might be banned. Be careful not to cause spam. This bot is a modification of the predecessor `dreaded-md`***
+> [!CAUTION]
+>
+> ***`This bot is not created nor endorsed by WhatsApp. Your account might be banned. Be careful not to cause spam.`***
+
+---
+
 
 ## FEATURES
-This is a simple whatsapp bot with group management features and some media commands as well as AI.
+This bot is a modification of the predecessor ***`dreaded-md`*** but in commonJs. It has group management features and some media commands as well as AI and many other features incorporated.
 
 Our AI features use random APIs to run, so sometimes they may be down.
 
