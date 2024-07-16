@@ -10,9 +10,9 @@
 
 ---
 
-> [!CAUTION]
+> [CAUTION]
 >
-> First You Need to Install [NodeJS](https://nodejs.org/en) in your bot building environment.
+> This bot is not created nor endorsed by WhatsApp. Your account might be banned. Be careful not to cause spam.
 
 ---
 
