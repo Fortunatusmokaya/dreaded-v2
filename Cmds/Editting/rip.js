@@ -16,7 +16,7 @@ module.exports = async (context) => {
             } catch {
                 ppuser = 'https://telegra.ph/file/9521e9ee2fdbd0d6f4f1c.jpg'
             }
-                        result = await canvacord.Canvacord.trash(img);
+                        result = await canvacord.Canvacord.rip(ppuser);
         } 
 
 
