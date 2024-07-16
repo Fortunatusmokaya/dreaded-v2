@@ -1,4 +1,4 @@
-const simpleGit = require("simple-git");
+/* const simpleGit = require("simple-git");
 const Heroku = require("heroku-client");
 const herokuapi = process.env.HEROKUAPI || '';
 const name = process.env.HEROKUNAME || '';
@@ -36,3 +36,5 @@ module.exports = async (context) => {
     await fs.promises.rmdir(tempDir, { recursive: true });
   });
 };
+
+*/
