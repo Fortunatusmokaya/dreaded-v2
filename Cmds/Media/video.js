@@ -1,11 +1,11 @@
   
-const yts = require("yt-search");
+const yts = require("youtube-yts");
 const ytdl = require("ytdl-core");
 const fs = require("fs");
 
 
 module.exports = async (context) => {
-    const { client, m, text } = context;
+    const { client, m, text, botname } = context;
 
 if (!text) {
         m.reply('Provide a search term for the video!');
@@ -46,7 +46,7 @@ if (!text) {
                 {
                     video: fs.readFileSync(`./${randomName}`),
                     mimetype: 'video/mp4',
-                    caption: `${infoYt.videoDetails.title}`,
+                    caption: `${infoYt.videoDetails.title}\n\nSent by _${botname}_ 👍`,
                 },
                 { quoted: m }
             );
