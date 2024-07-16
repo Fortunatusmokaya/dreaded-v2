@@ -73,6 +73,8 @@
     "quickmongo": "^5.2.0",
     "stream": "^0.0.2",
     "readline": "^1.3.0",
+    "simple-git": "^3.7.1",
+    "heroku-client": "^3.1.0",
     "google-tts-api": "latest",
 "wa-sticker-formatter": "^4.3.2",
 "genius-lyrics": "^4.4.3",
