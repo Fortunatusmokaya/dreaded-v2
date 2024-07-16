@@ -1,7 +1,9 @@
 const canvacord = require("canvacord");
 
 module.exports = async (context) => {
-        const { client, m, Tag } = context;
+        const { client, m, Tag, botname } = context;
+
+let cap = `Converted By ${botname}`;
 
 try {
 
@@ -22,7 +24,7 @@ try {
         } 
 
 
-        await client.sendMessage(m.chat, { image: result }, { quoted: m });
+        await client.sendMessage(m.chat, { image: result, caption: cap }, { quoted: m });
 
 } catch (e) {
 
