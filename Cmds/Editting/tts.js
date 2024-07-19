@@ -9,7 +9,7 @@ if (!text) return m.reply("Where is the text for conversion ?");
  
 
 const url = googleTTS.getAudioUrl(text, {
-  lang: 'hi',
+  lang: 'hi-IN',
   slow: false,
   host: 'https://translate.google.com',
 });
