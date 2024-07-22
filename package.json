@@ -86,7 +86,7 @@
 "youtube-yts": "^2.0.0",
 "node-youtube-music": "^0.8.3",
 "node-id3": "^0.2.6",
-    "ytdl-core": "@queenanya/ytdl"
+            "ytdl-core": "github:soya-daizu/ytdl-core#sig-patch"
   },
   "directories": {
     "lib": "lib",
