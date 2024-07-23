@@ -3,6 +3,8 @@ module.exports = async (context) => {
 
 
 const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter');
+
+const axios = require("axios");
 if (!text) return m.reply("No emojis provided ? ")
 
 
