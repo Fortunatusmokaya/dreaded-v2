@@ -29,7 +29,7 @@ try {
               imdbt += "🏙️Production : " + fids.data.Production + "\n";  
               imdbt += "🌟imdbRating : " + fids.data.imdbRating + "\n";  
               imdbt += "❎imdbVotes  : " + fids.data.imdbVotes + "";  
-             await client.sendMessage(from, {  
+             await client.sendMessage(m.chat, {  
                   image: {  
                       url: fids.data.Poster,  
                   },  
