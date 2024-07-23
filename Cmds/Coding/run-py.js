@@ -11,7 +11,7 @@ async function runCode() {
     let result = await python.runSource(code);
     console.log(result);
     m.reply(result.stdout);
-   // m.reply(result.stderr);
+   m.reply(result.stderr);
   } catch (err) {
     console.log(err);
     m.reply(err.stderr);
