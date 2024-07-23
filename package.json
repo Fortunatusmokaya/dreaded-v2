@@ -37,6 +37,7 @@
     "chalk": "^4.1.2",
    "aptoide-scraper":"^1.0.1", 
     "child-process": "^1.0.2",
+    "badadvice": "^1.0.0",
     "crypto": "^1.0.1",
         "file-type": "16.5.3",
     "figlet": "^1.5.2",
