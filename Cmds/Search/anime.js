@@ -51,7 +51,7 @@ if (!text)
 
 } catch (e) {
 
-m.reply('I did not find information on the given anime.')
+m.reply('I did not find information on the given anime.\n\n' + e)
 
 }
 
