@@ -25,7 +25,15 @@ module.exports = async (context) => {
             name ="@"+m.quoted.sender.split("@")[0] ;
 
             try { ppUrl = await client.profilePictureUrl(sender , 'image') ; } catch { ppUrl = "https://telegra.ph/file/95680cd03e012bb08b9e6.jpg"};
+
+try {
           const status = await client.fetchStatus(sender) ;
+
+} catch (error) {
+
+const status = "About not accessible due to user privacy"
+
+}
 
              mess = {
               image : { url : ppUrl },
