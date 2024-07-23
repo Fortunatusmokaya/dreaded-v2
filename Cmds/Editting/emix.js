@@ -1,5 +1,5 @@
 module.exports = async (context) => {
-        const { client, m, botname } = context;
+        const { client, m, botname, text } = context;
 
 
 const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter');
