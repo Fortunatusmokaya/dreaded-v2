@@ -13,7 +13,7 @@ module.exports = async (context) => {
         const res = await chat.ask(text);
 
         await m.reply(res);
-    } catch (error) {
-        m.reply("I cannot respond to harmful and offensive prompts, stick to ethical guidelines.");
+    } catch (e) {
+        m.reply("I am unable to generate responses\n\n" + e);
     }
 };
