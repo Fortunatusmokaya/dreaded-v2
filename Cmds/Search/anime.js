@@ -14,8 +14,8 @@ if (!text)
         { quoted: m }
       );
 
-    var AnimesearchTerm = text.join(" ");
-    let anime = await Clientt.searchAnime(AnimesearchTerm);
+    
+    let anime = await Clientt.searchAnime(text);
 
     let result = anime.data[0];
     let details = `       * Anime Search Engine  *\n\n\n*🎀 Anime Title:* ${result.title}\n`;
