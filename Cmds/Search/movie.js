@@ -2,6 +2,8 @@ module.exports = async (context) => {
 
 const { client, m, text } = context;
 
+const axios = require("axios");
+
 if (!text) return m.reply("Provide a movie name or TV show");
 
 try {
