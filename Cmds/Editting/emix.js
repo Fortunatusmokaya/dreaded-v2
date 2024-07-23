@@ -8,7 +8,7 @@ const axios = require("axios");
 if (!text) return m.reply("No emojis provided ? ")
 
 
-  const emojis = text.join(' ').split('+');
+  const emojis = text.split('+');
 
   if (emojis.length !== 2) {
     m.reply("Specify the emojis and separate with '+'");
