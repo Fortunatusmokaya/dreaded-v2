@@ -4,7 +4,7 @@ const { client, m, text } = context;
 
 
 const { Anime } = require("@shineiichijo/marika");
-const Clientt = new Anime();
+
 try {
 
 if (!text)
@@ -14,7 +14,7 @@ if (!text)
         { quoted: m }
       );
 
-    
+    const Clientt = new Anime();
     let anime = await Clientt.searchAnime(text);
 
     let result = anime.data[0];
