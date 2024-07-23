@@ -5,7 +5,7 @@ const { client, m, text } = context;
 
 const { Anime } = require("@shineiichijo/marika");
 const Clientt = new Anime();
-
+try {
 
 if (!text)
       return client.sendMessage(
