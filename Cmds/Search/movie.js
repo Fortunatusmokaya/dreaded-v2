@@ -39,7 +39,7 @@ try {
 
 } catch (e) {
 
-m.reply("I cannot find that movie")
+m.reply("I cannot find that movie\n\n" + e)
 
 }
 
