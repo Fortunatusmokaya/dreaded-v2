@@ -73,11 +73,16 @@ Thanks to...
 
 ---
 
-***Tap the WhatsApp logo below to join our channel for updates***
+***Tap the WhatsApp logo below to join our channel and group for updates***
 
 <p align="left">
   <a aria-label="Join our channel for updates" href="https://whatsapp.com/channel/0029VaeZVGaFsn0Yr8xSAM35" target="_blank">
     <img alt="whatsapp" src="https://img.shields.io/badge/CHANNEL-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
+  </a>
+
+<p align="left">
+  <a aria-label="Join our channel for updates" href="https://chat.whatsapp.com/HPik6o5GenqDBCosvXW3oe" target="_blank">
+    <img alt="whatsapp" src="https://img.shields.io/badge/WA GROUP-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
   </a>
 
 
