@@ -1,5 +1,5 @@
 {
-  "name": "DREADED BOT",
+  "name": "DREADED V2",
   "description": "This is a simple whatsapp bot built with nodejs and baileys with MD support.",
   "keywords": [
     "bot",
@@ -14,8 +14,8 @@
     "baileys-md",
     "md-bot"
   ],
-  "website": "https://github.com/Fortunatusmokaya/mokayax#readme",
-  "repository": "https://github.com/Fortunatusmokaya/mokayax.git",
+  "website": "https://github.com/Fortunatusmokaya/dreaded-v2#readme",
+  "repository": "https://github.com/Fortunatusmokaya/dreaded-v2.git",
   "logo": "https://telegra.ph/file/d6dab955fbaa42fce2280.jpg",
   "success_url": "/",
   "env": {
@@ -55,6 +55,12 @@
     "AUTOVIEW_STATUS": {
       "description": "Type true if you want bot to automatically read all status update",
       "required": false
+    },
+
+"EVENTS": {
+      "description": "choose whether to allow bot to detect events in groups such as promote, demote, remove and add. If set to true bot will send welcome/goodbye messages and signal when somebody is promoted or demoted.",
+      "value": "true",
+      "required": true
     },
 "AUTOBIO": {
       "description": "Type true if you want bot to autoupdate it's bio constantly",
