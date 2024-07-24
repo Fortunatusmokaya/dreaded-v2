@@ -23,10 +23,10 @@ const PhoneNumber = require("awesome-phonenumber");
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif');
  const { isUrl, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('./lib/botFunctions');
 const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
-const { commands, totalCommands } = require('./commandHandler');
+
 const authenticationn = require('./auth.js');
 const { smsg } = require('./smsg');
-const { DateTime } = require('luxon');
+
 const { autoview, autoread, botname, autobio, mode, prefix, presence } = require('./settings');
 authenticationn();
 const GroupEvents = require("./Events.js");
