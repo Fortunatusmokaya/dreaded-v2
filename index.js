@@ -29,7 +29,7 @@ const { smsg } = require('./smsg');
 
 const { autoview, autoread, botname, autobio, mode, prefix, presence } = require('./settings');
 authenticationn();
-const GroupEvents = require("./Events.js");
+const groupEvents = require("./groupEvents.js");
 const connectionEvents = require("./connectionEvents.js");
 
 async function startDreaded() {
@@ -111,7 +111,7 @@ if(presence === 'online')
 
 
       if (!client.public && !mek.key.fromMe && chatUpdate.type === "notify") return;
-      if (mek.key.id.startsWith("BAE5") && mek.key.id.length === 16) return;
+      
       m = smsg(client, mek, store);
       require("./dreaded")(client, m, chatUpdate, store);
     } catch (err) {
@@ -199,7 +199,7 @@ if(presence === 'online')
   client.serializeM = (m) => smsg(client, m, store);
 
   client.ev.on("group-participants.update", async (m) => {
-    GroupEvents(client, m);
+    groupEvents(client, m);
   });
 
 
@@ -225,42 +225,7 @@ if(presence === 'online')
       }; 
 
 
-        client.sendImageAsSticker = async (jid, path, quoted, options = {}) => { 
-         let buff = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,`[1], 'base64') : /^https?:\/\//.test(path) ? await (await getBuffer(path)) : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0); 
-         // let buffer 
-         if (options && (options.packname || options.author)) { 
-             buffer = await writeExifImg(buff, options) 
-         } else { 
-             buffer = await imageToWebp(buff); 
-         } 
-
-         await client.sendMessage(jid, { sticker: { url: buffer }, ...options }, { quoted }); 
-         return buffer 
-     }; 
-
- client.sendVideoAsSticker = async (jid, path, quoted, options = {}) => {
-  let buff = Buffer.isBuffer(path)
-    ? path
-    : /^data:.*?\/.*?;base64,/i.test(path)
-    ? Buffer.from(path.split(",")[1], "base64")
-    : /^https?:\/\//.test(path)
-    ? await (await getBuffer(path))
-    : fs.existsSync(path)
-    ? fs.readFileSync(path)
-    : Buffer.alloc(0);
-
-  let buffer;
-
-  if (options && (options.packname || options.author)) {
-    buffer = await writeExifVid(buff, options);
-  } else {
-    buffer = await videoToWebp(buff);
-  }
-
-  await client.sendMessage(jid, { sticker: { url: buffer }, ...options }, { quoted });
-  return buffer;
-};
-
+       
 
  client.downloadAndSaveMediaMessage = async (message, filename, attachExtension = true) => { 
          let quoted = message.msg ? message.msg : message; 
@@ -278,36 +243,6 @@ if(presence === 'online')
          return trueFileName; 
      };
 
-
-
-  client.cMod = (jid, copy, text = "", sender = client.user.id, options = {}) => {
-    //let copy = message.toJSON()
-    let mtype = Object.keys(copy.message)[0];
-    let isEphemeral = mtype === "ephemeralMessage";
-    if (isEphemeral) {
-      mtype = Object.keys(copy.message.ephemeralMessage.message)[0];
-    }
-    let msg = isEphemeral ? copy.message.ephemeralMessage.message : copy.message;
-    let content = msg[mtype];
-    if (typeof content === "string") msg[mtype] = text || content;
-    else if (content.caption) content.caption = text || content.caption;
-    else if (content.text) content.text = text || content.text;
-    if (typeof content !== "string")
-      msg[mtype] = {
-        ...content,
-        ...options,
-      };
-    if (copy.key.participant) sender = copy.key.participant = sender || copy.key.participant;
-    else if (copy.key.participant) sender = copy.key.participant = sender || copy.key.participant;
-    if (copy.key.remoteJid.includes("@s.whatsapp.net")) sender = sender || copy.key.remoteJid;
-    else if (copy.key.remoteJid.includes("@broadcast")) sender = sender || copy.key.remoteJid;
-    copy.key.remoteJid = jid;
-    copy.key.fromMe = sender === client.user.id;
-
-    return proto.WebMessageInfo.fromObject(copy);
-  };
-
-  return client;
 }
 
 startDreaded();
