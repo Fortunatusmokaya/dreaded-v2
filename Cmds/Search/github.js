@@ -9,6 +9,8 @@ const response = await fetch(`https://api.github.com/users/${text}`);
 const data = await response.json();
 
 const pic = `https://github.com/${data.login}.png`;
+
+
 const userInfo = `
 °GITHUB USER INFO°
 
@@ -26,7 +28,9 @@ const userInfo = `
 🫶 Following: ${data.following}
 `;
 
-await client.sendMessage(m.chat, { image:  pic, caption: userInfo}, { quoted: m })
+await client.sendMessage(m.chat, { image: { url: pic }, caption: userInfo }, { quoted: m }});
+
+
 
 } catch (e) {
 
