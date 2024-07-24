@@ -6,7 +6,7 @@
 |----|
 
 
-## 🚀 Create Your Own WhatsApp Bot
+   [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Rockstar-ExtraBold&color=F33A6A&lines=THIS+IS+DREADED+V2)](https://git.io/typing-svg)
 
 ---
 
@@ -70,6 +70,13 @@ Thanks to...
 * 
 
 ---
+
+
+<p align="left">
+  <a aria-label="Join our channel for updates" href="https://whatsapp.com/channel/0029VaeZVGaFsn0Yr8xSAM35" target="_blank">
+    <img alt="whatsapp" src="https://img.shields.io/badge/CHANNEL-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
+  </a>
+
 
 Incase of any issues, contact me  [here](https://wa.me/+254114018035) via WhatsApp.
 
