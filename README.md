@@ -6,7 +6,7 @@
 |----|
 
 
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Rockstar-ExtraBold&size=30&pause=1000&color=F33A6A&center=true&vCenter=true&width=500&height=60&lines=THIS+IS+DREADED+V2+WHATSAPP+BOT;NOW+EVEN+MORE+BEAUTIFUL)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Rockstar-ExtraBold&size=30&pause=1000&color=0000FF&center=true&vCenter=true&width=500&height=60&lines=THANK+YOU+VISITING+THIS+REPO)](https://git.io/typing-svg)
 
    [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Rockstar-ExtraBold&color=F33A6A&lines=THIS+IS+DREADED+V2+WHATSAPP+BOT)](https://git.io/typing-svg)
 
