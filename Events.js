@@ -22,18 +22,7 @@ const Events = async (client, Fortu) => {
                 let userName = num;
 
                 let Welcometext = `
-          Hello @${userName.split("@")[0]},
-          
-          Welcome to ${metadata.subject}.
-          
-          🧧 Group Description 🧧
-          
-          ${desc}
-          
-          Thank You.
-
-         ${botname}
-        `;
+          Hello @${userName.split("@")[0]} 👋,\nWelcome to ${metadata.subject}.\n🧧 Group Description:-  ${desc}\nThank You.\n\nThis is an automated message sent by ${botname} via baileys.`;
                 if (events === 'true') {
                     await client.sendMessage(Fortu.id, {
                         image: { url: dpuser },
