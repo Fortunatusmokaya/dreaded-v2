@@ -3,7 +3,7 @@ const {  botname, mode, prefix } = require('./settings');
 
 const connectionEvents = async (client, con) => {
 
-const { connection, lastDisconnect } = update;
+const { connection, lastDisconnect } = con;
     if (connection === "close") {
       let reason = new Boom(lastDisconnect?.error)?.output.statusCode;
       if (reason === DisconnectReason.badSession) {
