@@ -1,52 +1,58 @@
 module.exports = async (context) => {
-        const { client, m } = context;
+    const { client, m } = context;
 
-        let sender = null 
-          let name = null ;
+    let sender = null;
+    let name = null;
 
+    if (!m.quoted) {
+        sender = m.sender;
+        name = m.pushName;
 
-
-
-
-        if (!m.quoted) {
-            sender = m.sender;
-           name = m.pushName;
-
-           try { ppUrl = await client.profilePictureUrl(sender , 'image') ; } catch { ppUrl = "https://telegra.ph/file/95680cd03e012bb08b9e6.jpg"};
-          const status = await client.fetchStatus(sender) ;
-
-           mess = {
-            image : { url : ppUrl },
-            caption : 'Name : '+ name + '\nAbout:\n' + status.status
+        let ppUrl;
+        try {
+            ppUrl = await client.profilePictureUrl(sender, 'image');
+        } catch {
+            ppUrl = "https://telegra.ph/file/95680cd03e012bb08b9e6.jpg";
         }
 
-        } else {
-            sender = m.quoted.sender;
-            name ="@"+m.quoted.sender.split("@")[0] ;
+        let status;
+        try {
+            status = await client.fetchStatus(sender);
+        } catch (error) {
+            status = { status: "About not accessible due to user privacy" };
+        }
 
-            try { ppUrl = await client.profilePictureUrl(sender , 'image') ; } catch { ppUrl = "https://telegra.ph/file/95680cd03e012bb08b9e6.jpg"};
+        const mess = {
+            image: { url: ppUrl },
+            caption: 'Name: ' + name + '\nAbout:\n' + status.status
+        };
 
-try {
-          const status = await client.fetchStatus(sender) ;
+        await client.sendMessage(m.chat, mess, { quoted: m });
 
-} catch (error) {
+    } else {
+        sender = m.quoted.sender;
+        name = "@" + m.quoted.sender.split("@")[0];
 
-const status = "About not accessible due to user privacy"
+        let ppUrl;
+        try {
+            ppUrl = await client.profilePictureUrl(sender, 'image');
+        } catch {
+            ppUrl = "https://telegra.ph/file/95680cd03e012bb08b9e6.jpg";
+        }
 
-}
+        let status;
+        try {
+            status = await client.fetchStatus(sender);
+        } catch (error) {
+            status = { status: "About not accessible due to user privacy" };
+        }
 
-             mess = {
-              image : { url : ppUrl },
-              caption : 'Name : '+ name + '\nAbout:\n' + status.status,
-               mentions:[m.quoted.sender]
-          }
+        const mess = {
+            image: { url: ppUrl },
+            caption: 'Name: ' + name + '\nAbout:\n' + status.status,
+            mentions: [m.quoted.sender]
+        };
 
-        } ;
-
-
-
-
-
-            client.sendMessage(m.chat,mess,{quoted : m})
-
-}
+        await client.sendMessage(m.chat, mess, { quoted: m });
+    }
+};
