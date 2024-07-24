@@ -58,12 +58,12 @@ const Events = async (client, Fortu) => {
                 await client.sendMessage(
                     Fortu.id,
                     {
-                        text: `@${(Fortu.author).split("@")[0]}, why have you demoted @${(Fortu.participants[0]).split("@")[0]} from admin? 👀`,
+                        text: `@${(Fortu.author).split("@")[0]}, has demoted @${(Fortu.participants[0]).split("@")[0]} from admin 👀`,
                         mentions: [Fortu.author, Fortu.participants[0]]
                     }
                 );
             } else if (Fortu.action == "promote" && events === 'true') {
-                if (Fortu.author == metadata.owner || Fortu.author == Myself || Fortu.author == Fortu.participants[0]) {
+                
                     await client.sendMessage(
                         Fortu.id,
                         {
@@ -73,7 +73,7 @@ const Events = async (client, Fortu) => {
                     );
                 }
             }
-        }
+        
     } catch (err) {
         console.log(err);
     }
