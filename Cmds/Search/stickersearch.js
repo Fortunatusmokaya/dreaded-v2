@@ -31,7 +31,7 @@ const stickerMess = new Sticker(gifUrl, {
       background: "transparent",
     });
     const stickerBuffer2 = await stickerMess.toBuffer();
-    await client.sendMessage(m.sender, { sticker: stickerBuffer2 }, { quoted: ms }); }
+    await client.sendMessage(m.sender, { sticker: stickerBuffer2 }, { quoted: m }); }
 
 
   } catch (error) {
