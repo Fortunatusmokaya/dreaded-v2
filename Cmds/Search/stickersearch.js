@@ -14,7 +14,7 @@ if (m.isGroup) m.reply("To avoid spam, I will send the stickers in your inbox. ð
   
   const tenorApiKey = "AIzaSyCyouca1_KKy4W_MG1xsPzuku5oa8W358c"; 
 
-  try { for ( i = 0 ; i < 10 ; i++) {
+  try { for ( i = 0 ; i < 8 ; i++) {
     const gif = await axios.get(
       `https://tenor.googleapis.com/v2/search?q=${text}&key=${tenorApiKey}&client_key=my_project&limit=8&media_filter=gif`
     );
@@ -23,7 +23,7 @@ if (m.isGroup) m.reply("To avoid spam, I will send the stickers in your inbox. ð
 
 const stickerMess = new Sticker(gifUrl, {
       pack: botname,
-      author: 'FLASH-MD',
+      
       type: StickerTypes.FULL,
       categories: ["ðŸ¤©", "ðŸŽ‰"],
       id: "12345",
@@ -36,7 +36,7 @@ const stickerMess = new Sticker(gifUrl, {
 
   } catch (error) {
     
-    m.reply("Some error occured while fetching stickers.");
+    m.reply("Some error occured while fetching all stickers.");
   }
 
 }
