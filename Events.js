@@ -54,28 +54,24 @@ const Events = async (client, Fortu) => {
                         mentions: [num],
                     });
                 }
-            } else if (Fortu.action == "demote" && events === "true") {
-                
-
-                
+            } else if (Fortu.action == "demote" && events === 'true') {
                 await client.sendMessage(
                     Fortu.id,
                     {
-                        text: `@${(Fortu.author).split("@")[0]}, why have you demoted  @${(Fortu.participants[0]).split("@")[0]} from admin ? 👀`,
+                        text: `@${(Fortu.author).split("@")[0]}, why have you demoted @${(Fortu.participants[0]).split("@")[0]} from admin? 👀`,
                         mentions: [Fortu.author, Fortu.participants[0]]
                     }
-                )
-            } else if (Fortu.action == "promote" && events === "true") {
+                );
+            } else if (Fortu.action == "promote" && events === 'true') {
                 if (Fortu.author == metadata.owner || Fortu.author == Myself || Fortu.author == Fortu.participants[0]) {
-                    
-
-                client.sendMessage(
-                    Fortu.id,
-                    {
-                        text: `@${(Fortu.author).split("@")[0]} has promoted @${(Fortu.participants[0]).split("@")[0]} to admin. 👀`,
-                        mentions: [Fortu.author, Fortu.participants[0]]
-                    }
-                )
+                    await client.sendMessage(
+                        Fortu.id,
+                        {
+                            text: `@${(Fortu.author).split("@")[0]} has promoted @${(Fortu.participants[0]).split("@")[0]} to admin. 👀`,
+                            mentions: [Fortu.author, Fortu.participants[0]]
+                        }
+                    );
+                }
             }
         }
     } catch (err) {
