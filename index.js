@@ -29,6 +29,7 @@ const { smsg } = require('./smsg');
 const { DateTime } = require('luxon');
 const { autoview, autoread, botname, autobio, mode, prefix, presence } = require('./settings');
 authenticationn();
+const GroupEvents = require("./Events.js");
 
 async function startDreaded() {
 
@@ -195,6 +196,12 @@ if(presence === 'online')
   client.public = true;
 
   client.serializeM = (m) => smsg(client, m, store);
+
+  client.ev.on("group-participants.update", async (m) => {
+    GroupEvents(client, m);
+  });
+
+
   client.ev.on("connection.update", async (update) => {
     const { connection, lastDisconnect } = update;
     if (connection === "close") {
