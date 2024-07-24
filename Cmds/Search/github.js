@@ -21,8 +21,7 @@ const userInfo = `
 📍 Location: ${data.location}
 📧 Email: ${data.email}
 📰 Blog: ${data.blog}
-🔓 Public Repo: ${data.repos_url}
-🔐 Public Gists: ${data.gists_url}
+🔓 Public Repo: ${data.public_repos}
 👪 Followers: ${data.followers}
 🫶 Following: ${data.following}
 `;
