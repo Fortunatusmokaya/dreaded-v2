@@ -21,8 +21,7 @@ const Events = async (client, Fortu) => {
             if (Fortu.action == "add") {
                 let userName = num;
 
-                let Welcometext = `
-          Hello @${userName.split("@")[0]} 👋,\nWelcome to ${metadata.subject}.\n🧧 Group Description:-  ${desc}\nThank You.\n\nThis is an automated message sent by ${botname} via baileys.`;
+                let Welcometext = ` Holla @${userName.split("@")[0]} 👋\n\nWelcome to ${metadata.subject}.\n\nGroup Description:-  ${desc}\n\nThank You.\n\nThis is an automated message sent by ${botname} via baileys.`;
                 if (events === 'true') {
                     await client.sendMessage(Fortu.id, {
                         image: { url: dpuser },
