@@ -1,5 +1,5 @@
 const startDreaded = require('./index.js');
-
+const {  botname, mode, prefix } = require('./settings');
 
 const connectionEvents = async (client, con) => {
 
