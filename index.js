@@ -141,17 +141,7 @@ if(presence === 'online')
     } else return jid;
   };
 
-  client.ev.on("contacts.update", (update) => {
-    for (let contact of update) {
-      let id = client.decodeJid(contact.id);
-      if (store && store.contacts) store.contacts[id] = { id, name: contact.notify };
-    }
-  });
-
-
-
-
-
+ 
   client.getName = (jid, withoutContact = false) => {
     id = client.decodeJid(jid);
     withoutContact = client.withoutContact || withoutContact;
@@ -175,25 +165,7 @@ if(presence === 'online')
     return (withoutContact ? "" : v.name) || v.subject || v.verifiedName || PhoneNumber("+" + jid.replace("@s.whatsapp.net", "")).getNumber("international");
   };
 
-  client.setStatus = (status) => {
-    client.query({
-      tag: "iq",
-      attrs: {
-        to: "@s.whatsapp.net",
-        type: "set",
-        xmlns: "status",
-      },
-      content: [
-        {
-          tag: "status",
-          attrs: {},
-          content: Buffer.from(status, "utf-8"),
-        },
-      ],
-    });
-    return status;
-  };
-
+  
   client.public = true;
 
   client.serializeM = (m) => smsg(client, m, store);
