@@ -3,7 +3,7 @@ module.exports = async (context) => {
 const { client, m, text } = context;
 
 try {
-if (!text) return m.reply('Provide a GitHub username to fetch profile !")
+if (!text) return m.reply("provide a gitHub username to fetch profile !")
 
 const response = await fetch(`https://api.github.com/users/${text}`);
 const data = await response.json();
