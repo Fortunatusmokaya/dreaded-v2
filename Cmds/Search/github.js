@@ -14,8 +14,7 @@ const pic = `https://github.com/${data.login}.png`;
 const userInfo = `
 °GITHUB USER INFO°
 
-🚩 Id: ${data.id}
-🔖 Name: ${data.name}
+♦️ Name: ${data.name}
 🔖 Username: ${data.login}
 ✨ Bio: ${data.bio}
 🏢 Company: ${data.company}
@@ -28,7 +27,7 @@ const userInfo = `
 🫶 Following: ${data.following}
 `;
 
-await client.sendMessage(m.chat, { image: { url: pic }, caption: userInfo }, { quoted: m }});
+await client.sendMessage(m.chat, { image: { url: pic }, caption: userInfo }, { quoted: m });
 
 
 
