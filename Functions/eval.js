@@ -1,4 +1,4 @@
-module.exports = async (client, m, Owner, budy) => {
+module.exports = async (client, m, Owner, budy, fetchJson) => {
 
 if (budy && budy.startsWith('>')) {
   if (!Owner) return m.reply("You need owner privileges to execute this command!")
