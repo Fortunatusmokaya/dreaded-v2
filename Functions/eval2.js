@@ -1,4 +1,4 @@
-module.exports = async (client, m, Owner, budy) => {
+module.exports = async (client, m, Owner, budy, fetchJson) => {
 const util = require("util");
 
 if (budy && budy.startsWith('=>')) { 
