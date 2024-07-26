@@ -2,7 +2,7 @@ const middleware = require('../../utility/botUtil/middleware');
 
 module.exports = async (context) => {
     await middleware(context, async () => {
-        const { client, m, participants, botname, groupMetadata, text } = context;
+        const { client, m, participants, botname, groupMetadata, text, pushname } = context;
 
         const { getBinaryNodeChild, getBinaryNodeChildren } = require('@whiskeysockets/baileys');
 
