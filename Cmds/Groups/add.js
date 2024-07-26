@@ -2,7 +2,7 @@ const middleware = require('../../utility/botUtil/middleware');
 
 module.exports = async (context) => {
     await middleware(context, async () => {
-        const { client, m, participants, botname, groupMetadata, text, pushname } = context;
+        const { client, m, participants, botname, groupMetadata, text } = context;
 
         const { getBinaryNodeChild, getBinaryNodeChildren } = require('@whiskeysockets/baileys');
 
@@ -62,12 +62,16 @@ module.exports = async (context) => {
             const invite_code_exp = content.attrs.expiration;
 
             const teza = `I cannot add @${jid.split('@')[0]} due to some error or user privacy settings,`;
-
             await m.reply(teza);
 
             let links = `You have been invited by ${pushname} to join the group ${groupMetadata.subject}:\n\nhttps://chat.whatsapp.com/${respon}\n\n${botname} 🤖`;
-
             await client.sendMessage(jid, { image: { url: pp }, caption: links }, { quoted: m });
+        }
+
+        for (const user of participant.filter((item) => !item.attrs.error)) {
+            const jidd = user.attrs.jid;
+            const userNumber = jidd.split('@')[0];
+            await m.reply(`${userNumber} added to group. ✅`);
         }
     });
 };
