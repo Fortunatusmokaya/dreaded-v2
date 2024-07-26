@@ -34,21 +34,9 @@ module.exports = async (context) => {
             })),
         });
 
-        const pp = await client.profilePictureUrl(m.chat, 'image').catch((_) => "https://telegra.ph/file/9f1c508cf099eefc331f7.jpg");
-        let jpegThumbnail = Buffer.alloc(0);
+        
 
-        if (pp) {
-            try {
-                const respons = await fetch(pp);
-                if (respons.ok) {
-                    jpegThumbnail = await respons.buffer();
-                } else {
-                    console.error('Failed to fetch profile picture:', respons.statusText);
-                }
-            } catch (error) {
-                console.error('Error fetching profile picture:', error);
-            }
-        }
+        
 
         const add = getBinaryNodeChild(response, 'add');
         const participant = getBinaryNodeChildren(add, 'participant');
@@ -65,9 +53,9 @@ module.exports = async (context) => {
 
             await m.reply(teza);
 
-            let links = `You have been invited by ${pushname} to join the group ${groupMetadata.subject}:\n\nhttps://chat.whatsapp.com/${respon}\n\n${botname} 🤖`;
+            let links = `${pushname} is trying to add or request you to join the group ${groupMetadata.subject}:\n\nhttps://chat.whatsapp.com/${respon}\n\n${botname} 🤖`;
 
-            await client.sendMessage(jid, { image: { url: pp }, caption: links }, { quoted: m });
+            await client.sendMessage(jid, { text: links }, { quoted: m });
         }
     });
 };
