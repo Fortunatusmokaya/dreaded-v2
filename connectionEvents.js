@@ -2,6 +2,7 @@ const { DateTime } = require('luxon');
 const { commands, totalCommands } = require('./commandHandler');
 const startDreaded = require('./index.js');
 const {  botname, mode, prefix } = require('./settings');
+const { Boom } = require("@hapi/boom");
 
 const connectionEvents = async (client, con) => {
 
