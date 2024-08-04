@@ -9,7 +9,7 @@ module.exports = async (context) => {
 
         // Obfuscate the JavaScript code
         const obfuscationResult = Obf.obfuscate(forq, {
-            compact: false,
+            compact: true,
             controlFlowFlattening: true,
             controlFlowFlatteningThreshold: 1,
             numbersToExpressions: true,
