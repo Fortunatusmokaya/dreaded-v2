@@ -11,7 +11,8 @@ const { connection, lastDisconnect } = con;
       let reason = new Boom(lastDisconnect?.error)?.output.statusCode;
       if (reason === DisconnectReason.badSession) {
         console.log(`Bad Session File, Please Delete Session and Scan Again`);
-        process.exit();
+startDreaded();
+        // process.exit();
       } else if (reason === DisconnectReason.connectionClosed) {
         console.log("Connection closed, reconnecting....");
         startDreaded();
