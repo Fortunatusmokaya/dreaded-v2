@@ -44,6 +44,6 @@ module.exports = async (context) => {
         }, { quoted: m });
     } catch (error) {
         console.error('Error processing song command:', error);
-        m.reply('An error occurred while processing your request.');
+        m.reply('An error occurred while processing your request.\n\n' + error);
     }
 }
