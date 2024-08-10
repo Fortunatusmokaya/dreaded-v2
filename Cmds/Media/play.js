@@ -1,4 +1,4 @@
-const ytdl = require("@distube/ytdl-core");
+const ytdl = require("ytdl-core");
 const yts = require("youtube-yts");
 const fs = require("fs");
 
