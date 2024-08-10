@@ -20,8 +20,6 @@ module.exports = async (context) => {
         let anup3k = yt_play.videos[0];
         console.log('Selected video:', anup3k);
 
-        let additionalText = 'audio';
-
         let q = '128kbps';
         let v = anup3k.url;
         const yt = await youtubedl(v).catch(async _ => await youtubedlv2(v));
@@ -30,8 +28,9 @@ module.exports = async (context) => {
         const size = await yt.audio[q].fileSizeH;
 
         await client.sendMessage(m.chat, {
-            audio: { url: dl_url },
+            document: { url: dl_url },
             mimetype: 'audio/mpeg',
+            fileName: `${ttl}.mp3`,
             contextInfo: {
                 externalAdReply: {
                     title: ttl,
