@@ -85,7 +85,7 @@
     "util": "^0.12.5",
     "youtubedl-core": "^4.11.7",
     "acrcloud": "^1.4.0",
- 
+ "ytdl-core": "npm:@distube/ytdl-core",
    "yt-search": "^2.10.4", 
 "youtube-yts": "^2.0.0",
 "node-youtube-music": "^0.8.3",
