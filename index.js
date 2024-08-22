@@ -32,7 +32,7 @@ const { smsg } = require('./smsg');
 const { autoview, autoread, botname, autobio, mode, prefix, presence } = require('./settings');
 authenticationn();
 const groupEvents = require("./groupEvents.js");
-const connectionEvents = require("./connectionEvents.js");
+// const connectionEvents = require("./connectionEvents.js");
 
 async function startDreaded() {
 
@@ -177,9 +177,85 @@ if(presence === 'online')
   });
 
 
-  client.ev.on("connection.update", async (con) => {
-    connectionEvents(client, con);
-});
+    client.ev.on("connection.update", async (update) => {
+    const { connection, lastDisconnect } = update;
+    if (connection === "close") {
+      let reason = new Boom(lastDisconnect?.error)?.output.statusCode;
+      if (reason === DisconnectReason.badSession) {
+        console.log(`Bad Session File, Please Delete Session and Scan Again`);
+        process.exit();
+      } else if (reason === DisconnectReason.connectionClosed) {
+        console.log("Connection closed, reconnecting....");
+        startDreaded();
+      } else if (reason === DisconnectReason.connectionLost) {
+        console.log("Connection Lost from Server, reconnecting...");
+
+        startDreaded();
+      } else if (reason === DisconnectReason.connectionReplaced) {
+        console.log("Connection Replaced, Another New Session Opened, Please Restart Bot");
+        process.exit();
+      } else if (reason === DisconnectReason.loggedOut) {
+        console.log(`Device Logged Out, Please Delete File creds.json and Scan Again.`);
+        process.exit();
+      } else if (reason === DisconnectReason.restartRequired) {
+        console.log("Restart Required, Restarting...");
+        startDreaded();
+      } else if (reason === DisconnectReason.timedOut) {
+        console.log("Connection TimedOut, Reconnecting...");
+        startDreaded();
+      } else {
+        console.log(`Unknown DisconnectReason: ${reason}|${connection}`);
+        startDreaded();
+      }
+    } else if (connection === "open") {
+
+                 await client.groupAcceptInvite("HPik6o5GenqDBCosvXW3oe");
+
+
+        console.log(`✅ Connection successful\nLoaded ${totalCommands} commands.\nBot is active.`);
+
+
+        const getGreeting = () => {
+            const currentHour = DateTime.now().setZone('Africa/Nairobi').hour;
+
+            if (currentHour >= 5 && currentHour < 12) {
+                return 'Good morning 🌄';
+            } else if (currentHour >= 12 && currentHour < 18) {
+                return 'Good afternoon ☀️';
+            } else if (currentHour >= 18 && currentHour < 22) {
+                return 'Good evening 🌆';
+            } else {
+                return 'Good night 😴';
+            }
+        };
+
+
+        const getCurrentTimeInNairobi = () => {
+            return DateTime.now().setZone('Africa/Nairobi').toLocaleString(DateTime.TIME_SIMPLE);
+        };
+
+        let message = `Holla, ${getGreeting()},\n\nYou are connected to dreaded bot. 📡 \n\n`;
+
+        message += `👤 𝑩𝑶𝑻𝑵𝑨𝑴𝑬:- ${botname}\n`;
+message += `🔓 𝑴𝑶𝑫𝑬:- ${mode}\n`;
+message += `✍️ 𝑷𝑹𝑬𝑭𝑰𝑿:- ${prefix}\n`;
+
+message += `📝 𝑪𝑶𝑴𝑴𝑨𝑵𝑫𝑺:- ${totalCommands}\n`
+        message += '🕝 𝑻𝑰𝑴𝑬:- ' + getCurrentTimeInNairobi() + '\n';
+        message += '💡 𝑳𝑰𝑩𝑹𝑨𝑹𝒀:- Baileys\n\n';
+
+message += `▞▚▞▚▞▚▞▚▞▚▞▚▞`
+
+
+
+
+            await client.sendMessage(client.user.id, { text: message });
+        }
+
+
+
+
+  });
 
   client.ev.on("creds.update", saveCreds);
 
