@@ -30,6 +30,8 @@ const authenticationn = require('./auth.js');
 const { smsg } = require('./smsg');
 
 const { autoview, autoread, botname, autobio, mode, prefix, presence } = require('./settings');
+const { DateTime } = require('luxon');
+const { commands, totalCommands } = require('./commandHandler');
 authenticationn();
 const groupEvents = require("./groupEvents.js");
 // const connectionEvents = require("./connectionEvents.js");
