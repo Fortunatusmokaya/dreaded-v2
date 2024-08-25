@@ -1,4 +1,4 @@
-module.exports = async (context) => {
+/* odule.exports = async (context) => {
         const { client, m, text } = context;
 
 try {
@@ -22,3 +22,4 @@ m.reply("Error occured.\n" + error)
 
 }
   
+*/
