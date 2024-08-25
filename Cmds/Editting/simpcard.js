@@ -21,6 +21,8 @@ let img;
 
 const imagelink = `https://some-random-api.com/canvas/misc/simpcard?avatar=${img}`;
 
+await m.reply(imagelink);
+
 await client.sendMessage(m.chat, { image: { url: imagelink }});
 
 }
