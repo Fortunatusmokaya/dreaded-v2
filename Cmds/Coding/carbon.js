@@ -10,7 +10,7 @@ let Carbon = require("unofficial-carbon-now")
 
 console.log("Media generated");
 
-// m.reply("media generated");
+m.reply("media generated" + qw);
 
    await client.sendMessage(m.chat, { image: qw, caption: `Converted by Dreaded! 🦄`}, { quoted: m}) 
 
