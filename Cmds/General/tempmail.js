@@ -1,6 +1,11 @@
 module.exports = async (context) => {
         const { client, m } = context;
 
+
+const  { TempMail } = require("tempmail.lol");
+
+const tempmail = new TempMail();
+
       const inbox = await tempmail.createInbox();
       const emailMessage = `${inbox.address}`;
 
