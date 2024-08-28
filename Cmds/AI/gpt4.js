@@ -10,7 +10,7 @@ const ai = require('unlimited-ai');
 const model = 'gpt-4'; 
 
 
-const messages = [ { role: 'user', content: 'Hello!' }, { role: 'system', content: 'You are an assistant' } ]; 
+const messages = [ { role: 'user', content: text }, { role: 'system', content: 'You are an assistant in WhatsApp. You are called Dreaded. You respond to user commands.' } ]; 
 
 await m.reply(await ai.generate(model, messages)); 
 
