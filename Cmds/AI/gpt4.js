@@ -3,7 +3,7 @@ module.exports = async (context) => {
 
 
 const ai = require('unlimited-ai');
-
+if (!text) return m.reply("provide text");
 
  (async () => { 
 
