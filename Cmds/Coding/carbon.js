@@ -1,25 +1,48 @@
-/* odule.exports = async (context) => {
-        const { client, m, text } = context;
+  module.exports = async (context) => {
+        const { client, m, text, botname } = context; 
+
+
+let cap = `Converted By ${botname}`;
+
+ if (m.quoted && m.quoted.text) {
+        const forq = m.quoted.text;
+
 
 try {
-let Carbon = require("unofficial-carbon-now")
 
-  if (!m.quoted && !text) return m.reply('Provide text code');
-  let btt = new Carbon.createCarbon().setCode(m.quoted ? m.quoted.text : text)
-  let qw = await Carbon.generateCarbon(btt)
 
-console.log("Media generated");
+let response = await fetch('https://carbonara.solopov.dev/api/cook', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        code: forq,
+        backgroundColor: '#1F816D',
+      }),
+    });
 
-m.reply("media generated" + qw);
 
-   await client.sendMessage(m.chat, { image: qw, caption: `Converted by Dreaded! 🦄`}, { quoted: m}) 
+if (!response.ok) return m.reply('API failed to fetch a valid response.')
+    
 
-} catch (error) {
+let per = await response.buffer();
 
-m.reply("Error occured.\n" + error)
+
+        await client.sendMessage(m.chat, { image: per, caption: cap }, { quoted: m });
+
+
+} else { m.reply('Quote a code message');
+
+}
+
+} catch (error) { 
+
+m.reply("An error occured\n" + error)
 
 }
 
 }
-  
-*/
+
+
+
