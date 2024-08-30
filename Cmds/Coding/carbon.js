@@ -1,6 +1,8 @@
 module.exports = async (context) => {
   const { client, m, text, botname } = context;
 
+const fetch = require('node-fetch');
+
   let cap = `Converted By ${botname}`;
 
   if (m.quoted && m.quoted.text) {
