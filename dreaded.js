@@ -98,6 +98,24 @@ if (cmd && mode === 'private' && !itsMe && !Owner) {
 return;
 }
 
+if (m.isGroup && m.mentionedJid && m.mentionedJid.length > 10) {
+if (itsMe) return;
+
+
+try {
+
+await client.groupParticipantsUpdate(m.chat, [sender], 'remove')
+cona = m.sender;
+await client.sendMessage(m.chat, {text:`ANTITAG:\n\n@${cona.split("@")[0]}, Do not tag!`, contextInfo:{mentionedJid:[cona]}}, {quoted:m}); 
+
+} catch (error) {
+
+m.reply("Do not tag all members.")
+
+}
+
+}
+
 if (await blocked_users(client, m, cmd)) {
             await m.reply("You are blocked from using bot commands.");
             return;
