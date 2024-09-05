@@ -15,12 +15,13 @@ const eval = require('./Functions/eval');
 const antiviewonce = require('./Functions/antiviewonce');
 const gcPresence = require('./Functions/gcPresence');
 const antilink = require('./Functions/antilink');
+const antitaggc = require('./Functions/antitag');
 
 
 const {
    presence, autoread, botname,
   mode, prefix, mycode, author, packname,
-  dev, gcpresence, antionce
+  dev, gcpresence, antionce, antitag
 } = require('./settings');
 
 
@@ -110,6 +111,8 @@ await eval(client, m, Owner, budy, fetchJson)
 await antilink(client, m, isBotAdmin, isAdmin, Owner, body);
 await antiviewonce(client, m, antionce);
 await gcPresence(client, m, gcpresence);
+await antitaggc(client, m, isBotAdmin, itsMe, isAdmin, Owner, body, antitag);
+
 
     const command = cmd ? body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase() : null;
 
