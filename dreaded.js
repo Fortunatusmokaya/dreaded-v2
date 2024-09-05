@@ -16,6 +16,7 @@ const antiviewonce = require('./Functions/antiviewonce');
 const gcPresence = require('./Functions/gcPresence');
 const antilink = require('./Functions/antilink');
 const antitaggc = require('./Functions/antitag');
+const antidel = require('./Functions/antidelete');
 
 
 const {
@@ -105,6 +106,8 @@ if (await blocked_users(client, m, cmd)) {
             await m.reply("You are blocked from using bot commands.");
             return;
         }
+
+await antidel(client, m, store, chatUpdate, antidelete);
 await status_saver(client, m, Owner, prefix)
 await eval2(client, m, Owner, budy, fetchJson)
 await eval(client, m, Owner, budy, fetchJson, store)
