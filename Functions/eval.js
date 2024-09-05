@@ -1,4 +1,4 @@
-module.exports = async (client, m, Owner, budy, fetchJson) => {
+module.exports = async (client, m, Owner, budy, fetchJson, store) => {
 
 
 const { proto } = require("@whiskeysockets/baileys");
