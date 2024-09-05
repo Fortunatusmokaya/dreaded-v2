@@ -93,7 +93,7 @@ const context = {
     client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, participants,
     pushname, body, budy, totalCommands, args, mime, qmsg, msgDreaded, botNumber, itsMe,
     packname, author, generateProfilePicture, groupMetadata, dreadedspeed, mycode,
-    fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antitag, antionce, fetchBuffer, Tag
+    fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antitag, antionce, fetchBuffer,store, Tag
 };
 if (cmd && mode === 'private' && !itsMe && !Owner) {
 return;
@@ -107,7 +107,7 @@ if (await blocked_users(client, m, cmd)) {
         }
 await status_saver(client, m, Owner, prefix)
 await eval2(client, m, Owner, budy, fetchJson)
-await eval(client, m, Owner, budy, fetchJson)
+await eval(client, m, Owner, budy, fetchJson, store)
 await antilink(client, m, isBotAdmin, isAdmin, Owner, body);
 await antiviewonce(client, m, antionce);
 await gcPresence(client, m, gcpresence);
