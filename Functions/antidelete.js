@@ -1,4 +1,4 @@
-module.exports = async (client, m, store, chatUpdate, antidelete) => {
+/* module.exports = async (client, m, store, chatUpdate, antidelete) => {
     if (m.mtype == 'protocolMessage' && antidelete === 'true') {
         if (m.fromMe) return;
 
@@ -15,3 +15,4 @@ await client.relayMessage(m.chat, { [chats.type]: chats.msg }, {})
 			}
 		}
 }
+*/
