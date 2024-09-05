@@ -19,6 +19,7 @@ const sessionName = "session";
 const presence = process.env.WA_PRESENCE || '';
 
 const antitag = process.env.ANTITAG || 'true';
+const antidelete = process.env.ANTIDELETE || 'true';
 const autoview = process.env.AUTOVIEW_STATUS || 'true';
 const autoread = process.env.AUTOREAD || 'true';
 const autobio = process.env.AUTOBIO || 'true';
@@ -40,5 +41,6 @@ module.exports = {
   gcpresence,
   antionce,
 session,
-antitag
+antitag,
+antidelete
 };
