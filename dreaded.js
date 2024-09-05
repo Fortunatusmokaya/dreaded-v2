@@ -102,7 +102,7 @@ return;
 
   if (m.mtype == 'protocolMessage' && antidelete === 'true') {
     if (m.fromMe) return;
-try {
+
     const mokaya = chatUpdate.messages[0].message.protocolMessage;
 
     if (store.messages && store.messages[m.chat] && store.messages[m.chat].array) {
@@ -119,9 +119,7 @@ try {
 
         await client.relayMessage(m.chat, { [chats.type]: chats.msg }, {});
 
-} catch (error) {
 
-m.reply("error") }
       }
     }
   
