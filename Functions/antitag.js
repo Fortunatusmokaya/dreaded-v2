@@ -1,7 +1,7 @@
 module.exports = async (client, m, isBotAdmin, itsMe, isAdmin, Owner, body, antitag) => {
 
 
-if (m.isGroup && antitag === 'true' && !Owner && !isBotAdmin && !isAdmin && m.mentionedJid && m.mentionedJid.length > 10) {
+if (m.isGroup && antitag === 'true' && !Owner && isBotAdmin && !isAdmin && m.mentionedJid && m.mentionedJid.length > 10) {
 if (itsMe) return;
 
 
