@@ -5,9 +5,10 @@ if (m.isGroup && antitag === 'true' && !Owner && !isBotAdmin && !isAdmin && m.me
 if (itsMe) return;
 
 
-await m.reply("Tagall/Hidetag detected");
+
 
 await client.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+await m.reply("Tagall/Hidetag detected");
 cona = m.sender;
 await client.sendMessage(m.chat, {text:`@${cona.split("@")[0]}, Do not tag!`, contextInfo:{mentionedJid:[cona]}}, {quoted:m}); 
 
