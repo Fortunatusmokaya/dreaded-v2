@@ -6,6 +6,8 @@ const fs = require("fs");
 module.exports = async (context) => {
     const { client, m, text, qmsg, mime } = context;
 
+try {
+
 let acr = new acrcloud({
     host: 'identify-ap-southeast-1.acrcloud.com',
     access_key: '26afd4eec96b0f5e5ab16a7e6e05ab37',
@@ -27,38 +29,11 @@ let { status, metadata } = await acr.identify(buffer)
                 txt += `Release Date: ${release_date}`
                  m.reply(txt.trim())
 
+} catch (error) {
 
-const {
-           videos
-            } = await yts(txt.trim());
-            if (!videos || videos.length <= 0) return m.reply("Song not found");
-let urlYt = videos[0].url
-            let infoYt = await ytdl.getInfo(urlYt);
-let getRandonm = (ext) => {
-                return `${Math.floor(Math.random() * 10000)}${ext}`;
-            };
+await m.reply("Song not recognisable..")
 
-let titleYt = infoYt.videoDetails.title;
-            let randomName = getRandonm(".mp3");
-            const stream = ytdl(urlYt, {
-                    filter: (info) => info.audioBitrate == 160 || info.audioBitrate == 128,
-                })
-    .pipe(fs.createWriteStream(`./${randomName}`));
-
-await new Promise((resolve, reject) => {
-                stream.on("error", reject);
-                stream.on("finish", resolve);
-            });
-
-    await client.sendMessage(
-                    m.chat, {
-                        document: fs.readFileSync(`./${randomName}`),
-                        mimetype: "audio/mpeg",
-                        fileName: titleYt + ".mp3",
-                    }, {
-                        quoted: m
-                    }
-                );
+}
 
 
 }
