@@ -8,9 +8,8 @@ module.exports = async (context) => {
 
     const { thumbnail, news } = data;
 
-    console.log("Thumbnail:", thumbnail);
-    console.log("News:", news);
-await m.reply(news)
+        await client.sendMessage(m.chat, { image: { url: thumbnail }, caption: news }, { quoted: m });
+
 
 }
 
