@@ -7,7 +7,7 @@ if (itsMe) return;
 
 await m.reply("Tagall/Hidetag detected");
 
-await client.groupParticipantsUpdate(m.chat, [sender], 'remove')
+await client.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
 cona = m.sender;
 await client.sendMessage(m.chat, {text:`@${cona.split("@")[0]}, Do not tag!`, contextInfo:{mentionedJid:[cona]}}, {quoted:m}); 
 
