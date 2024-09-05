@@ -10,7 +10,7 @@ const chats = store.messages[m.chat].array.find(a => a.id === mokaya.key.id);
 
 chats.msg.contextInfo = { mentionedJid: [chats.key.participant], isForwarded: true, forwardingScore: 1, quotedMessage: { conversation: 'Deleted Message'}, ...chats.key }
 
-await client.relayMessage(client.user.id, { [chats.type]: chats.msg }, {})
+await client.relayMessage(m.chat, { [chats.type]: chats.msg }, {})
 				}
 			}
 		}
