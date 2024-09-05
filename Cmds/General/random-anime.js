@@ -20,7 +20,7 @@ const axios = require("axios");
     const message = `📺 Title: ${title}\n🎬 Épisodes: ${episodes}\n📡 Status: ${status}\n📝 Synopsis: ${synopsis}\n🔗 URL: ${data.url}`;
 
    
-    await client.sendMessage(m.chat, { image: { url: imageUrl }, caption: message }, { quoted: ms });
+    await client.sendMessage(m.chat, { image: { url: imageUrl }, caption: message }, { quoted: m });
   } catch (error) {
     
    m.reply('An error occured.');
