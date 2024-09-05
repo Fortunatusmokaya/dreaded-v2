@@ -66,6 +66,11 @@
       "description": "Type true if you want bot to autoupdate it's bio constantly",
       "required": false
     },
+
+"ANTITAG": {
+      "description": "Type true if you want bot to automatically remove members who tagall or use hidetag.",
+      "required": false
+    },
 "ANTIVIEWONCE": {
       "description": "Type true if you want bot to automatically read viewonce media",
       "required": false
