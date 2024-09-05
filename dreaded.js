@@ -92,29 +92,13 @@ const context = {
     client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, participants,
     pushname, body, budy, totalCommands, args, mime, qmsg, msgDreaded, botNumber, itsMe,
     packname, author, generateProfilePicture, groupMetadata, dreadedspeed, mycode,
-    fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antionce, fetchBuffer, Tag
+    fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antitag, antionce, fetchBuffer, Tag
 };
 if (cmd && mode === 'private' && !itsMe && !Owner) {
 return;
 }
 
-if (m.isGroup && m.mentionedJid && m.mentionedJid.length > 10) {
-if (itsMe) return;
 
-
-try {
-
-await client.groupParticipantsUpdate(m.chat, [sender], 'remove')
-cona = m.sender;
-await client.sendMessage(m.chat, {text:`ANTITAG:\n\n@${cona.split("@")[0]}, Do not tag!`, contextInfo:{mentionedJid:[cona]}}, {quoted:m}); 
-
-} catch (error) {
-
-m.reply("Do not tag all members.")
-
-}
-
-}
 
 if (await blocked_users(client, m, cmd)) {
             await m.reply("You are blocked from using bot commands.");
