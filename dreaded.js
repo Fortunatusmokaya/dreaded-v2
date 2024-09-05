@@ -16,7 +16,7 @@ const antiviewonce = require('./Functions/antiviewonce');
 const gcPresence = require('./Functions/gcPresence');
 const antilink = require('./Functions/antilink');
 const antitaggc = require('./Functions/antitag');
-const antidel = require('./Functions/antidelete');
+// const antidel = require('./Functions/antidelete');
 
 
 const {
@@ -100,6 +100,28 @@ if (cmd && mode === 'private' && !itsMe && !Owner) {
 return;
 }
 
+  if (m.mtype == 'protocolMessage' && antidelete === 'true') {
+    if (m.fromMe) return;
+
+    const mokaya = chatUpdate.messages[0].message.protocolMessage;
+
+    if (store.messages && store.messages[m.chat] && store.messages[m.chat].array) {
+      const chats = store.messages[m.chat].array.find(a => a.id === mokaya.key.id);
+
+      if (chats) {
+        chats.msg.contextInfo = {
+          mentionedJid: [chats.key.participant],
+          isForwarded: true,
+          forwardingScore: 1,
+          quotedMessage: { conversation: 'Deleted Message' },
+          ...chats.key
+        };
+
+        await client.relayMessage(m.chat, { [chats.type]: chats.msg }, {});
+      }
+    }
+  
+};
 
 
 if (await blocked_users(client, m, cmd)) {
@@ -107,7 +129,7 @@ if (await blocked_users(client, m, cmd)) {
             return;
         }
 
-await antidel(client, m, store, chatUpdate, antidelete);
+// await antidel(client, m, store, chatUpdate, antidelete);
 await status_saver(client, m, Owner, prefix)
 await eval2(client, m, Owner, budy, fetchJson)
 await eval(client, m, Owner, budy, fetchJson, store)
