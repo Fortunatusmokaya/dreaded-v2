@@ -6,7 +6,31 @@ module.exports = async (context) => {
 
                  if (!text) return m.reply("provide a valid group link")
                 let result = args[0].split('https://chat.whatsapp.com/')[1] 
-                 await client.groupAcceptInvite(result).then((res) =>  m.reply(jsonformat(res))).catch((err) =>m.reply(`Trying to join. . .`)) 
+
+try {
+
+const info = await client.groupGetInviteInfo(result);
+
+let { subject } = info;
+
+} catch (error) {
+
+console.log("error")
+
+}
+
+
+await client.groupAcceptInvite(result).catch((res) => {
+					if (res.data == 400) return m.reply('Group does not exist.');
+					if (res.data == 401) return m.reply('Bot was previously removed, cannot join using link.');
+					if (res.data == 409) return m.reply('Bot was already in the group, Uh?');
+					if (res.data == 410) return m.reply('This group link is reset, provide a new one');
+					if (res.data == 500) return m.reply('This group is full');
+
+if (res.data == 200) m.reply(`Bot has joined ${subject}`)
+
+				})
+                 
 
              });
 }
