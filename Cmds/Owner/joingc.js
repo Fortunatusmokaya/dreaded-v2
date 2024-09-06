@@ -10,7 +10,10 @@ let result = args[0].split('https://chat.whatsapp.com/')[1]
 try {
     const info = await client.groupGetInviteInfo(result);
     let { subject } = info;
-
+} catch (error) {
+    m.reply("error")
+}
+     
     await client.groupAcceptInvite(result)
         .then(() => m.reply(`Bot has joined ${subject}`))
         .catch((res) => {
@@ -20,10 +23,7 @@ try {
             if (res.data == 410) return m.reply('This group link is reset, provide a new one');
             if (res.data == 500) return m.reply('This group is full');
         });
-} catch (error) {
-    m.reply("error")
-}
-                 
+            
 
              });
 }
