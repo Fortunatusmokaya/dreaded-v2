@@ -43,33 +43,22 @@ module.exports = async (context) => {
 
         let respon = await client.groupInviteCode(m.chat);
 
-        for (const user of participant.filter((item) => [401, 403, 408, 409, 500].includes(item.attrs.error))) {
+        
+
+for (const user of participant.filter((item) => item.attrs.error === 401 || item.attrs.error === 403 || item.attrs.error === 408)) {
     const jid = user.attrs.jid;
     const content = getBinaryNodeChild(user, 'add_request');
     const invite_code = content.attrs.code;
     const invite_code_exp = content.attrs.expiration;
 
     let teza;
-    switch (user.attrs.error) {
-        case 401:
-            teza = `I got a status 401, @${jid.split('@')[0]} has blocked the bot.`;
-            break;
-        case 403:
-            teza = `I got a status 403, @${jid.split('@')[0]} has privacy settings for group adding`;
-            break;
-        case 408:
-            teza = `I got a status 408, @${jid.split('@')[0]} recently left the group...`;
-            break;
-case 409:
-            teza = `What are you trying to do ? @${jid.split('@')[0]} is already in this group...`;
-            break;
-case 500:
-            teza = `I got a status 500, Group is full...`;
-            break;
-
-        default:
-            teza = `I cannot add @${jid.split('@')[0]} due to an unknown error,`;
-    }
+    if (user.attrs.error === 401) {
+        teza = `@${jid.split('@')[0]} has blocked the bot.`;
+    } else if (user.attrs.error === 403) {
+        teza = `@${jid.split('@')[0]} has set privacy settings for group adding.`;
+    } else if (user.attrs.error === 408) {
+        teza = `@${jid.split('@')[0]} recently left the group.`;
+    } 
 
     await m.reply(teza);
 
