@@ -4,6 +4,8 @@ const { client, m, text } = context;
 try {
 if (!text) return m.reply('Provide a GitHub repo to stalk');
 
+const fetch = require("node-fetch");
+
 if (!text.includes('github.com')) {
         return m.reply(`Doesnt look like a GitHub repo link, uh?`);
     }
