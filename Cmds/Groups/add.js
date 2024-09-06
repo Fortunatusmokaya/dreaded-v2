@@ -43,19 +43,39 @@ module.exports = async (context) => {
 
         let respon = await client.groupInviteCode(m.chat);
 
-        for (const user of participant.filter((item) => item.attrs.error == 403)) {
-            const jid = user.attrs.jid;
-            const content = getBinaryNodeChild(user, 'add_request');
-            const invite_code = content.attrs.code;
-            const invite_code_exp = content.attrs.expiration;
+        for (const user of participant.filter((item) => [401, 403, 408, 409, 500].includes(item.attrs.error))) {
+    const jid = user.attrs.jid;
+    const content = getBinaryNodeChild(user, 'add_request');
+    const invite_code = content.attrs.code;
+    const invite_code_exp = content.attrs.expiration;
 
-            const teza = `I cannot add @${jid.split('@')[0]} due to some error or user privacy settings,`;
+    let teza;
+    switch (user.attrs.error) {
+        case 401:
+            teza = `I got a status 401, @${jid.split('@')[0]} has blocked the bot.`;
+            break;
+        case 403:
+            teza = `I got a status 403, @${jid.split('@')[0]} has privacy settings for group adding`;
+            break;
+        case 408:
+            teza = `I got a status 408, @${jid.split('@')[0]} recently left the group...`;
+            break;
+case 409:
+            teza = `What are you trying to do ? @${jid.split('@')[0]} is already in this group...`;
+            break;
+case 500:
+            teza = `I got a status 500, Group is full...`;
+            break;
 
-            await m.reply(teza);
+        default:
+            teza = `I cannot add @${jid.split('@')[0]} due to an unknown error,`;
+    }
 
-            let links = `${pushname} is trying to add or request you to join the group ${groupMetadata.subject}:\n\nhttps://chat.whatsapp.com/${respon}\n\n${botname} 🤖`;
+    await m.reply(teza);
 
-            await client.sendMessage(jid, { text: links }, { quoted: m });
-        }
+    let links = `${pushname} is trying to add or request you to join the group ${groupMetadata.subject}:\n\nhttps://chat.whatsapp.com/${respon}\n\n${botname} 🤖`;
+
+    await client.sendMessage(jid, { text: links }, { quoted: m });
+}
     });
 };
