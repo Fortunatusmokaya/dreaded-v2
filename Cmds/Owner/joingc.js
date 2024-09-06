@@ -21,7 +21,7 @@ try {
             if (res.data == 500) return m.reply('This group is full');
         });
 } catch (error) {
-    console.log("error")
+    m.reply("error")
 }
                  
 
