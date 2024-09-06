@@ -18,4 +18,10 @@ const img = data.data.img;
 
 await client.sendMessage(m.chat, { image: url: img}, caption: `Channel Name:- ${data.data.title}\n\nFollowers:- ${data.data.followers}\n\nDescription:- ${data.data.description}`}, {quoted: m})
 
+} catch (error) {
+
+m.reply("Error occured\n" + error)
+
+}
+
 }
