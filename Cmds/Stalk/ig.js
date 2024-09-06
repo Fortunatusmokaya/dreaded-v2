@@ -18,7 +18,7 @@ const data = await response.json()
     
 const message = `Name:- ${name}\n\nUsername:- ${username}\n\nBio:- ${bio}\n\nFollowers:- ${followers}\n\nFollowing:- ${following}\n\nPosts:- ${posts}`
 
-await client.sendMessage(m.chat, { image: { url: profilePic, caption: message}, {quoted: m}})
+await client.sendMessage(m.chat, { image: { url: profilePic}, caption: message}, {quoted: m})
 
 
 } catch (error) {
