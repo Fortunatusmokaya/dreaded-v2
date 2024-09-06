@@ -48,7 +48,7 @@ await client.sendMessage(m.chat, { image: { url: avatar}, caption: summary}, { q
 
 } catch (error) {
 
-m.reply("Unable to fetch data\n" + error)
+m.reply("Command in error.")
 
 }
 
