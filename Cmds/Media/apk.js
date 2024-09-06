@@ -21,7 +21,7 @@ await client.sendMessage(
 
 } catch (error) {
 
-m.reply("Apk download failed")
+m.reply("Apk download failed\n" + error)
 
 }
 };
