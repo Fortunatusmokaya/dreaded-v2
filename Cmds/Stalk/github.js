@@ -26,7 +26,7 @@ const data = await response.json()
     const updatedAt = data.data.updated_at;
 
     
-const message = `Username:- ${username}\nNickname:- ${nickname}\nBio:- ${bio}\nLink:- ${url}\nLocation:- ${location}\nFollowers:- ${followers}\nFollowing:- ${following}\nRepos:- ${public_repos}\nCreated:- ${createdAt}`
+const message = `Username:- ${username}\nNickname:- ${nickname}\nBio:- ${bio}\nLink:- ${url}\nLocation:- ${location}\nFollowers:- ${followers}\nFollowing:- ${following}\nRepos:- ${publicRepos}\nCreated:- ${createdAt}`
 
 await client.sendMessage(m.chat, { image: { url: profilePic}, caption: message}, {quoted: m})
 
