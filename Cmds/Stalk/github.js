@@ -4,6 +4,8 @@ const { client, m, text } = context;
 
 if (!text) return m.reply('Provide a github username to stalk');
 
+try {
+
 const response = await fetch(`https://itzpire.com/stalk/github-user?username=${text}`)
 
 const data = await response.json()
@@ -26,8 +28,14 @@ const data = await response.json()
     const updatedAt = data.data.updated_at;
 
     
-const message = `Username:- ${username}\nNickname:- ${nickname}\nBio:- ${bio}\nLink:- ${url}\nLocation:- ${location}\nFollowers:- ${followers}\nFollowing:- ${following}\nRepos:- ${publicRepos}\nCreated:- ${createdAt}`
+const message = `Username:- ${username}\n\nNickname:- ${nickname}\n\nBio:- ${bio}\n\nLink:- ${url}\n\nLocation:- ${location}\n\nFollowers:- ${followers}\n\nFollowing:- ${following}\n\nRepos:- ${publicRepos}\n\nCreated:- ${createdAt}`
 
 await client.sendMessage(m.chat, { image: { url: profilePic}, caption: message}, {quoted: m})
+
+} catch (error) {
+
+m.reply("Unable to fetch data\n" + error)
+
+}
 
 } 
