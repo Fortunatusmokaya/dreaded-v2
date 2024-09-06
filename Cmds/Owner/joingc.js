@@ -11,7 +11,7 @@ try {
     const info = await client.groupGetInviteInfo(result);
     let { subject } = info;
 } catch (error) {
-    m.reply("error")
+    console.log("error")
 }
      
     await client.groupAcceptInvite(result)
