@@ -1,7 +1,7 @@
 module.exports = async (context) => {
 
 const { client, m, text } = context;
-try {
+/* try {
 if (!text) return m.reply('Provide an instagram username to stalk');
 
 const response = await fetch(`https://itzpire.com/stalk/instagram?username=${text}`)
@@ -23,7 +23,9 @@ await client.sendMessage(m.chat, { image: { url: profilePic}, caption: message},
 
 } catch (error) {
 
-console.log("Unable to fetch data\n" + error)
+console.log("Unable to fetch data\n" + error) */
+
+
  try {
 
 const response = await fetch(`https://www.guruapi.tech/api/igstalk?username=${text}`)
@@ -52,7 +54,7 @@ console.log("Error occured")
 }
 
 
-}
+
 
 
 }
