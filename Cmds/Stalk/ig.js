@@ -23,8 +23,36 @@ await client.sendMessage(m.chat, { image: { url: profilePic}, caption: message},
 
 } catch (error) {
 
-m.reply("Unable to fetch data\n" + error)
+console.log("Unable to fetch data\n" + error)
+ try {
+
+const response = await fetch(`https://www.guruapi.tech/api/igstalk?username=${text}`)
+
+const data = await response.json()
+
+const user = data.username;
+const nam = data.name;
+const bioo = data.biography;
+const post = data.posts;
+
+const folowers = data.followers;
+const folowing = data.following;
+
+const pict = data.profile_picture;
+
+const messag = `Name:- ${nam}\n\nUsername:- ${user}\n\nBio:- ${bioo}\n\nFollowers:- ${folowers}\n\nFollowing:- ${folowing}\n\nPosts:- ${post}`
+
+
+await client.sendMessage(m.chat, { image: { url: pict }, caption: messag }, {quoted: m})
+
+} catch (error) {
+
+console.log("Error occured")
 
 }
+
+
+}
+
 
 }
