@@ -1,4 +1,4 @@
-const events = process.env.EVENTS || 'true';
+const events = process.env.EVENTS || 'false';
 const botname = process.env.BOTNAME || 'DREADED';
 
 const Events = async (client, Fortu) => {
