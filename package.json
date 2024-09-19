@@ -39,6 +39,7 @@
         "unofficial-carbon-now": "^1.0.6",
     "chalk": "^4.1.2",
     "wikipedia": "^2.1.1",
+   "querystring": "^0.2.1",
    "aptoide-scraper":"^1.0.1", 
     "child-process": "^1.0.2",
     "compile-run": "^2.3.4",
