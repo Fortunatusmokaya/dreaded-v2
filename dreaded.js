@@ -7,6 +7,7 @@ const { smsg, formatp, tanggal, formatDate, getTime, sleep, clockString, fetchJs
 const { exec, spawn, execSync } = require("child_process");
 const {  TelegraPh, UploadFileUgu } = require("./lib/toUrl");
 const uploadtoimgur = require('./lib/Imgur')
+const ytmp3 = require('./lib/ytmp3');
 const path = require('path');
 const { commands, totalCommands } = require('./commandHandler');
 const blocked_users = require('./Functions/blocked_users');
@@ -95,7 +96,7 @@ const context = {
     client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, participants,
     pushname, body, budy, totalCommands, args, mime, qmsg, msgDreaded, botNumber, itsMe,
     packname, author, generateProfilePicture, groupMetadata, dreadedspeed, mycode,
-    fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antitag,antidelete, antionce, fetchBuffer,store, uploadtoimgur, chatUpdate, getGroupAdmins, Tag
+    fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antitag,antidelete, antionce, fetchBuffer,store, uploadtoimgur, chatUpdate, ytmp3, getGroupAdmins, Tag
 };
 if (cmd && mode === 'private' && !itsMe && !Owner) {
 return;
