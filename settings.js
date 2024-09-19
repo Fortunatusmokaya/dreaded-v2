@@ -13,16 +13,16 @@ const dev = process.env.DEV || '254114018035';
 const DevDreaded = dev.split(",");
 const botname = process.env.BOTNAME || 'DREADED';
 const mode = process.env.MODE || 'public';
-const gcpresence = process.env.GC_PRESENCE || 'true';
+const gcpresence = process.env.GC_PRESENCE || 'false';
 const antionce = process.env.ANTIVIEWONCE || 'true';
 const sessionName = "session";
-const presence = process.env.WA_PRESENCE || '';
+const presence = process.env.WA_PRESENCE || 'online';
 
 const antitag = process.env.ANTITAG || 'true';
 const antidelete = process.env.ANTIDELETE || 'true';
 const autoview = process.env.AUTOVIEW_STATUS || 'true';
 const autoread = process.env.AUTOREAD || 'true';
-const autobio = process.env.AUTOBIO || 'true';
+const autobio = process.env.AUTOBIO || 'false';
 
 module.exports = {
   sessionName,
