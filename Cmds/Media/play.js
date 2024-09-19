@@ -12,7 +12,15 @@ async function search(query, options = {}) {
   return search.videos;
 } 
 
-
+function bytesToSize(bytes) {
+  return new Promise((resolve, reject) => {
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes === 0) return 'n/a';
+    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
+    if (i === 0) resolve(`${bytes} ${sizes[i]}`);
+    resolve(`${(bytes / (1024 ** i)).toFixed(1)} ${sizes[i]}`);
+  });
+}
 
 const getBuffer = async (url, options) => {
     options ? options : {};
@@ -20,6 +28,8 @@ const getBuffer = async (url, options) => {
     return res.data;
 };
 
+
+let limit = 20
 
 try {
 
@@ -39,11 +49,22 @@ const { status, results, error } = await ytmp3(yt_play[0].url);
 
 const ttl = results.title;
 
-await m.reply(`_Downloading ${ttl}_`);
-      const buff_aud = await getBuffer(results.download);
-      
 
-        await client.sendMessage(m.chat, { document: buff_aud, mimetype: 'audio/mpeg', fileName: text + `.mp3` }, { quoted: m });
+      const buff_aud = await getBuffer(results.download);
+      const fileSizeInBytes = buff_aud.byteLength;
+      const fileSizeInKB = fileSizeInBytes / 1024;
+      const fileSizeInMB = fileSizeInKB / 1024;
+      const size = fileSizeInMB.toFixed(2);
+
+if (size <= limit) {
+
+        await client.sendMessage(m.chat, { document: buff_aud, mimetype: 'audio/mpeg', fileName: ttl + `.mp3` }, { quoted: m });
+
+} else {
+
+await m.reply("Unable to upload song, size is more than 20mbs.")
+
+}
       
      
 
