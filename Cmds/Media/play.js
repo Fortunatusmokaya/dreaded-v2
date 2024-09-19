@@ -62,7 +62,7 @@ if (size <= limit) {
 
 } else {
 
-await m.reply(`${size}mb song is too big for uploading, try requesting single songs`)
+await m.reply(`Failed... Song is too large for uploading...`)
 
 }
       
