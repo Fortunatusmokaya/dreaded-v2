@@ -33,7 +33,7 @@ let fta2 = await client.downloadAndSaveMediaMessage(q)
     m.reply(`Error occured...`)
   }
               
-      await fs.unlinkSync(fta2)
+      
           
                 
 
