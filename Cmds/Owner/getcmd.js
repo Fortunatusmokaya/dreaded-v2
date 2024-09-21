@@ -37,6 +37,7 @@ for (const category of categories) {
 
 module.exports = async (context) => {
  const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware'); 
+const fs = require('fs');
     await ownerMiddleware(context, async () => {
         const { client, m, text, Owner, prefix } = context;
 
