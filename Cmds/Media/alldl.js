@@ -13,18 +13,20 @@ if (!text) return m.reply("Provide any media link...");
 
   const data = await alldown(text);
 console.log(data);
-/* 
-if (data && data.media && data.media.title) {
 
 
 
-const title = data && data.media.title;
-const low = data.media.low;
+if (data && data.media) {
+  await m.reply(`Title: ${data.media.title}`);
+  await m.reply(`Low quality video link: ${data.media.low}`);
+  await m.reply(`High quality video link: ${data.media.high}`);
+}
 
-await m.reply(title)
-await m.reply(low) 
 
-*/
+
+
+
+
 
 } catch (er) {
 
