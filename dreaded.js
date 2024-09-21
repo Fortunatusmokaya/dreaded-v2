@@ -102,76 +102,7 @@ if (cmd && mode === 'private' && !itsMe && !Owner) {
 return;
 }
 
-  const categories = [
-  { name: 'AI' },
-  { name: 'General' },
-  { name: 'Media' },
-  { name: 'Editting' },
-  { name: 'Groups' },
-  { name: 'Owner' },
-  { name: 'Coding' }
-];
-
-const commandNames = [];
-
-for (const category of categories) {
-  const commandFiles = fs.readdirSync(`./Cmds/${category.name}`).filter((file) => file.endsWith('.js'));
   
-  for (const file of commandFiles) {
-    const commandName = file.replace('.js', '');
-    commandNames.push(commandName);
-  }
-}
-
-function levenshteinDistance(str1, str2) {
-  const lenStr1 = str1.length;
-  const lenStr2 = str2.length;
-
-  const dp = new Array(lenStr1 + 1);
-  for (let i = 0; i <= lenStr1; i++) {
-    dp[i] = new Array(lenStr2 + 1);
-    dp[i][0] = i;
-  }
-  for (let j = 0; j <= lenStr2; j++) {
-    dp[0][j] = j;
-  }
-
-  for (let i = 1; i <= lenStr1; i++) {
-    for (let j = 1; j <= lenStr2; j++) {
-      const cost = str1[i - 1] === str2[j - 1] ? 0 : 1;
-      dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost);
-    }
-  }
-
-  return dp[lenStr1][lenStr2];
-}
-
-function findSimilarCommand(inputCommand) {
-  let closestMatch = null;
-  let minDistance = Infinity;
-
-  for (const commandName of commandNames) {
-    const distance = levenshteinDistance(inputCommand, commandName);
-    if (distance < minDistance) {
-      minDistance = distance;
-      closestMatch = commandName;
-    }
-  }
-
-  return closestMatch;
-}
-
-
-
-const similarCommand = findSimilarCommand(cmd);
-
-if (cmd && similarCommand) {
-  await m.reply(`Did you mean ${similarCommand}?`);
-} else {
-  await m.reply('No such command found.');
-}
-
-
 if (await blocked_users(client, m, cmd)) {
             await m.reply("You are blocked from using bot commands.");
             return;
