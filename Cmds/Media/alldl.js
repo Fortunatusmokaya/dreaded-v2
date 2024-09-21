@@ -12,11 +12,19 @@ if (!text) return m.reply("Provide any media link...");
 
 
   const data = await alldown(text);
-const title = data.media.title;
+console.log(data);
+/* 
+if (data && data.media && data.media.title) {
+
+
+
+const title = data && data.media.title;
 const low = data.media.low;
 
 await m.reply(title)
-await m.reply(low)
+await m.reply(low) 
+
+*/
 
 } catch (er) {
 
