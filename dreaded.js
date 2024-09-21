@@ -107,7 +107,7 @@ return;
   { name: 'General' },
   { name: 'Media' },
   { name: 'Editting' },
-  { name: 'groups' },
+  { name: 'Groups' },
   { name: 'Owner' },
   { name: 'Coding' }
 ];
