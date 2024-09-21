@@ -123,16 +123,37 @@ for (const category of categories) {
   }
 }
 
-const similarity = require('similarity');
+function levenshteinDistance(str1, str2) {
+  const lenStr1 = str1.length;
+  const lenStr2 = str2.length;
+
+  const dp = new Array(lenStr1 + 1);
+  for (let i = 0; i <= lenStr1; i++) {
+    dp[i] = new Array(lenStr2 + 1);
+    dp[i][0] = i;
+  }
+  for (let j = 0; j <= lenStr2; j++) {
+    dp[0][j] = j;
+  }
+
+  for (let i = 1; i <= lenStr1; i++) {
+    for (let j = 1; j <= lenStr2; j++) {
+      const cost = str1[i - 1] === str2[j - 1] ? 0 : 1;
+      dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost);
+    }
+  }
+
+  return dp[lenStr1][lenStr2];
+}
 
 function findSimilarCommand(inputCommand) {
   let closestMatch = null;
-  let maxSimilarity = 0;
+  let minDistance = Infinity;
 
   for (const commandName of commandNames) {
-    const similarityScore = similarity(inputCommand, commandName);
-    if (similarityScore > maxSimilarity) {
-      maxSimilarity = similarityScore;
+    const distance = levenshteinDistance(inputCommand, commandName);
+    if (distance < minDistance) {
+      minDistance = distance;
       closestMatch = commandName;
     }
   }
@@ -140,16 +161,14 @@ function findSimilarCommand(inputCommand) {
   return closestMatch;
 }
 
-if (cmd) {
 
-const similarCommand = findSimilarCommand(cmd);;
 
-if (similarCommand) {
+const similarCommand = findSimilarCommand(cmd);
+
+if (cmd && similarCommand) {
   await m.reply(`Did you mean ${similarCommand}?`);
 } else {
- await m.reply('Invalid command...');
-}
-
+  await m.reply('No such command found.');
 }
 
 
