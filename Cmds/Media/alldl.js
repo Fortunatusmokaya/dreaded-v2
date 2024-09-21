@@ -9,8 +9,11 @@ if (!text) return m.reply("Provide any media link..nn .");
 
 alldown(text).then(data => {
   m.reply(data.media.title)
-
-    });
+}).catch(error => {
+  console.error('Error:', error);
+  
+  m.reply('An error occurred' + error);
+});
 
 
 
