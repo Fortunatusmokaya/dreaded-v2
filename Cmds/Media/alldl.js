@@ -13,7 +13,7 @@ if (!text) return m.reply("Provide any media link...");
 
   const data = await alldown(text);
 
-await m.reply(data)
+// await m.reply(data)
 
 
 if (data && data.media) {
