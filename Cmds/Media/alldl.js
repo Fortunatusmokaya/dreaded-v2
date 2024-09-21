@@ -17,9 +17,12 @@ if (!text) return m.reply("Provide any media link...");
 
 
 if (data && data.media) {
-  await m.reply(`Title: ${data.media.title}`);
+
+const info = data.media.title;
+
+  await m.reply(info);
  
-}
+} 
 
 
 
