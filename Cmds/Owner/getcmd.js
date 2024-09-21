@@ -4,7 +4,7 @@ module.exports = async (context) => {
     await ownerMiddleware(context, async () => {
         const { client, m, text, Owner, prefix } = context;
 
-if (!text) return m.reply(`Provide name of command to fetch it's code. Like, ${prefix}getcmd joingc`);
+if (!text) return m.reply(`Provide name of command to fetch it's code. Like, ${prefix}getcmd fullpp`);
 
 const fs = require('fs');
 const categories = [
@@ -19,10 +19,10 @@ const categories = [
 
 for (const category of categories) {
     const fileName = text
-    const filePath = `./cmds/${category.name}/${fileName.endsWith('.js') ? fileName : `${fileName}.js`}`;
+    const filePath = `./Cmds/${category.name}/${fileName.endsWith('.js') ? fileName : `${fileName}.js`}`;
     fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) {
-            m.reply(`Error reading file: ${err.message}`);
+            m.reply(`Error reading file:-\n ${err.message}`);
         } else {
             m.reply(`\`\`\`${data}\`\`\``);
         }
