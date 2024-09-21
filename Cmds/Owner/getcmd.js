@@ -5,6 +5,8 @@ const fs = require('fs');
     await ownerMiddleware(context, async () => {
         const { client, m, text, Owner, prefix } = context;
 
+try {
+
         if (!text) return m.reply(`Provide name of command to fetch it's code. Like, ${prefix}getcmd fullpp`);
 
         const categories = [
@@ -35,7 +37,7 @@ const fs = require('fs');
                                 m.reply(`Error reading file:-\n ${err.message}`);
                                 resolve(false);
                             } else {
-                                m.reply(`\`\`\`${data}\`\`\``);
+                                m.reply(`//Code for ${text}.js command:-\n${data}`);
                                 resolve(true);
                             }
                         });
@@ -46,9 +48,17 @@ const fs = require('fs');
 
         await Promise.all(promises);
 
-        if (!fileFound) {
-            m.reply(`Command not found: ${text}`);
-        }
+        
+
+} 
+
+catch (error) {
+
+m.reply("Error, command does not exist..")
+
+}
+
+
     });
 };
 
