@@ -8,10 +8,15 @@ try {
 if (!text) return m.reply("Provide any media link..nn .");
 
 alldown(text).then(data => {
-  m.reply(data.media.title)
+  const title = data?.media?.title;
+  if (title) {
+    m.reply(title);
+  } else {
+    console.error('Error: data.media.title is undefined');
+    m.reply('An error occurred');
+  }
 }).catch(error => {
   console.error('Error:', error);
-  
   m.reply('An error occurred' + error);
 });
 
