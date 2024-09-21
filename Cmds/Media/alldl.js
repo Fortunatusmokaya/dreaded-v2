@@ -7,11 +7,14 @@ try {
 
 if (!text) return m.reply("Provide any media link..nn .");
 
+alldown(text).then(data => {
+  m.reply(data.media.title)
+
+    });
 
 
 
-
-  const data = await alldown(text);
+/*   const data = await alldown(text);
 
 
 
@@ -26,7 +29,7 @@ await m.reply('hey');
  
 } else { m.reply("data inaccessible")
 }
-
+*/
 
 
 
