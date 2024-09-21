@@ -102,30 +102,55 @@ if (cmd && mode === 'private' && !itsMe && !Owner) {
 return;
 }
 
-  if (m.mtype == 'protocolMessage' && antidelete === 'true') {
-    if (m.fromMe) return;
+  const categories = [
+  { name: 'AI' },
+  { name: 'General' },
+  { name: 'Media' },
+  { name: 'Editting' },
+  { name: 'groups' },
+  { name: 'Owner' },
+  { name: 'Coding' }
+];
 
-    const mokaya = chatUpdate.messages[0].message.protocolMessage;
+const commandNames = [];
 
-    if (store.messages && store.messages[m.chat] && store.messages[m.chat].array) {
-      const chats = store.messages[m.chat].array.find(a => a.id === mokaya.key.id);
-
-      if (chats) {
-        chats.msg.contextInfo = {
-          mentionedJid: [chats.key.participant],
-          isForwarded: true,
-          forwardingScore: 1,
-          quotedMessage: { conversation: 'Deleted Message' },
-          ...chats.key
-        };
-
-        await client.relayMessage(m.chat, { [chats.type]: chats.msg }, {});
-
-
-      }
-    }
+for (const category of categories) {
+  const commandFiles = fs.readdirSync(`./Cmds/${category.name}`).filter((file) => file.endsWith('.js'));
   
-};
+  for (const file of commandFiles) {
+    const commandName = file.replace('.js', '');
+    commandNames.push(commandName);
+  }
+}
+
+const similarity = require('similarity');
+
+function findSimilarCommand(inputCommand) {
+  let closestMatch = null;
+  let maxSimilarity = 0;
+
+  for (const commandName of commandNames) {
+    const similarityScore = similarity(inputCommand, commandName);
+    if (similarityScore > maxSimilarity) {
+      maxSimilarity = similarityScore;
+      closestMatch = commandName;
+    }
+  }
+
+  return closestMatch;
+}
+
+if (cmd) {
+
+const similarCommand = findSimilarCommand(cmd);;
+
+if (similarCommand) {
+  await m.reply(`Did you mean ${similarCommand}?`);
+} else {
+ await m.reply('Invalid command...');
+}
+
+}
 
 
 if (await blocked_users(client, m, cmd)) {
