@@ -42,12 +42,16 @@ var medis = await client.downloadAndSaveMediaMessage(media);
                     })
                     fs.unlinkSync(medis)
                     m.reply("Bot Profile Picture Updated")
-                })
 
 } catch (error) {
 
 m.reply("An error occured while updating bot profile photo\n" + error)
 
 }
+
+                })
+
+
+
 
 }
