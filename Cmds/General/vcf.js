@@ -1,7 +1,11 @@
-        const { client, m, participants, text } = context;
-
+       
 
 module.exports = async (context) => {
+
+ const { client, m, participants, text } = context;
+
+if (!m.isGroup) return m.reply("Command meant for groups");
+
 const fs = require("fs");
 let gcdata = await client.groupMetadata(m.chat)
 let gcmem = participants.map(a => a.id)
