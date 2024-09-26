@@ -3,6 +3,8 @@ const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 module.exports = async (context) => {
     await ownerMiddleware(context, async () => {
         const { client, m, text, Owner, generateProfilePicture, botNumber, mime, msgDreaded } = context;
+
+try {
 const fs = require("fs");
 
 if(!msgDreaded) { m.reply('Quote an image...') ; return } ;
@@ -41,5 +43,11 @@ var medis = await client.downloadAndSaveMediaMessage(media);
                     fs.unlinkSync(medis)
                     m.reply("Bot Profile Picture Updated")
                 })
+
+} catch (error) {
+
+m.reply("An error occured while updating bot profile photo\n" + error)
+
+}
 
 }
