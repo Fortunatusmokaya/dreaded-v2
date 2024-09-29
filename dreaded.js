@@ -118,10 +118,8 @@ await antilink(client, m, isBotAdmin, isAdmin, Owner, body);
 await antiviewonce(client, m, antionce);
 await gcPresence(client, m, gcpresence);
 await antitaggc(client, m, isBotAdmin, itsMe, isAdmin, Owner, body, antitag);
-await masterEval(client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, participants,
-    pushname, body, budy, totalCommands,
-    packname, author, mycode,
-    fetchJson, exec, prefix, botname, mode);
+
+await masterEval(client, m, Owner, budy, fetchJson, store);
 
 
     const command = cmd ? body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase() : null;
