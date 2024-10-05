@@ -1,4 +1,4 @@
-/* this is the main file, edit with caution */
+/* this is the main file */
 
 
 const {
@@ -20,6 +20,9 @@ const { exec, spawn, execSync } = require("child_process");
 const axios = require("axios");
 const chalk = require("chalk");
 const figlet = require("figlet");
+const express = require("express");
+const app = express();
+const port = process.env.PORT || 8000;
 const _ = require("lodash");
 const PhoneNumber = require("awesome-phonenumber");
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif');
@@ -297,6 +300,11 @@ message += `▞▚▞▚▞▚▞▚▞▚▞▚▞`
      };
 
 }
+
+app.get("/", (req, res) => {
+    res.send("Bot is active...");
+});
+app.listen(port, () => console.log(`Server listening on port http://localhost:${port}`));
 
 startDreaded();
 
