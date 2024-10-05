@@ -127,7 +127,27 @@ await masterEval(client, m, Owner, budy, fetchJson, store);
         if (commands[command]) {
     await commands[command](context);
         } 
+
+
+
+
+
+
     } catch (err) {
-        m.reply(util.format(err));
+        console.log(util.format(err));
     }
+
+process.on('uncaughtException', function (errr) {
+let e = String(errr)
+if (e.includes("conflict")) return
+if (e.includes("not-authorized")) return
+if (e.includes("Socket connection timeout")) return
+if (e.includes("rate-overlimit")) return
+if (e.includes("Connection Closed")) return
+if (e.includes("Timed Out")) return
+if (e.includes("Value not found")) return
+console.log('Caught exception: ', errr)
+})
+
+
 };
