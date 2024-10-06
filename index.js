@@ -301,9 +301,17 @@ message += `▞▚▞▚▞▚▞▚▞▚▞▚▞`
 
 }
 
+
+
+
+
+app.use(express.static('public'));
+
 app.get("/", (req, res) => {
-    res.send("Bot is active...");
+    res.sendFile(__dirname + '/index.html'); 
 });
+
+
 app.listen(port, () => console.log(`Server listening on port http://localhost:${port}`));
 
 startDreaded();
