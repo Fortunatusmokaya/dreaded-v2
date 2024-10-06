@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DREADED V2</title>
+    <title>WhatsApp Bot</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,10 +12,23 @@
     </style>
 </head>
 <body>
-    <h1>You have successfully connected to the dreaded-v2 WhatsApp bot!</h1>
+    <h1 id="bot-name"></h1>
     <p>Congratulations! You've taken the first step towards unleashing a world of automation and efficiency.</p>
-    <p>May your messages be swift, your responses be witty, and your bot be forever mighty!</p>
+    <p>Share the repo...</p>
     <hr>
-    <p>&copy; 2024 dreaded-v2 All rights reserved.</p>
+    <p id="dev-info"></p>
+
+    <script>
+       
+        const settings = require('../settings');
+
+        
+        const botNameElement = document.getElementById('bot-name');
+        const devInfoElement = document.getElementById('dev-info');
+
+        
+        botNameElement.textContent = `You have successfully connected to dreaded v2`;
+        devInfoElement.textContent = `BOT-NAME:- ${settings.botname} PREFIX:-  ${settings.prefix}, MODE:- ${settings.mode}, DEV: ${settings.dev}`;
+    </script>
 </body>
 </html>
