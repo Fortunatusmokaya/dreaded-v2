@@ -3,21 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsApp Bot</title>
+    <title>Dreaded-V2 Bot</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .social-link {
+            text-decoration: none;
+            color: white;
+            background-color: #333;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: #444;
+        }
+
+        #github-icon {
+            width: 40px;
+            height: auto;
+        }
+
+        #whatsapp-icon {
+            width: 40px;
+            height: auto;
         }
     </style>
 </head>
 <body>
-    <h1 id="bot-name"></h1>
-    <p>Congratulations! You've taken the first step towards unleashing a world of automation and efficiency.</p>
-    <p>Share the repo...</p>
-    <hr>
-    <p id="dev-info"></p>
+    <div class="container">
+        <h1 id="bot-name">WhatsApp Bot</h1>
+        <p>Congratulations! You've taken the first step towards unleashing a world of automation and efficiency.</p>
+        
+        <div class="social-links">
+            <a href="https://github.com/Fortunatusmokaya" target="_blank" rel="noopener noreferrer" class="social-link">
+                <img src="https://raw.githubusercontent.com/PaulKinlan/share-button/master/assets/github.svg" alt="GitHub" id="github-icon">
+            </a>
+            
+            <a href="wa.me/254114018035" target="_blank" rel="noopener noreferrer" class="social-link">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/WhatsApp_2020_icon.svg/1200px-WhatsApp_2020_icon.svg.png" alt="WhatsApp" id="whatsapp-icon">
+            </a>
+        </div>
 
-    
+        <hr>
+        <p id="dev-info"></p>
+
+        <share-button></share-button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2.2.14/webcomponents-loader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@webcomponents/shadycss@latest/shadycss.min.js"></script>
 </body>
 </html>
