@@ -1,4 +1,4 @@
-fetch('../settings.js')
+fetch('/settings.js')
   .then(response => response.text())
   .then(data => {
     console.log('Received settings data:', data);
