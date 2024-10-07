@@ -11,7 +11,7 @@ let data = await download(text);
 if (data.size.replace(' MB', '') > 250) return m.reply("App is more than 250mb, download yourself");
        
 
-await client.sendMessage(m.chat, { text: `Downloading and uploading ${text}. . .`}, { quoted: m })
+await client.sendMessage(m.chat, { text: `sᴛʀɪᴋᴇʀʙᴏʏᵇᵒᵗ is Downloading and uploading ${text}. . .`}, { quoted: m })
 
 await client.sendMessage(
         m.chat,
