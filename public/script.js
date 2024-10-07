@@ -1,9 +1,10 @@
-
 fetch('../settings.js')
   .then(response => response.text())
   .then(data => {
-    
+    console.log('Received settings data:', data);
     const settings = JSON.parse(data.replace(/module.exports = /, ''));
+    console.log('Parsed settings:', settings);
+   
 
    
     const container = document.querySelector('.container');
