@@ -25,8 +25,7 @@
          
   "@whiskeysockets/baileys": "git+https://github.com/whiskeysockets/baileys.git",
 
-    "@bochilteam/scraper": "^4.2.4",
-"@distube/ytdl-core": "latest",
+    
     "@adiwajshing/keyed-db": "^0.2.4",
     "@hapi/boom": "^10.0.0",
     "@shineiichijo/marika": "^3.0.0",
