@@ -14,9 +14,9 @@
     "baileys-md",
     "md-bot"
   ],
-  "website": "https://github.com/Fortunatusmokaya/dreaded-v2#readme",
-  "repository": "https://github.com/Fortunatusmokaya/dreaded-v2.git",
-  "logo": "https://telegra.ph/file/d6dab955fbaa42fce2280.jpg",
+  "website": "https://github.com/Devenlee350/dreaded-v2#readme",
+  "repository": "https://github.com/Devenlee350/dreaded-v2.git",
+  "logo": "https://i.imgur.com/HGoTQf1.jpeg",
   "success_url": "/",
   "env": {
     "PREFIX": {
@@ -25,11 +25,11 @@
       "required": true
     },
     "DEV": {
-      "description": "Put any phone numbers you want to be bot owner without + or spaces \",\" Ex: 254114018035, 254741889898 ",
+      "description": "Put any phone numbers you want to be bot owner without + or spaces \",\" Ex: 2637834446, 26376343890 ",
       "required": false
     },
     "CODE": {
-      "description": "Enter your country code without +. Example: 254 for Kenya. This will allow bot to detect and remove foreigners if commanded",
+      "description": "Enter your country code without +. Example: 263 for Zimbabwe. This will allow bot to detect and remove foreigners if commanded",
       "required": true
     },
     "STICKER_AUTHOR": {

@@ -18,7 +18,7 @@ if (!m.quoted) return m.reply('Tag a static video with the command!');
    fs.unlinkSync(media); 
    if (err) m.reply(err)
    let buffer = fs.readFileSync(mokaya); 
-   client.sendMessage(m.chat, { image: buffer, caption: `Converted by Dreaded! 🦄`}, { quoted: m}) 
+   client.sendMessage(m.chat, { image: buffer, caption: `Converted by sᴛʀɪᴋᴇʀʙᴏʏ! 🦄`}, { quoted: m}) 
    fs.unlinkSync(mokaya); 
     }); 
 

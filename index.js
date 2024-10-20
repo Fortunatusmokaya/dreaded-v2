@@ -76,7 +76,7 @@ if (autobio === 'true'){
 
                          client.updateProfileStatus( 
 
-                                         `${botname} is active 24/7\n\n${date.toLocaleString('en-US', { timeZone: 'Africa/Nairobi' })} It's a ${date.toLocaleString('en-US', { weekday: 'long', timeZone: 'Africa/Nairobi'})}.` 
+                                         `${botname} is active 24/7\n\n${date.toLocaleString('en-US', { timeZone: 'Africa/Harare' })} It's a ${date.toLocaleString('en-US', { weekday: 'long', timeZone: 'Africa/Harare'})}.` 
 
                                  ) 
 
@@ -222,7 +222,7 @@ if(presence === 'online')
 
 
         const getGreeting = () => {
-            const currentHour = DateTime.now().setZone('Africa/Nairobi').hour;
+            const currentHour = DateTime.now().setZone('Africa/Harare').hour;
 
             if (currentHour >= 5 && currentHour < 12) {
                 return 'Good morning 🌄';
@@ -237,10 +237,10 @@ if(presence === 'online')
 
 
         const getCurrentTimeInNairobi = () => {
-            return DateTime.now().setZone('Africa/Nairobi').toLocaleString(DateTime.TIME_SIMPLE);
+            return DateTime.now().setZone('Africa/Harare').toLocaleString(DateTime.TIME_SIMPLE);
         };
 
-        let message = `Holla, ${getGreeting()},\n\nYou are connected to dreaded bot. 📡 \n\n`;
+        let message = `Holla, ${getGreeting()},\n\nYou are connected to sᴛʀɪᴋᴇʀʙᴏʏᵇᵒᵗ. 📡 \n\n`;
 
         message += `👤 𝑩𝑶𝑻𝑵𝑨𝑴𝑬:- ${botname}\n`;
 message += `🔓 𝑴𝑶𝑫𝑬:- ${mode}\n`;

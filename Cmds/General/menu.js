@@ -19,7 +19,7 @@ module.exports = async (context) => {
 
         
         const getGreeting = () => {
-            const currentHour = DateTime.now().setZone('Africa/Nairobi').hour;
+            const currentHour = DateTime.now().setZone('Africa/Harare').hour;
 
             if (currentHour >= 5 && currentHour < 12) {
                 return 'Good morning 🌄';
@@ -34,7 +34,7 @@ module.exports = async (context) => {
 
        
         const getCurrentTimeInNairobi = () => {
-            return DateTime.now().setZone('Africa/Nairobi').toLocaleString(DateTime.TIME_SIMPLE);
+            return DateTime.now().setZone('Africa/Harare').toLocaleString(DateTime.TIME_SIMPLE);
         };
 
         let menuText = `Holla, ${getGreeting()},\n\n`;
