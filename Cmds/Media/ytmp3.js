@@ -2,6 +2,16 @@ module.exports = async (context) => {
     const { client, m, text, fetchJson } = context;
 
 
+if (!text) return m.reply("Where is the YouTube link ?")
+
+	let urls = text.match(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch\?v=|v\/|embed\/|shorts\/|playlist\?list=)?)([a-zA-Z0-9_-]{11})/gi);
+	if (!urls) return m.reply('Is this a YouTube link ?');
+	let urlIndex = parseInt(text) - 1;
+	if (urlIndex < 0 || urlIndex >= urls.length)
+		return m.reply('Invalid URL index');
+	await downloadMp3(urls);
+
+
 
 
 
@@ -28,18 +38,6 @@ mimetype: "audio/mp3",
     await m.reply(`Error.`)
   }
 }
-
-if (!text) return m.reply("Where is the YouTube link ?")
-
-	let urls = text.match(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch\?v=|v\/|embed\/|shorts\/|playlist\?list=)?)([a-zA-Z0-9_-]{11})/gi);
-	if (!urls) return m.reply('Is this a YouTube link ?');
-	let urlIndex = parseInt(text) - 1;
-	if (urlIndex < 0 || urlIndex >= urls.length)
-		return m.reply('Invalid URL index');
-	await downloadMp3(urls);
-
-
-
 
 
 
