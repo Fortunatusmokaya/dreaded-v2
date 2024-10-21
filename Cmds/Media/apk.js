@@ -12,8 +12,8 @@ let data = await fetchJson (`https://bk9.fun/search/apk?q=${text}`);
          await client.sendMessage(
               m.chat,
               {
-                document: { url: strikerboybot.BK9.dllink },
-                fileName: strikerboybot.BK9.name,
+                document: { url: dreaded.BK9.dllink },
+                fileName: dreaded.BK9.name,
                 mimetype: "application/vnd.android.package-archive"}, { quoted: m });
 
 } catch (error) {
