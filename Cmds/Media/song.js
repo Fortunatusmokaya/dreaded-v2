@@ -9,11 +9,13 @@ if (!text) return m.reply("What song do you want to download ?")
 let search = await yts(text);
         let link = search.all[0].url;
 
-        let data = await fetchJson (`https://widipe.com/download/ytdl?url=${link}`)
+        let data = await fetchJson (`https://api.dreaded.site/api/ytdl/video?url=${link}`)
+
+
 await client.sendMessage(m.chat, {
-  audio: {url: data.result.mp3},
+ document: {url: data.result.downloadLink},
 mimetype: "audio/mp3",
- fileName: `${data.result.title}.mp3`}, { quoted: m });
+ fileName: `${search.all[0].title}.mp3` }, { quoted: m });
 
 
 } catch (error) {
