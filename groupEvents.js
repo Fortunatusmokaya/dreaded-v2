@@ -1,5 +1,5 @@
-const events = process.env.EVENTS || 'false';
-const botname = process.env.BOTNAME || 'DREADED';
+const events = process.env.EVENTS || 'true';
+const botname = process.env.BOTNAME || 'sᴛʀɪᴋᴇʀʙᴏʏ_вσt';
 
 const Events = async (client, Fortu) => {
     const Myself = await client.decodeJid(client.user.id);
@@ -15,7 +15,7 @@ const Events = async (client, Fortu) => {
             try {
                 dpuser = await client.profilePictureUrl(num, "image");
             } catch {
-                dpuser = "https://telegra.ph/file/0a620a1cf04d3ba3874f5.jpg";
+                dpuser = "https://i.imgur.com/HGoTQf1.jpeg";
             }
 
             if (Fortu.action == "add") {
@@ -33,7 +33,7 @@ const Events = async (client, Fortu) => {
                 let userName2 = num;
 
                 let Lefttext = `
-          Good bye @${userName2.split("@")[0]} 👋, probably not gonna miss you `;
+          Goodbye @${userName2.split("@")[0]} 👋, probably not gonna miss you `;
                 if (events === 'true') {
                     await client.sendMessage(Fortu.id, {
                         image: { url: dpuser },
