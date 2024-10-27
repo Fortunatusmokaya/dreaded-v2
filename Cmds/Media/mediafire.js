@@ -32,7 +32,7 @@ if (!text.includes('mediafire.com')) {
     }
 
 
-await m.reply(`A moment...`);
+await m.reply(`A moment *sᴛʀɪᴋᴇʀʙᴏʏ_вσt* is downloading...`);
 
 try {
 
