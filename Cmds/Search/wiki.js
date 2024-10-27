@@ -9,7 +9,7 @@ const wiki = require('wikipedia');
         try {
             if (!text) return m.reply(`Provide the term to search,\nE.g What is JavaScript!`)
             const con = await wiki.summary(text);
-            const texa = `Title:- ${con.title}
+            const texa = `> *sᴛʀɪᴋᴇʀʙᴏʏ_вσt* ᴡɪᴋɪᴘᴇᴅɪᴀ sᴇᴀʀᴄʜ:\n\nTitle:- ${con.title}
                   
 Desc:- ${con.description}
 
