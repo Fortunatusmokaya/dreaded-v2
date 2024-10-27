@@ -12,11 +12,11 @@ if (m.quoted.message) {
             if (/video/.test(type)) {
 
 
-               await client.sendMessage(m.chat, { video: media, caption: `Retrieved by Dreaded! 🦄\nOriginal caption: ${q.caption}`}, { quoted: m})
+               await client.sendMessage(m.chat, { video: media, caption: `Retrieved by sᴛʀɪᴋᴇʀʙᴏʏ_вσt! ⌤\nOriginal caption: ${q.caption}`}, { quoted: m})
 
             } else if (/image/.test(type)) {
 
-await client.sendMessage(m.chat, { image: media, caption: `Retrieved by Dreaded! 🦄\nOriginal caption: ${q.caption}`}, { quoted: m})
+await client.sendMessage(m.chat, { image: media, caption: `Retrieved by sᴛʀɪᴋᴇʀʙᴏʏ_вσt! ⌤\nOriginal caption: ${q.caption}`}, { quoted: m})
 
             }
          } else m.reply("That is not a viewonce media. . .")
