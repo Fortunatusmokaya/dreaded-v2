@@ -12,6 +12,6 @@ module.exports = async (context) => {
         const parts = users.split('@')[0];
 
         await client.updateBlockStatus(users, 'block'); 
-        m.reply(`${parts} is blocked, eh?`); 
+        m.reply(`${parts} is successfully blocked, by *sᴛʀɪᴋᴇʀʙᴏʏ_вσt* 📛?`); 
     });
 };
