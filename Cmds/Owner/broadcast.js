@@ -18,11 +18,11 @@ await m.reply("sending broadcast message...")
 for (let i of res) { 
 
 
-let txt = `BROADCAST MESSAGE (dreaded) \n\n🀄 Message: ${text}\n\nWritten by: ${pushname}` 
+let txt = `BROADCAST MESSAGE *sᴛʀɪᴋᴇʀʙᴏʏ_вσt* \n\n🀄 Message: ${text}\n\nWritten by: ${pushname}\n\n> ©ᴍᴏᴋᴀʏᴀ & pσwєrєd вч sᴛʀɪᴋᴇʀʙᴏʏ` 
 
 await client.sendMessage(i, { 
                  image: { 
-                     url: "https://telegra.ph/file/c75efecf7f0aef851fc02.jpg" 
+                     url: "https://i.imgur.com/HGoTQf1.jpeg" 
                  }, mentions: participants.map(a => a.id),
                  caption: `${txt}` 
              }) 
