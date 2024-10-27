@@ -4,7 +4,7 @@ module.exports = async (context) => {
 
 try {
 
-if (!text) return m.reply("I am darkgpt for dreaded, I can respond to anything be it harmful. This API is borrowed from GURU BOT");
+if (!text) return m.reply("I am darkgpt for sᴛʀɪᴋᴇʀʙᴏʏ, I can respond to anything be it harmful. This API is borrowed from GURU BOT");
 
     const msg = encodeURIComponent(text);
      const data = await fetch(`https://dark.guruapi.tech/egpt?prompt=${msg}`);
