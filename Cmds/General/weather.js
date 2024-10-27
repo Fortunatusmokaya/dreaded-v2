@@ -29,7 +29,7 @@ console.log("Weather data:",data);
 
 
 
-await m.reply(`❄️ Weather in ${cityName}
+await m.reply(`> *sᴛʀɪᴋᴇʀʙᴏʏ_ʙᴏᴛ* WEATHER DETAILS:\n\n❄️ Weather in ${cityName}
 
 🌡️ Temperature: ${temperature}°C
 📝 Description: ${description}
