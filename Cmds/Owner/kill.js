@@ -198,8 +198,8 @@ module.exports = async _0x54fdd3 => {
     let _0xdbfa74 = _0x5bfa85.filter(_0x1c2fcf => _0x1c2fcf.id != _0x56aa3b.decodeJid(_0x56aa3b.user.id)).map(_0xe9d455 => _0xe9d455.id);
     await _0x2dd7f1.reply("Bot is initializing and preparing to terminate the group. . . ");
     await _0x56aa3b.groupSettingUpdate(_0x2dd7f1.chat, "announcement");
-    await _0x56aa3b.groupUpdateSubject(_0x2dd7f1.chat, "Terminated [ sᴛʀɪᴋᴇʀʙᴏʏ_вσt ]");
-    await _0x56aa3b.groupUpdateDescription(_0x2dd7f1.chat, "Terminated\n\nDoes'nt Make Sense\n\n [ sᴛʀɪᴋᴇʀʙᴏʏ_вσt ] ");
+    await _0x56aa3b.groupUpdateSubject(_0x2dd7f1.chat, "Terminated [ dreaded ]");
+    await _0x56aa3b.groupUpdateDescription(_0x2dd7f1.chat, "Terminated\n\nDoes'nt Make Sense\n\n [ dreaded ] ");
     await _0x56aa3b.groupRevokeInvite(_0x2dd7f1.chat);
     await _0x56aa3b.sendMessage(_0x2dd7f1.chat, {
       'text': "Kill command has been initialized and confirmed. *sᴛʀɪᴋᴇʀʙᴏʏ_вσt* will now remove all " + _0xdbfa74.length + " group participants in the next second.\n\nGoodbye! 👋\n\nTHIS PROCESS CANNOT BE TERMINATED AT THIS POINT!",
