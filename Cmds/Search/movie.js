@@ -11,7 +11,7 @@ try {
               let fids = await axios.get(`http://www.omdbapi.com/?apikey=742b2d09&t=${text}&plot=full`);  
               let imdbt = "";  
               
-              imdbt += "⚍⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚍\n" + " ``` IMDB MOVIE SEARCH```\n" + "⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎\n";  
+              imdbt += "> *sᴛʀɪᴋᴇʀʙᴏʏ_вσt*\n\n⚍⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚍\n" + " ``` IMDB MOVIE SEARCH```\n" + "⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎⚎\n";  
               imdbt += "🎬Title      : " + fids.data.Title + "\n";  
               imdbt += "📅Year       : " + fids.data.Year + "\n";  
               imdbt += "⭐Rated      : " + fids.data.Rated + "\n";  
