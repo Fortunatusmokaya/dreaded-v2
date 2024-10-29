@@ -9,7 +9,7 @@ if (!text) return m.reply("What song do you want to download ?")
 let search = await yts(text);
         let link = search.all[0].url;
 
-        let data = await fetchJson (`https://api.dreaded.site/api/ytdl/video?url=${link}`)
+        let data = await fetchJson (`https://api-pink-venom.vercel.app/api/ytmp4?url=${link}`)
 
 
 await client.sendMessage(m.chat, {
