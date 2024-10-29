@@ -1,30 +1,42 @@
+const yts = require("yt-search");
+
 module.exports = async (context) => {
     const { client, m, text, fetchJson } = context;
 
-const yts = require("yt-search");
-try {
+    try {
+        if (!text) {
+            return m.reply("What video do you want to download?");
+        }
 
-if (!text) return m.reply("What song do you want to download ?")
+        const search = await yts(text);
+        const link = search.all[0].url;
 
-let search = await yts(text);
-        let link = search.all[0].url;
+        // Fetch video data
+        const data = await fetchJson(`https://api.dreaded.site/api/ytdl/video?url=${link}`);
 
-        let data = await fetchJson (`https://api-pink-venom.vercel.app/api/ytdl/video?url=${link}`)
+        // Check if the data contains the expected properties
+        if (data && data.result && data.result.downloadLink && data.result.title) {
+            await client.sendMessage(m.chat, {
+                video: { url: data.result.downloadLink },
+                mimetype: "video/mp4",
+                fileName: `${data.result.title}.mp4`
+            }, { quoted: m });
 
+            await client.sendMessage(m.chat, {
+                document: { url: data.result.downloadLink },
+                mimetype: "video/mp4",
+                fileName: `${data.result.title}.mp4`
+            }, { quoted: m });
+        } else {
+            throw new Error("Invalid response structure");
+        }
+    } catch (error) {
+        // Enhanced error handling
+        m.reply("Download failed\n" + error.message);
+        console.error("Download failed:", error);
+    }
+};
 
-await client.sendMessage(m.chat, {
- document: {url: data.result.downloadLink},
-mimetype: "audio/mp3",
- fileName: `${search.all[0].title}.mp3` }, { quoted: m });
-
-
-} catch (error) {
-
-m.reply("Download failed\n" + error)
-
-}
-
-}
 
 
 
