@@ -52,7 +52,46 @@ Our AI features use random APIs to run, so sometimes they may be down.
 
 -***`Fill in all the required variables and deploy the bot.`***
 
--***`If you plan to host the bot in your server, vps, locally or panel you can carefully edit the file settings.js`***
+-***`If you plan to host the bot in your server, vps, locally or panel you need to add the session id in the file settings.js inside the constant session`***
+
+## VPS/SSH/TERMUX DEPLOY
+
+To host the bot on a server, VPS, or locally, follow these steps:
+
+### 1. Update Packages and Install Requirements
+   ```bash
+   sudo apt update && sudo apt upgrade -y
+   sudo apt install git -y
+   curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+   sudo apt install nodejs -y
+
+### 2. Clone Repository and Install Packages
+
+git clone https://github.com/Fortunatusmokaya/dreaded-v2.git
+
+# Enter bot directory
+cd dreaded-v2
+
+# Install dependencies
+npm install
+
+> Note: Installing the required packages might take a while, so get some coffee.
+
+
+### 3. Start the bot
+npm start
+
+
+### 4. Run Bot in Background with pm2
+If you want the bot to stay active even after disconnecting from the VPS, install pm2 and use it to start the bot:
+
+# Install pm2 globally
+sudo npm install pm2 -g
+
+# Start the bot with pm2
+pm2 start index.js
+
+> With termux, you will need to have a stable device with continuous internet connection.
 
 
 # Credits
