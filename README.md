@@ -52,6 +52,39 @@ Our AI features use random APIs to run, so sometimes they may be down.
 
 -***`Fill in all the required variables and deploy the bot.`***
 
+## FOR TERMUX/UBUNTU/SSH VPS DEPLOY
+
+```bash
+apt update && apt upgrade
+apt install git -y
+apt install nodejs -y
+apt install ffmpeg -y
+git clone https://github.com/Fortunatusmokaya/dreaded-v2
+cd dreaded-v2
+npm install
+```
+## START BOT
+
+```bash
+
+npm start
+```
+
+> ***`The bot will only work if you updated the session id in settings.js`***
+
+## BACKGROUND RUNNING
+
+```bash
+sudo npm install pm2 -g
+pm2 start index.js
+```
+> ***`This will allow bot to run in the background even when the vps terminal is closed, for termux you'll need a stable device with continuous internet connection`***
+
+## STOPPING BOT
+```bash
+Hit CTRL + C
+```
+
 -***`If you plan to host the bot in your server, vps, locally or panel you can carefully edit the file settings.js`***
 
 
