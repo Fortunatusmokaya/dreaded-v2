@@ -52,7 +52,7 @@ Our AI features use random APIs to run, so sometimes they may be down.
 
 -***`Fill in all the required variables and deploy the bot.`***
 
--***`If you plan to host the bot in your server, vps, locally or panel you can carefully edit the file settings.js and add the *session id* in the *session constant* (if you know what that is)`***
+-***`If you plan to host the bot in your server, vps, locally or panel you can carefully edit the file settings.js and add the session id in the session constant (if you know what that is), or you can still autheticate with qr`***
 
 
 
