@@ -52,6 +52,10 @@ Our AI features use random APIs to run, so sometimes they may be down.
 
 -***`Fill in all the required variables and deploy the bot.`***
 
+-***`If you plan to host the bot in your server, vps, locally or panel you can carefully edit the file settings.js and add the *session id* in the *session constant* (if you know what that is)`***
+
+
+
 ## FOR TERMUX/UBUNTU/SSH VPS DEPLOY
 - Copy/Paste to your terminal
 
@@ -85,7 +89,7 @@ pm2 start index.js
 _CTRL + C_
 
 
--***`If you plan to host the bot in your server, vps, locally or panel you can carefully edit the file settings.js`***
+
 
 
 # Credits
