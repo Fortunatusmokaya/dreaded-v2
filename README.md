@@ -70,20 +70,20 @@ npm install
 npm start
 ```
 
-> ***`The bot will only work if you updated the session id in settings.js`***
+ ***`The bot will only work if you updated the session id in settings.js`***
 
 ## BACKGROUND RUNNING
 
 ```bash
-sudo npm install pm2 -g
+npm install pm2 -g
 pm2 start index.js
 ```
-> ***`This will allow bot to run in the background even when the vps terminal is closed, for termux you'll need a stable device with continuous internet connection`***
+ ***`This will allow bot to run in the background even when the vps terminal is closed, for termux you'll need a stable device with continuous internet connection`***
 
 ## STOPPING BOT
-```bash
-Hit CTRL + C
-```
+
+_CTRL + C_
+
 
 -***`If you plan to host the bot in your server, vps, locally or panel you can carefully edit the file settings.js`***
 
