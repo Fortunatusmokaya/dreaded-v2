@@ -53,12 +53,12 @@ Our AI features use random APIs to run, so sometimes they may be down.
 -***`Fill in all the required variables and deploy the bot.`***
 
 ## FOR TERMUX/UBUNTU/SSH VPS DEPLOY
+- Copy/Paste to your terminal
 
 ```bash
 apt update && apt upgrade
 apt install git -y
 apt install nodejs -y
-apt install ffmpeg -y
 git clone https://github.com/Fortunatusmokaya/dreaded-v2
 cd dreaded-v2
 npm install
