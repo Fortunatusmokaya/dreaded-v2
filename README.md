@@ -90,14 +90,13 @@ npm install
 npm start
 
 
-4. Run Bot in Background with pm2 If you want the bot to stay active even after disconnecting from the VPS, install pm2 and use it to start the bot:
+4. Run Bot in Background with pm2
+If you want the bot to stay active even after disconnecting from the VPS, install pm2 and use it to start the bot:
 
 sudo npm install pm2 -g
 pm2 start index.js
 
-> With Termux, you will need a stable device with continuous internet connection.
-
-
+> With Termux, you will need a stable device with continuous internet connection
 
 
 
