@@ -2,6 +2,7 @@ const yts = require("yt-search");
 const ffmpeg = require("fluent-ffmpeg");
 const fs = require("fs");
 const path = require("path");
+const axios = require("axios");
 
 module.exports = async (context) => {
     const { client, m, text, fetchJson } = context;
@@ -15,15 +16,21 @@ module.exports = async (context) => {
         let data = await fetchJson(`https://api.dreaded.site/api/ytdl/video?url=${link}`);
         let videoUrl = data.result.downloadLink;
 
-      
         let outputFileName = `${search.all[0].title}.mp3`;
         let outputPath = path.join(__dirname, outputFileName);
 
-        ffmpeg(videoUrl)
+       
+        const response = await axios({
+            url: videoUrl,
+            method: "GET",
+            responseType: "stream"
+        });
+
+        
+        ffmpeg(response.data)
             .toFormat("mp3")
             .save(outputPath)
             .on("end", async () => {
-                
                 await client.sendMessage(
                     m.chat,
                     {
@@ -33,8 +40,6 @@ module.exports = async (context) => {
                     },
                     { quoted: m }
                 );
-
-              
                 fs.unlinkSync(outputPath);
             })
             .on("error", (err) => {
@@ -45,7 +50,6 @@ module.exports = async (context) => {
         m.reply("Download failed\n" + error.message);
     }
 };
-
 
 
 
