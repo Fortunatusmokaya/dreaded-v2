@@ -21,7 +21,7 @@ mimetype: "video/mp4",
 await client.sendMessage(m.chat, {
  document: {url: data.result.downloadLink},
 mimetype: "video/mp4",
- fileName: `data.result.title}.mp4` }, { quoted: m });
+ fileName: `${data.result.title}.mp4` }, { quoted: m });
 
 
 } catch (error) {
