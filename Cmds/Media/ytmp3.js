@@ -3,7 +3,7 @@ module.exports = async (context) => {
 
 const path = require("path");
 const ffmpeg = require("fluent-ffmpeg");
-
+try {
 
 if (!text) return m.reply("Where is the YouTube link ?")
 
