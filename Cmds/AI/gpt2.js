@@ -1,25 +1,17 @@
 module.exports = async (context) => {
-    const { client, m, text } = context;
+    const { client, m, text, fetchJson } = context;
 
-const { G4F } = require("g4f"); 
+
 if (!text) return m.reply("What's your question ?");
 
 try {
 
 
-const GPT = new G4F(); 
+const data = await fetchJson(`https://api.dreaded.site/api/gpt?text=${text}`)
 
-const messages = [
-        { role: "system", content: "You're a whatsapp bot called Dreaded AI that processes users text and accepts commands. You work courtesy of bing from Microsoft."},
-        { role: "user", content: text}
-];
+const res = data.result;
 
-
-GPT.chatCompletion(messages)
-  .then(result => {
-   
-    m.reply(result);
-  });
+await m.reply(res);
 
 } catch (e) {
 console.log(e);
