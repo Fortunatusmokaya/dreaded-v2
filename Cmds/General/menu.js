@@ -14,7 +14,7 @@ module.exports = async (context) => {
             { name: 'Groups', emoji: '👥' },
             { name: 'Owner', emoji: '👑' },
             { name: 'Coding', emoji: '💻' },
-{ name: 'Stalk', emoji: '🎭' }
+{ name: 'Utils', emoji: '🎭' }
         ];
 
         
