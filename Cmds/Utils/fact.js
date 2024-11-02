@@ -8,7 +8,7 @@ try {
 
 const data = await fetchJson('https://api.dreaded.site/api/fact');
 
-const fact = data.result.fact;
+const fact = data.fact;
 
 await m.reply(fact);
 
