@@ -1,6 +1,6 @@
 module.exports = async (context) => {
     const { client, m, text, fetchJson } = context;
-
+const axios = require("axios");
 const path = require("path");
 const ffmpeg = require("fluent-ffmpeg");
 try {
@@ -14,7 +14,7 @@ if (!text) return m.reply("Where is the YouTube link ?")
 		return m.reply('Invalid URL.');
 	
 
-        let data = await fetchJson(`https://api.dreaded.site/api/ytdl/video?url=${text}`);
+        let data = await fetchJson(`https://api.dreaded.site/api/ytdl/ytmp3?url=${text}`);
         let videoUrl = data.result.downloadLink;
 
 let name = data.result.title;
