@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 module.exports = async (client, m, antidelete) => {
-    if (antidelete === 'true' && m.message.protocolMessage && m.message.protocolMessage.type === 0) {
+    if (m.isGroup && antidelete === 'true' && m.message.protocolMessage && m.message.protocolMessage.type === 0) {
         console.log("Deleted Message Detected!");
         let key = m.message.protocolMessage.key;
 
