@@ -57,6 +57,16 @@
       "required": false
     },
 
+ "AUTOLIKE_STATUS": {
+      "description": "Type true if you want bot to automatically like status updates, this will only work if AUTOVIEW_STATUS is true.",
+      "required": false
+    },
+
+ "ANTIDELETE": {
+      "description": "Type true if you want bot to automatically forward deleted messages in groups. The deleted messages will be forwarded to the <message yourself chat>. We are yet to implement antidelete for private chats.",
+      "required": false
+    },
+
 "EVENTS": {
       "description": "choose whether to allow bot to detect events in groups such as promote, demote, remove and add. If set to true bot will send welcome/goodbye messages and signal when somebody is promoted or demoted.",
       "value": "true",
