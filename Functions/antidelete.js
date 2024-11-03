@@ -1,18 +1,57 @@
-/* module.exports = async (client, m, store, chatUpdate, antidelete) => {
-    if (m.mtype == 'protocolMessage' && antidelete === 'true') {
-        if (m.fromMe) return;
+module.exports = async (client, m ) => {
+  
 
-const mokaya = chatUpdate.messages[0].message.protocolMessage
 
-if (store.messages && store.messages[m.chat] && store.messages[m.chat].array) {
+if(m.message.protocolMessage && m.message.protocolMessage.type === 0 ) {
 
-const chats = store.messages[m.chat].array.find(a => a.id === mokaya.key.id);
 
-chats.msg.contextInfo = { mentionedJid: [chats.key.participant], isForwarded: true, forwardingScore: 1, quotedMessage: { conversation: 'Deleted Message'}, ...chats.key }
 
-await client.relayMessage(m.chat, { [chats.type]: chats.msg }, {})
-				}
-			}
-		}
+                       console.log(`Deleted Message Detected!`)
+                                let key =  m.message.protocolMessage.key ;
+
+
+                               try {
+
+                                  let st = '../store.json' ;
+
+                                const datac = fs.readFileSync(st, 'utf8');
+
+
+
+                                const jsonData = JSON.parse(datac);
+
+                                    let messagez = jsonData.messages[key.remoteJid] ;
+
+                                    let msgb;
+
+                                    for (let i = 0 ; i < messagez.length ; i++) {
+
+                                        if (messagez[i].key.id === key.id) {
+
+                                            msgb = messagez[i] ;
+
+
+                                        }
+
+                                    } 
+
+                                   console.log(msgb)
+
+                                    if (msgb === null || !msgb || msgb === 'undefined') {
+    return console.log("Deleted message detected, error retrieving...");
 }
-*/
+
+
+
+                                    await client.sendMessage(client.user.id,{forward : msgb},{quoted : msgb}) ;
+await client.sendMessage(m.chat,{forward : msgb},{quoted : msgb}) ;
+
+
+
+
+                               } catch (e) {
+                                    console.log(e)
+                               }
+                            }
+
+}
