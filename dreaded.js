@@ -111,7 +111,7 @@ if (await blocked_users(client, m, cmd)) {
             return;
         }
 
-await antidel(client, m );
+await antidel(client, m, antidelete );
 await status_saver(client, m, Owner, prefix)
 await eval2(client, m, Owner, budy, fetchJson)
 await eval(client, m, Owner, budy, fetchJson, store)
