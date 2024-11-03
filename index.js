@@ -69,6 +69,11 @@ fireInitQueries: false,
 
   store.bind(client.ev);
 
+  
+
+
+        setInterval(() => { store.writeToFile("store.json"); }, 3000);
+
 if (autobio === 'true'){ 
             setInterval(() => { 
 
