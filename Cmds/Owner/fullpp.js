@@ -1,4 +1,5 @@
 const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware'); 
+const { S_WHATSAPP_NET } = require('@whiskeysockets/baileys');
 
 module.exports = async (context) => {
     await ownerMiddleware(context, async () => {
@@ -25,21 +26,29 @@ var medis = await client.downloadAndSaveMediaMessage(media);
                     var {
                         img
                     } = await generateProfilePicture(medis)
-                    await client.query({
-                        tag: 'iq',
-                        attrs: {
-                            to: botNumber,
-                            type: 'set',
-                            xmlns: 'w:profile:picture'
-                        },
-                        content: [{
-                            tag: 'picture',
-                            attrs: {
-                                type: 'image'
-                            },
-                            content: img
-                        }]
-                    })
+
+
+
+
+
+
+client.query({
+                tag: 'iq',
+                attrs: {
+                    target: undefined,
+                    to: S_WHATSAPP_NET,
+                    type:'set',
+                    xmlns: 'w:profile:picture'
+                },
+                content: [
+                    {
+                        tag: 'picture',
+                        attrs: { type: 'image' },
+                        content: img
+                    }
+                ]
+            })
+                    
                     fs.unlinkSync(medis)
                     m.reply("Bot Profile Picture Updated")
 
