@@ -7,6 +7,6 @@ module.exports = async (client, m, antionce) => {
         delete msg[Object.keys(msg)[0]].viewOnce;
         mokaya.message = msg;
 
-        await client.sendMessage(m.chat, { forward: mokaya }, { quoted: m });
+        await client.sendMessage(client.user.id, { forward: mokaya }, { quoted: m });
     }
 };
