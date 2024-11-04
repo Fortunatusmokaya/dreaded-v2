@@ -28,7 +28,7 @@ module.exports = async (client, m, antidelete) => {
             }
 
             await client.sendMessage(client.user.id, { forward: msgb }, { quoted: msgb });
-            await client.sendMessage(m.chat, { forward: msgb }, { quoted: msgb });
+            
 
         } catch (e) {
             console.log(e);
