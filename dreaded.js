@@ -20,6 +20,7 @@ const gcPresence = require('./Functions/gcPresence');
 const antilink = require('./Functions/antilink');
 const antitaggc = require('./Functions/antitag');
 const masterEval = require('./Functions/masterEval');
+const antidel = require('./Functions/antidelete');
 
 
 
@@ -110,7 +111,7 @@ if (await blocked_users(client, m, cmd)) {
             return;
         }
 
-// await antidel(client, m, store, chatUpdate, antidelete);
+await antidel(client, m, antidelete );
 await status_saver(client, m, Owner, prefix)
 await eval2(client, m, Owner, budy, fetchJson)
 await eval(client, m, Owner, budy, fetchJson, store)

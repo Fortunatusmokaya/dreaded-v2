@@ -1,31 +1,22 @@
 module.exports = async (context) => {
-    const { client, m, text } = context;
+    const { client, m, text, fetchJson } = context;
 
-const { G4F } = require("g4f"); 
-if (!text) return m.reply("What's your question ?");
+    if (!text) {
+        return m.reply("What's your question?");
+    }
 
-try {
+    try {
+        const data = await fetchJson(`https://api.dreaded.site/api/gpt?text=${encodeURIComponent(text)}`);
 
+        if (data.success) {
+            const res = data.result;
+            await m.reply(res);
+        } else {
+            await m.reply("Failed to get a response from the API.");
+        }
 
-const GPT = new G4F(); 
-
-const messages = [
-        { role: "system", content: "You're a whatsapp bot called Dreaded AI that processes users text and accepts commands. You work courtesy of bing from Microsoft."},
-        { role: "user", content: text}
-];
-
-
-GPT.chatCompletion(messages)
-  .then(result => {
-   
-    m.reply(result);
-  });
-
-} catch (e) {
-console.log(e);
-
- m.reply("Error occured") }
-
-
-
-}
+    } catch (e) {
+        console.log(e);
+        m.reply("An error occurred while processing your request.");
+    }
+};

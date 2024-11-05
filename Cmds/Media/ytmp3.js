@@ -1,6 +1,9 @@
 module.exports = async (context) => {
     const { client, m, text, fetchJson } = context;
-
+const axios = require("axios");
+const path = require("path");
+const ffmpeg = require("fluent-ffmpeg");
+try {
 
 if (!text) return m.reply("Where is the YouTube link ?")
 
@@ -8,38 +11,54 @@ if (!text) return m.reply("Where is the YouTube link ?")
 	if (!urls) return m.reply('Is this a YouTube link ?');
 	let urlIndex = parseInt(text) - 1;
 	if (urlIndex < 0 || urlIndex >= urls.length)
-		return m.reply('Invalid URL index');
-	await downloadMp3(urls);
+		return m.reply('Invalid URL.');
+	
+
+        let data = await fetchJson(`https://api.dreaded.site/api/ytdl/ytmp3?url=${text}`);
+        let videoUrl = data.result.downloadLink;
+
+let name = data.result.title;
+
+        let outputFileName = `${name}.mp3`;
+        let outputPath = path.join(__dirname, outputFileName);
+
+
+        const response = await axios({
+            url: videoUrl,
+            method: "GET",
+            responseType: "stream"
+        });
+
+
+        ffmpeg(response.data)
+            .toFormat("mp3")
+            .save(outputPath)
+            .on("end", async () => {
+                await client.sendMessage(
+                    m.chat,
+                    {
+                        document: { url: outputPath },
+                        mimetype: "audio/mp3",
+                        fileName: outputFileName,
+                    },
+                    { quoted: m }
+                );
+                fs.unlinkSync(outputPath);
+            })
+            .on("error", (err) => {
+                m.reply("Download failed\n" + err.message);
+            });
+
+    } catch (error) {
+        m.reply("Download failed\n" + error.message);
+    }
+};
 
 
 
 
 
-async function downloadMp3 (link) {
-try {
-
-let data = await fetchJson (`https://widipe.com/download/ytdl?url=${link}`)
-
-await client.sendMessage(m.chat, {
- audio: {url: data.result.mp3},
-mimetype: "audio/mp3",
- fileName: `${data.result.title}.mp3`
- 
-    }, { quoted: m });
-
-await client.sendMessage(m.chat, {
- document: {url: data.result.mp3},
-mimetype: "audio/mp3",
- fileName: `${data.result.title}.mp3`
- 
-    }, { quoted: m });
-  } catch (error) {
-    console.error('Error fetching the song:', error);
-    await m.reply(`Error.`)
-  }
-}
 
 
 
 
-}

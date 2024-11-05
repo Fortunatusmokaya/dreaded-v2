@@ -66,4 +66,5 @@ const Events = async (client, Fortu) => {
     }
 };
 
+
 module.exports = Events;

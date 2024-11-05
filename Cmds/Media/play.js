@@ -1,4 +1,62 @@
+const yts = require("yt-search");
+const ffmpeg = require("fluent-ffmpeg");
+const fs = require("fs");
+const path = require("path");
+const axios = require("axios");
+
 module.exports = async (context) => {
+    const { client, m, text, fetchJson } = context;
+
+    try {
+        if (!text) return m.reply("What song do you want to download?");
+
+        let search = await yts(text);
+        let link = search.all[0].url;
+
+        let data = await fetchJson(`https://api.dreaded.site/api/ytdl/video?url=${link}`);
+        let videoUrl = data.result.downloadLink;
+
+        let outputFileName = `${search.all[0].title}.mp3`;
+        let outputPath = path.join(__dirname, outputFileName);
+
+       
+        const response = await axios({
+            url: videoUrl,
+            method: "GET",
+            responseType: "stream"
+        });
+
+        
+        ffmpeg(response.data)
+            .toFormat("mp3")
+            .save(outputPath)
+            .on("end", async () => {
+                await client.sendMessage(
+                    m.chat,
+                    {
+                        document: { url: outputPath },
+                        mimetype: "audio/mp3",
+                        fileName: outputFileName,
+                    },
+                    { quoted: m }
+                );
+                fs.unlinkSync(outputPath);
+            })
+            .on("error", (err) => {
+                m.reply("Download failed\n" + err.message);
+            });
+
+    } catch (error) {
+        m.reply("Download failed\n" + error.message);
+    }
+};
+
+
+
+
+
+
+/* module.exports = async (context) => {
     const { client, m, text, fetchJson } = context;
 
 const yts = require("yt-search");
@@ -25,7 +83,7 @@ m.reply("Download failed\n" + error)
 }
 
 }
-
+*/
 
 
 
