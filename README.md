@@ -88,6 +88,10 @@ pm2 start index.js
 
 _CTRL + C_
 
+## EARN MONEY
+<!-- Start of banner code -->
+<a href="https://clicksfly.com/ref/STRIKERBOY350"><img src="https://clicksfly.com/img/ref/clicksglygifbanner.gif" title="ClicksFly - Shorten URLs and Earn Money" /></a>
+<!-- End of banner code -->
 
 
 
@@ -101,7 +105,6 @@ Thanks to...
 | [![Fortunatus Mokaya](https://github.com/Fortunatusmokaya.png?lenght=50width=50)](https://github.com/Fortunatusmokaya)|
 |----|
 * [`Fortunatus mokaya`](https://github.com/Fortunatusmokaya) ***Author, Owner***
-
 * [`DikaArdnt`](https://github.com/DikaArdnt) ***For Hisoka Base***
 * [`Adiwajshing`](https://github.com/WhiskeySockets/Baileys) ***Baileys Library***
 * [`WaSocket Discord`](https://discord.gg/WeJM5FP9GG) ***Maintaining the bot libs***
