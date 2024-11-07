@@ -5,6 +5,8 @@ module.exports = async (context) => {
 
         const { client, m, text, budy} = context;
 
+
+try {
 const { exec, spawn, execSync } = require("child_process");
 
     
@@ -13,6 +15,12 @@ const { exec, spawn, execSync } = require("child_process");
 if(err) return m.reply(err)
 if (stdout) return m.reply(stdout)
   })
+
+} catch (error) {
+
+await m.reply("An error occured while running shell command\n" + error)
+
+}
    });
 
 }
