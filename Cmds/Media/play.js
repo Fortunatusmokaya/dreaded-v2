@@ -13,10 +13,16 @@ module.exports = async (context) => {
         let search = await yts(text);
         let link = search.all[0].url;
 
+        
         let data = await fetchJson(`https://api.dreaded.site/api/ytdl/video?url=${link}`);
+        
+       
+        if (!data || data.status !== 200 || !data.result || !data.result.downloadLink) {
+            return m.reply("We are sorry but the API endpoint didn't respond correctly. Try again later.");
+        }
+
         let videoUrl = data.result.downloadLink;
 
-      
         let outputFileName = `${search.all[0].title.replace(/[^a-zA-Z0-9 ]/g, "")}.mp3`;
         let outputPath = path.join(__dirname, outputFileName);
 
@@ -25,6 +31,11 @@ module.exports = async (context) => {
             method: "GET",
             responseType: "stream"
         });
+
+       
+        if (response.status !== 200) {
+            return m.reply("We are sorry but the API endpoint didn't respond correctly. Try again later.");
+        }
 
         ffmpeg(response.data)
             .toFormat("mp3")
