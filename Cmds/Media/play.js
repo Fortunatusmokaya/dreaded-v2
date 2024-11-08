@@ -16,17 +16,16 @@ module.exports = async (context) => {
         let data = await fetchJson(`https://api.dreaded.site/api/ytdl/video?url=${link}`);
         let videoUrl = data.result.downloadLink;
 
-        let outputFileName = `${search.all[0].title}.mp3`;
+      
+        let outputFileName = `${search.all[0].title.replace(/[^a-zA-Z0-9 ]/g, "")}.mp3`;
         let outputPath = path.join(__dirname, outputFileName);
 
-       
         const response = await axios({
             url: videoUrl,
             method: "GET",
             responseType: "stream"
         });
 
-        
         ffmpeg(response.data)
             .toFormat("mp3")
             .save(outputPath)
