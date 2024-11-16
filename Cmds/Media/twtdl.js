@@ -1,6 +1,6 @@
 module.exports = async (context) => {
 
-const { client, m, text, botname } = context;
+const { client, m, text, botname, fetchJson } = context;
 
 if (!text) return m.reply("Provide a twitter or X link for the video");
 
@@ -8,11 +8,11 @@ if (!text) return m.reply("Provide a twitter or X link for the video");
 
 try {
 
-const response = await fetch(`https://api.prabath-md.tech/api/twitterdl?url=${text}`);
-const data = await response.json();
+const data = await fetchJson(`https://api.dreaded.site/api/alldl?url=${text}`);
 
 
-const twtvid = data.data.data.SD;
+
+const twtvid = data.data.videoUrl;
 
 await client.sendMessage(m.chat,{video : {url : twtvid },caption : `Downloaded by ${botname}`,gifPlayback : false },{quoted : m}) 
 
