@@ -13,14 +13,14 @@ module.exports = async (context) => {
                 let data = await fetchJson(`https://api.dreaded.site/api/facebook?url=${text}`);
 
 
-        if (!data || data.status !== 200 || !data.facebook || !data.facebook.video) {
+        if (!data || data.status !== 200 || !data.facebook || !data.facebook.sdVideo) {
             return m.reply("We are sorry but the API endpoint didn't respond correctly. Try again later.");
         }
 
 
 
 
-        const fbvid = data.facebook.video;
+        const fbvid = data.facebook.sdVideo;
         const title = data.facebook.title;
 
 
