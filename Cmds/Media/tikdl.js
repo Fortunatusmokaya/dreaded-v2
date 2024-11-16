@@ -24,7 +24,7 @@ module.exports = async (context) => {
         const desc = data.tiktok.description;
 
        
-        if (!tikvid || !desc) {
+        if (!tikvid) {
             return m.reply("Invalid TikTok data. Please ensure the video exists.");
         }
 
@@ -32,7 +32,7 @@ module.exports = async (context) => {
             m.chat,
             {
                 video: { url: tikvid },
-                caption: `${desc}\nDownloaded by ${botname}`,
+                caption: `Downloaded by ${botname}`,
                 gifPlayback: false,
             },
             { quoted: m }
