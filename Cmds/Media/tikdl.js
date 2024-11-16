@@ -1,5 +1,5 @@
 module.exports = async (context) => {
-    const { client, m, text, botname } = context;
+    const { client, m, text, botname, fetchJson } = context;
 
     if (!text) {
         return m.reply("Provide a TikTok link for the video");
