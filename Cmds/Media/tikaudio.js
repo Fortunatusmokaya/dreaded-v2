@@ -28,17 +28,15 @@ module.exports = async (context) => {
             return m.reply("Invalid TikTok data. Please ensure the video exists.");
         }
 
-        await client.sendMessage(
-            m.chat,
-            {
-                audio: { url: tikaud }
-               
-                
-            },
-            { quoted: m }
-        );
+await client.sendMessage(m.chat, {
+  audio: {url: tikaud},
+mimetype: "audio/mp3",
+ fileName: `audioo.mp3`}, { quoted: m });
+
+
+        
     } catch (e) {
         console.error("Error occurred:", e);
-        m.reply("An error occurred. API might be down. Error: " + e.message);
+        m.reply("An error occurred. API might be down. Error: " + e);
     }
 };
