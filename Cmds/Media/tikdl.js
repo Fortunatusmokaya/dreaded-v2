@@ -10,16 +10,15 @@ module.exports = async (context) => {
     }
 
     try {
-        const response = await fetch(`https://api.dreaded.site/api/tiktok?url=${text}`);
-        const data = await response.json();
+                let data = await fetchJson(`https://api.dreaded.site/api/tiktok?url=${text}`);
 
-      
-        console.log("API Response:", data);
+
+        if (!data || data.status !== 200 || !data.tiktok || !data.tiktok.video) {
+            return m.reply("We are sorry but the API endpoint didn't respond correctly. Try again later.");
+        }
 
        
-        if (!data?.tiktok) {
-            return m.reply("Failed to retrieve TikTok video data. Please try again later.");
-        }
+        
 
         const tikvid = data.tiktok.video;
         const desc = data.tiktok.description;
