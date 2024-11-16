@@ -11,6 +11,11 @@ try {
 const data = await fetchJson(`https://api.dreaded.site/api/alldl?url=${text}`);
 
 
+        if (!data || data.status !== 200 || !data.data || !data.data.videoUrl) {
+            return m.reply("We are sorry but the API endpoint didn't respond correctly. Try again later.");
+        }
+
+
 
 const allvid = data.data.videoUrl;
 
