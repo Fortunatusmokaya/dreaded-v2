@@ -26,6 +26,8 @@ Some AI and media commands use our API. This API is not very reliable hence some
 
 - ***`If you are a developer you can check out our`  [`API SITE`](https://api.dreaded.site).
 
+- ***`The API site contains many endpoints that can be used in your projects. No need for API keys or login, completely free, for now`
+
 ## SET-UP
 
 ## Fork
