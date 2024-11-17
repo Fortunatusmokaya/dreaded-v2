@@ -1,25 +1,44 @@
 module.exports = async (context) => {
+    const { client, m, text, botname, fetchJson } = context;
 
-const { client, m, text, botname } = context;
+    if (!text) {
+        return m.reply("Provide a facebook link for the video");
+    }
 
-if (!text) return m.reply("Provide a Facebook link for the video");
+    if (!text.includes("facebook.com")) {
+        return m.reply("That is not a facebook link.");
+    }
 
-if (!text.includes('facebook.com')) return m.reply("That is not a Facebook link");
-
-try {
-
-const response = await fetch(`https://api.prabath-md.tech/api/fdown?url=${text}`);
-const data = await response.json();
+    try {
+                let data = await fetchJson(`https://api.dreaded.site/api/facebook?url=${text}`);
 
 
-const fbvid = data.data.sd;
+        if (!data || data.status !== 200 || !data.facebook || !data.facebook.sdVideo) {
+            return m.reply("We are sorry but the API endpoint didn't respond correctly. Try again later.");
+        }
 
-await client.sendMessage(m.chat,{video : {url : fbvid },caption : `Downloaded by ${botname}`,gifPlayback : false },{quoted : m}) 
 
-} catch (e) {
 
-m.reply("An error occured. API might be down\n" + e)
 
-}
+        const fbvid = data.facebook.sdVideo;
+        const title = data.facebook.title;
 
-}
+
+        if (!fbvid) {
+            return m.reply("Invalid facebook data. Please ensure the video exists.");
+        }
+
+        await client.sendMessage(
+            m.chat,
+            {
+                video: { url: fbvid },
+                caption: `${title}\n\nDownloaded by ${botname}`,
+                gifPlayback: false,
+            },
+            { quoted: m }
+        );
+    } catch (e) {
+        console.error("Error occurred:", e);
+        m.reply("An error occurred. API might be down. Error: " + e.message);
+    }
+};

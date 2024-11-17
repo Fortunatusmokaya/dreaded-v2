@@ -1,60 +1,30 @@
 module.exports = async (context) => {
 
-const { client, m, text, botname } = context;
-const { alldown } = require("nayan-media-downloader");
+const { client, m, text, botname, fetchJson } = context;
+
+if (!text) return m.reply("Provide any link for download.\nE.g:- FB, X, tiktok, capcut etc");
+
+
 
 try {
 
-if (!text) return m.reply("Provide any media link..nn .");
+const data = await fetchJson(`https://api.dreaded.site/api/alldl?url=${text}`);
 
-alldown(text).then(data => {
-  if (data && data.media && data.media.title) {
-    m.reply(data.media.title);
-  } else {
-    console.error('Error: data.media.title is undefined');
-    m.reply('An error occurred');
-  }
-}).catch(error => {
-  console.error('Error:', error);
-  m.reply('An error occurred' + error);
-});
+
+        if (!data || data.status !== 200 || !data.data || !data.data.videoUrl) {
+            return m.reply("We are sorry but the API endpoint didn't respond correctly. Try again later.");
+        }
 
 
 
-/*   const data = await alldown(text);
+const allvid = data.data.videoUrl;
 
+await client.sendMessage(m.chat,{video : {url : allvid },caption : `Downloaded by ${botname}`,gifPlayback : false },{quoted : m}) 
 
+} catch (e) {
 
-if (data && data.media) {
-
-
-
-const info = data.media.title;
-await m.reply('hey');
-
-  await m.reply(info);
- 
-} else { m.reply("data inaccessible")
-}
-*/
-
-
-
-
-
-
-} catch (er) {
-
-await m.reply('Error\n' + er)
+m.reply("An error occured. API might be down\n" + e)
 
 }
 
 }
-
-
-  
-
-
-
-
-
