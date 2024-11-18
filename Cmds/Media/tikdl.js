@@ -1,6 +1,3 @@
-const ffmpeg = require("fluent-ffmpeg");
-const fs = require("fs");
-const path = require("path");
 const axios = require("axios");
 
 module.exports = async (context) => {
@@ -17,41 +14,17 @@ module.exports = async (context) => {
         }
 
         const tikVideoUrl = data.tiktok.video;
-        const videoDesc = data.tiktok.description;
-
-        const outputFileName = `TikTok_${Date.now()}.mp4`;
-        const outputPath = path.join(__dirname, outputFileName);
+        
 
         
-        const response = await axios({
-            url: tikVideoUrl,
-            method: "GET",
-            responseType: "stream", 
-        });
-
-        if (response.status !== 200) {
-            return m.reply(`Failed to fetch video: HTTP ${response.status}`);
-        }
-
-       
-        ffmpeg(response.data)
-            .toFormat("mp4")
-            .save(outputPath)
-            .on("end", async () => {
-                await client.sendMessage(
-                    m.chat,
-                    {
-                        video: fs.createReadStream(outputPath),
-                        caption: `Downloaded by TikTok Bot\n\nDescription: ${videoDesc}`,
-                    },
-                    { quoted: m }
-                );
-                fs.unlinkSync(outputPath);
-            })
-            .on("error", (err) => {
-                m.reply(`FFmpeg Error: ${err.message}`);
-            });
-
+        await client.sendMessage(
+            m.chat,
+            {
+                video: { url: tikVideoUrl },
+                caption: `Downloaded by ${botname}`,
+            },
+            { quoted: m }
+        );
     } catch (error) {
         m.reply(`Error: ${error.message}`);
     }
