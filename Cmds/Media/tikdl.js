@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 module.exports = async (context) => {
-    const { client, m, text, fetchJson } = context;
+    const { client, botname, m, text, fetchJson } = context;
 
     try {
         if (!text) return m.reply("Provide a TikTok link for the video.");
