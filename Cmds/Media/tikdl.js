@@ -25,7 +25,7 @@ module.exports = async (context) => {
         const videoBuffer = Buffer.from(await response.arrayBuffer());
 
 await client.sendMessage(m.chat, {
-  video: videoBuffer,
+  video: { url: tikVideoUrl },
 mimetype: "video/mp4",
  fileName: `video.mp4`}, { quoted: m });
 
