@@ -7,25 +7,21 @@ module.exports = async (context) => {
     const { client, m, text, fetchJson } = context;
 
     try {
-       
         if (!text) return m.reply("Provide a TikTok link for the video.");
         if (!text.includes("tiktok.com")) return m.reply("That is not a valid TikTok link.");
 
-       
         const data = await fetchJson(`https://api.dreaded.site/api/tiktok?url=${text}`);
 
         if (!data || data.status !== 200 || !data.tiktok || !data.tiktok.video) {
-            return m.reply("We are sorry, but the API endpoint didn't respond correctly. Try again later.");
+            return m.reply(`API Error: ${data?.message || "Invalid API response"}`);
         }
 
         const tikVideoUrl = data.tiktok.video;
         const videoDesc = data.tiktok.description;
 
-        
         const outputFileName = `TikTok_${Date.now()}.mp4`;
         const outputPath = path.join(__dirname, outputFileName);
 
-      
         const response = await axios({
             url: tikVideoUrl,
             method: "GET",
@@ -33,14 +29,13 @@ module.exports = async (context) => {
         });
 
         if (response.status !== 200) {
-            return m.reply("Failed to download the TikTok video. Please try again later.");
+            return m.reply(`Failed to fetch video: HTTP ${response.status}`);
         }
 
         ffmpeg(response.data)
             .toFormat("mp4")
             .save(outputPath)
             .on("end", async () => {
-              
                 await client.sendMessage(
                     m.chat,
                     {
@@ -49,17 +44,13 @@ module.exports = async (context) => {
                     },
                     { quoted: m }
                 );
-
-               
                 fs.unlinkSync(outputPath);
             })
             .on("error", (err) => {
-                console.error("FFmpeg Error:", err.message);
-                m.reply("An error occurred while processing the video. Please try again.");
+                m.reply(`FFmpeg Error: ${err.message}`);
             });
 
     } catch (error) {
-        console.error("Error:", error.message);
-        m.reply("An error occurred. Error: " + error.message);
+        m.reply(`Error: ${error.message}`);
     }
 };
