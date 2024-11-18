@@ -19,12 +19,6 @@ module.exports = async (context) => {
         const tikVideoUrl = data.tiktok.video;
         const videoDesc = data.tiktok.description;
 
-        
-        const headResponse = await axios.head(tikVideoUrl);
-        if (headResponse.status !== 200 || !headResponse.headers['content-type'].includes("video")) {
-            return m.reply(`Invalid video URL: Received HTTP ${headResponse.status}`);
-        }
-
         const outputFileName = `TikTok_${Date.now()}.mp4`;
         const outputPath = path.join(__dirname, outputFileName);
 
