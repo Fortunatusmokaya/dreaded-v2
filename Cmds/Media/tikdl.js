@@ -24,17 +24,14 @@ module.exports = async (context) => {
 
         const videoBuffer = Buffer.from(await response.arrayBuffer());
 
+await client.sendMessage(m.chat, {
+  video: videoBuffer,
+mimetype: "video/mp4",
+ fileName: `video.mp4`}, { quoted: m });
+
+
       
-        await client.sendMessage(
-            m.chat,
-            {
-                video: videoBuffer,
-                mimetype: 'video/mp4',  
-                caption: `Downloaded by ${botname}`,
-                fileName: "downloaded_video.mp4",  
-            },
-            { quoted: m }
-        );
+        
     } catch (error) {
         m.reply(`Error: ${error.message}`);
     }
