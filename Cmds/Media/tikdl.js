@@ -22,16 +22,18 @@ module.exports = async (context) => {
         const outputFileName = `TikTok_${Date.now()}.mp4`;
         const outputPath = path.join(__dirname, outputFileName);
 
+        
         const response = await axios({
             url: tikVideoUrl,
             method: "GET",
-            responseType: "stream",
+            responseType: "stream", 
         });
 
         if (response.status !== 200) {
             return m.reply(`Failed to fetch video: HTTP ${response.status}`);
         }
 
+       
         ffmpeg(response.data)
             .toFormat("mp4")
             .save(outputPath)
