@@ -15,7 +15,7 @@ module.exports = async (context) => {
 
         const tikVideoUrl = data.tiktok.video;
 
-        
+      
         const response = await fetch(tikVideoUrl);
 
         if (!response.ok) {
@@ -24,11 +24,14 @@ module.exports = async (context) => {
 
         const videoBuffer = Buffer.from(await response.arrayBuffer());
 
+      
         await client.sendMessage(
             m.chat,
             {
                 video: videoBuffer,
+                mimetype: 'video/mp4',  
                 caption: `Downloaded by ${botname}`,
+                fileName: "downloaded_video.mp4",  
             },
             { quoted: m }
         );
