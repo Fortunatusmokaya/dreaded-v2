@@ -1,4 +1,7 @@
 const fetch = require("node-fetch");
+const ffmpeg = require("fluent-ffmpeg");
+const fs = require("fs");
+const path = require("path");
 
 module.exports = async (context) => {
     const { client, m, text, botname } = context;
@@ -25,21 +28,36 @@ module.exports = async (context) => {
         }
 
         const tikvid = data.tiktok.video;
-        const desc = data.tiktok.description;
 
         if (!tikvid) {
             return m.reply("Invalid TikTok data. Please ensure the video exists.");
         }
 
-        await client.sendMessage(
-            m.chat,
-            {
-                video: { url: tikvid },
-                caption: `Downloaded by ${botname}`,
-                gifPlayback: false,
-            },
-            { quoted: m }
-        );
+       
+        const videoPath = path.resolve(__dirname, `tiktok_${Date.now()}.mp4`);
+
+     
+        ffmpeg(tikvid)
+            .output(videoPath)
+            .on("end", async () => {
+               
+                await client.sendMessage(
+                    m.chat,
+                    {
+                        video: fs.createReadStream(videoPath),
+                        caption: `Downloaded by ${botname}`,
+                    },
+                    { quoted: m }
+                );
+
+              
+                fs.unlinkSync(videoPath);
+            })
+            .on("error", (err) => {
+                console.error("FFmpeg error:", err.message);
+                m.reply("An error occurred while processing the video. Please try again.");
+            })
+            .run();
     } catch (e) {
         console.error("Error occurred:", e);
         m.reply("An error occurred. API might be down. Error: " + e.message);
