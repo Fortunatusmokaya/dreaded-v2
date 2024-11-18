@@ -1,4 +1,4 @@
-const axios = require("axios");
+const fetch = require("node-fetch");
 
 module.exports = async (context) => {
     const { client, botname, m, text, fetchJson } = context;
@@ -16,17 +16,13 @@ module.exports = async (context) => {
         const tikVideoUrl = data.tiktok.video;
 
         
-        const response = await axios({
-            url: tikVideoUrl,
-            method: "GET",
-            responseType: "arraybuffer",  
-        });
+        const response = await fetch(tikVideoUrl);
 
-        if (response.status !== 200) {
+        if (!response.ok) {
             return m.reply(`Failed to fetch video: HTTP ${response.status}`);
         }
 
-        const videoBuffer = Buffer.from(response.data);
+        const videoBuffer = Buffer.from(await response.arrayBuffer());
 
         await client.sendMessage(
             m.chat,
