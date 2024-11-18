@@ -14,13 +14,24 @@ module.exports = async (context) => {
         }
 
         const tikVideoUrl = data.tiktok.video;
-        
 
         
+        const response = await axios({
+            url: tikVideoUrl,
+            method: "GET",
+            responseType: "arraybuffer",  
+        });
+
+        if (response.status !== 200) {
+            return m.reply(`Failed to fetch video: HTTP ${response.status}`);
+        }
+
+        const videoBuffer = Buffer.from(response.data);
+
         await client.sendMessage(
             m.chat,
             {
-                video: { url: tikVideoUrl },
+                video: videoBuffer,
                 caption: `Downloaded by ${botname}`,
             },
             { quoted: m }
