@@ -19,7 +19,7 @@ module.exports = async (context) => {
         let data = await fetchJson(`https://api.dreaded.site/api/alldl?url=${link}`);
         
        
-        if (!data || data.status !== 200 || !data.result || !data.result.videoUrl) {
+        if (!data || data.status !== 200 || !data.data || !data.data.videoUrl) {
             return m.reply("We are sorry but the API endpoint didn't respond correctly. Try again later.");
         }
 
