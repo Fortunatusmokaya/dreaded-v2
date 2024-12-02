@@ -12,16 +12,17 @@ if (!text) return m.reply("Where is the YouTube link ?")
                 return m.reply('Invalid URL.');
 
 
-        let data = await fetchJson (`https://api.dreaded.site/api/ytdl/ytmp4?url=${text}`)
+        let data = await fetchJson(`https://api.dreaded.site/api/alldl?url=${text}`);
+        
 await client.sendMessage(m.chat, {
-  video: {url: data.result.downloadLink},
+  video: {url: data.data.videoUrl},
 mimetype: "video/mp4",
- fileName: `${data.result.title}.mp4`}, { quoted: m });
+ fileName: `${data.data.title}.mp4`}, { quoted: m });
 
 await client.sendMessage(m.chat, {
- document: {url: data.result.downloadLink},
+ document: {url: data.data.videoUrl},
 mimetype: "video/mp4",
- fileName: `${data.result.title}.mp4` }, { quoted: m });
+ fileName: `${data.data.title}.mp4` }, { quoted: m });
 
 
 } catch (error) {
