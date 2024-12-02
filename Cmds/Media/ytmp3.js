@@ -15,7 +15,7 @@ if (!text) return m.reply("Where is the YouTube link ?")
 	
 
         let data = await fetchJson(`https://api.dreaded.site/api/alldl?url=${text}`);
-        let videoUrl = data.data.downloadLink;
+        let videoUrl = data.data.videoUrl;
 
 let name = data.data.title;
 
