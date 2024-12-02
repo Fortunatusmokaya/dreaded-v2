@@ -14,10 +14,10 @@ if (!text) return m.reply("Where is the YouTube link ?")
 		return m.reply('Invalid URL.');
 	
 
-        let data = await fetchJson(`https://api.dreaded.site/api/ytdl/ytmp3?url=${text}`);
-        let videoUrl = data.result.downloadLink;
+        let data = await fetchJson(`https://api.dreaded.site/api/alldl?url=${text}`);
+        let videoUrl = data.data.downloadLink;
 
-let name = data.result.title;
+let name = data.data.title;
 
         let outputFileName = `${name}.mp3`;
         let outputPath = path.join(__dirname, outputFileName);
