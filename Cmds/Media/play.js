@@ -16,14 +16,14 @@ module.exports = async (context) => {
         let link = search.all[0].url;
 
         
-        let data = await fetchJson(`https://api.dreaded.site/api/ytdl/video?url=${link}`);
+        let data = await fetchJson(`https://api.dreaded.site/api/alldl?url=${link}`);
         
        
-        if (!data || data.status !== 200 || !data.result || !data.result.downloadLink) {
+        if (!data || data.status !== 200 || !data.result || !data.result.videoUrl) {
             return m.reply("We are sorry but the API endpoint didn't respond correctly. Try again later.");
         }
 
-        let videoUrl = data.result.downloadLink;
+        let videoUrl = data.data.videoUrl;
 
         let outputFileName = `${search.all[0].title.replace(/[^a-zA-Z0-9 ]/g, "")}.mp3`;
         let outputPath = path.join(__dirname, outputFileName);
