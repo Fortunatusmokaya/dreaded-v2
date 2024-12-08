@@ -6,16 +6,23 @@ try {
 
 if (!text) return m.reply("What song do you want to download ?")
 
-let search = await yts(text);
-        let link = search.all[0].url;
 
-        let data = await fetchJson (`https://api.dreaded.site/api/ytdl/video?url=${link}`)
+
+        let data = await fetchJson (`https://api.dreaded.site/api/ytdl/audio?query=${text}`)
+
+let name = data.result.title;
+await m.reply(`_Downloading ${name}_`
 
 
 await client.sendMessage(m.chat, {
  document: {url: data.result.downloadLink},
 mimetype: "audio/mp3",
- fileName: `${search.all[0].title}.mp3` }, { quoted: m });
+ fileName: name }, { quoted: m });
+
+await client.sendMessage(m.chat, {
+ audio: {url: data.result.downloadLink},
+mimetype: "audio/mp3",
+ fileName: name }, { quoted: m });
 
 
 } catch (error) {
