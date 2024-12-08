@@ -1,19 +1,22 @@
 module.exports = async (context) => {
-    const { client, m, text } = context;
+    const { client, m, text, fetchJson } = context;
+
+    if (!text) {
+        return m.reply("What's your question?");
+    }
 
     try {
-        if (!text) return m.reply("This is dreaded, an AI using Gemini APIs to process text, provide a text");
+        const data = await fetchJson(`https://api.dreaded.site/api/gemini-text?text=${encodeURIComponent(text)}`);
 
-       
-        const { default: Gemini } = await import('gemini-ai');
+        if (data.success) {
+            const res = data.result;
+            await m.reply(res);
+        } else {
+            await m.reply("Failed to get a response from the API.");
+        }
 
-        const gemini = new Gemini("AIzaSyCcZqDMBa8FcAdBxqE1o6YYvzlygmpBx14");
-        const chat = gemini.createChat();
-
-        const res = await chat.ask(text);
-
-        await m.reply(res);
     } catch (e) {
-        m.reply("I am unable to generate responses\n\n" + e);
+        console.log(e);
+        m.reply("An error occurred while processing your request.");
     }
 };
