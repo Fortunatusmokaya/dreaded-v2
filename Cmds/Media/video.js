@@ -18,7 +18,11 @@ await m.reply(`_Downloading ${name}_`)
 
 await client.sendMessage(m.chat, {
  video: {url: data.result.videoLink},
-mimetype: "video/mpeg", caption: name,
+mimetype: "video/mp4", caption: name,
+ fileName: name }, { quoted: m });
+await client.sendMessage(m.chat, {
+ document: {url: data.result.videoLink},
+mimetype: "video/mp4", caption: name,
  fileName: name }, { quoted: m });
 
 
