@@ -8,7 +8,7 @@ if (!text) return m.reply("What song do you want to download ?")
 
 
 
-        let data = await fetchJson (`https://api.dreaded.site/api/ytdl/audio?query=${text}`)
+        let data = await fetchJson (`https://api.dreaded.site/api/ytdl/video?query=${text}`)
 
 let name = data.result.title;
 await m.reply(`_Downloading ${name}_`)
@@ -17,7 +17,7 @@ await m.reply(`_Downloading ${name}_`)
 
 
 await client.sendMessage(m.chat, {
- audio: {url: data.result.downloadLink},
+ audio: {url: data.result.audioLink},
 mimetype: "audio/mpeg",
  fileName: name }, { quoted: m });
 
