@@ -1,22 +1,22 @@
 module.exports = async (context) => {
-    const { client, m, text } = context;
+    const { client, m, text, fetchJson } = context;
+
+    if (!text) {
+        return m.reply("What's your question?");
+    }
 
     try {
-        if (!text) return m.reply("This is chatgpt. Provide a text.");
+        const data = await fetchJson(`https://api.dreaded.site/api/gpt?text=${encodeURIComponent(text)}`);
 
-     
-   const response = await fetch(`https://api.maher-zubair.tech/ai/chatgpt?q=${text}`)
+        if (data.success) {
+            const res = data.result;
+            await m.reply(res);
+        } else {
+            await m.reply("Failed to get a response from the API.");
+        }
 
-const data = await response.json()
-
-await m.reply(data.result);
-
-
-} catch (e) {
-console.log(e)
-
-m.reply("Error occured")
-
-}
-
-}
+    } catch (e) {
+        console.log(e);
+        m.reply("An error occurred while processing your request.");
+    }
+};
