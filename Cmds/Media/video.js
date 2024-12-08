@@ -18,7 +18,7 @@ await m.reply(`_Downloading ${name}_`)
 
 await client.sendMessage(m.chat, {
  video: {url: data.result.videoLink},
-mimetype: "audio/mpeg", caption: name,
+mimetype: "video/mpeg", caption: name,
  fileName: name }, { quoted: m });
 
 
