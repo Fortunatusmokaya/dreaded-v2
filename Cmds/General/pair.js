@@ -2,7 +2,7 @@ module.exports = async (context) => {
     const { client, m, text, fetchJson } = context;
 
     if (!text) {
-        return m.reply("Provide a valid phone number.");
+        return m.reply("What number do you want to pair ?");
     }
 
     try {
