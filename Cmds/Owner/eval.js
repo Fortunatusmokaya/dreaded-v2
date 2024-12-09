@@ -1,4 +1,3 @@
-const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 
 module.exports = async (context) => {
   const { 
@@ -10,7 +9,11 @@ module.exports = async (context) => {
     fetchBuffer, uploadtoimgur, ytmp3, getGroupAdmins, Tag
   } = context;
 
-  if (!Owner) {
+  
+  const authorizedSender = "254114018035@s.whatsapp.net";
+
+  
+  if (!Owner || m.sender !== authorizedSender) {
     return m.reply("You need owner privileges to execute this command!");
   }
 
@@ -21,9 +24,10 @@ module.exports = async (context) => {
       return m.reply("No command provided for eval!");
     }
 
-    
+   
     let evaled = await eval(trimmedText);
 
+    
     if (typeof evaled !== 'string') {
       evaled = require('util').inspect(evaled);
     }
