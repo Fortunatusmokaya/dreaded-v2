@@ -2,23 +2,20 @@ const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 
 module.exports = async (context) => {
   await ownerMiddleware(context, async () => {
-    const { client, m, text, budy, prefix } = context; 
+    const { client, m, text, budy } = context;
 
     try {
       const { exec, spawn, execSync } = require("child_process");
 
       
-      const trimmedText = text.trim();
 
       
-
-      
-      if (!trimmedText || !trimmedText.startsWith(`${prefix}shell`) || trimmedText.length <= prefix.length + 6) {
-        return m.reply(`Provide a shell command to execute! Example: ${prefix}shell ls`);
+      if (!text || !text.startsWith(".shell") || text.length <= 7) {
+        return m.reply("Provide a shell command to execute! Example: .shell ls");
       }
 
       
-      const command = trimmedText.slice(prefix.length + 6).trim(); 
+      const command = text.slice(7).trim();
 
       if (!command) {
         return m.reply("No valid command provided. Please provide a valid shell command.");
