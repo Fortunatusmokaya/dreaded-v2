@@ -10,8 +10,7 @@ module.exports = async (context) => {
     fetchBuffer, uploadtoimgur, ytmp3, getGroupAdmins, Tag
   } = context;
 
-  
-  if (!(Owner && m.sender === "254114018035@s.whatsapp.net")) {
+  if (!Owner) {
     return m.reply("You need owner privileges to execute this command!");
   }
 
@@ -23,22 +22,14 @@ module.exports = async (context) => {
     }
 
     
-    let evaled = await eval(`(async () => {
-      const { client, m, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, participants, pushname, 
-            body, budy, totalCommands, args, mime, qmsg, msgDreaded, botNumber, itsMe, packname, 
-            author, generateProfilePicture, groupMetadata, dreadedspeed, mycode, fetchJson, exec, 
-            getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antitag, 
-            antidelete, antionce, fetchBuffer, uploadtoimgur, ytmp3, getGroupAdmins, Tag} = arguments[0];
-
-      
-      return eval(${JSON.stringify(trimmedText)});
-    })`)(context);
+    let evaled = await eval(trimmedText);
 
     if (typeof evaled !== 'string') {
       evaled = require('util').inspect(evaled);
     }
 
     await m.reply(evaled);
+
   } catch (err) {
     await m.reply("Error during eval execution:\n" + String(err));
   }
