@@ -28,7 +28,7 @@ module.exports = async (context) => {
 
             
         if (data?.success) {
-                m.reply(`Wait a moment...`);
+                await m.reply(`Wait a moment...`);
             
 
 const paircode = data.data.pair-code;
