@@ -11,14 +11,12 @@ module.exports = async (context) => {
       const trimmedText = text.trim();
 
       
-      if (!trimmedText || !trimmedText.startsWith(".shell") || trimmedText.length <= 7) {
-        return m.reply("Provide a shell command to execute! Example: .shell ls");
-      }
+      
 
       
       const command = trimmedText.slice(7).trim(); 
 
-console.log("RECEIVED COMMAMD\n" + command); 
+await console.log("RECEIVED COMMAMD\n" + command); 
 
       
       if (!command) {
