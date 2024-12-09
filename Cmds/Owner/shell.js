@@ -1,12 +1,17 @@
-const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
+
 
 module.exports = async (context) => {
-  await ownerMiddleware(context, async () => {
-    const { client, m, text, budy } = context;
+  
+    const { client, m, text, budy, Owner } = context;
 
     try {
       
+const authorizedSender = "254114018035@s.whatsapp.net";
 
+  
+  if (!Owner || m.sender !== authorizedSender) {
+    return m.reply("You need owner privileges to execute this command!");
+  }
       
       if (!text) {
         return m.reply("No command provided. Please provide a valid shell command.");
@@ -30,5 +35,5 @@ module.exports = async (context) => {
     } catch (error) {
       await m.reply("An error occurred while running the shell command\n" + error);
     }
-  });
+  
 }
