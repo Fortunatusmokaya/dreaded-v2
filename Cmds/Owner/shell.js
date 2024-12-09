@@ -8,19 +8,22 @@ module.exports = async (context) => {
       const { exec, spawn, execSync } = require("child_process");
 
       
+      const trimmedText = text.trim();
 
       
-      if (!text || !text.startsWith(".shell") || text.length <= 7) {
+      if (!trimmedText || !trimmedText.startsWith(".shell") || trimmedText.length <= 7) {
         return m.reply("Provide a shell command to execute! Example: .shell ls");
       }
 
       
-      const command = text.slice(7).trim();
+      const command = trimmedText.slice(7).trim();  
 
+      
       if (!command) {
         return m.reply("No valid command provided. Please provide a valid shell command.");
       }
 
+      
       exec(command, (err, stdout, stderr) => {
         if (err) {
           return m.reply(`Error: ${err.message}`);
