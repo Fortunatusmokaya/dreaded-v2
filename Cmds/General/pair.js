@@ -19,37 +19,24 @@ module.exports = async (context) => {
             const result = await client.onWhatsApp(whatsappID); 
 
             if (!result[0]?.exists) {
-                return m.reply(`Is ${number} registered on WhatsApp ? 😃 You can only pair a number if it is registered on WhatsApp, eh ?`);
+                return m.reply(`How can you pair a number that is not registered on WhatsApp ?`);
             }
 
            
             const data = await fetchJson(`https://api.dreaded.site/api/pair-code?number=${number}`);
 
 
-
             
-            if (data?.success) {
+        if (data?.success) {
                 m.reply(`Wait a moment...`);
             }
 
 const paircode = data.data.pair-code;
 
 
-
-
 const mas = await client.sendMessage(m.chat, { text: paircode });
 
-
-
-
 await client.sendMessage(m.chat, { text: `Above quoted text is your pairing code, copy/paste it in your linked devices then wait for session id. 👍`}, { quoted: mas});
-
-
-
-
-
-
-
 
 
         }
