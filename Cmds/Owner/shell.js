@@ -16,7 +16,9 @@ module.exports = async (context) => {
       }
 
       
-      const command = trimmedText.slice(7).trim();  
+      const command = trimmedText.slice(7).trim(); 
+
+console.log(command); 
 
       
       if (!command) {
