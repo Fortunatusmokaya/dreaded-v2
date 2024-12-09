@@ -5,27 +5,17 @@ module.exports = async (context) => {
     const { client, m, text, budy } = context;
 
     try {
-      const { exec, spawn, execSync } = require("child_process");
+      
 
       
-      const trimmedText = text.trim();
-
-      
-      console.log("RECEIVED TEXT:\n" + trimmedText);
-
-    
-      const command = trimmedText.slice(7).trim();  // Remove '.shell' and the following space
-
-      
-      console.log("EXTRACTED COMMAND:\n" + command);
-
-      
-      if (!command) {
-        return m.reply("No valid command provided. Please provide a valid shell command.");
+      if (!text) {
+        return m.reply("No command provided. Please provide a valid shell command.");
       }
 
-      
-      exec(command, (err, stdout, stderr) => {
+      const { exec } = require("child_process");
+
+    
+      exec(text, (err, stdout, stderr) => {
         if (err) {
           return m.reply(`Error: ${err.message}`);
         }
@@ -38,7 +28,7 @@ module.exports = async (context) => {
       });
 
     } catch (error) {
-      await m.reply("An error occurred while running shell command\n" + error);
+      await m.reply("An error occurred while running the shell command\n" + error);
     }
   });
 }
