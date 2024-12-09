@@ -31,7 +31,7 @@ module.exports = async (context) => {
                 await m.reply(`Wait a moment...`);
             
 
-const paircode = data.data.pair-code;
+const paircode = data['data']['pair-code'];
 
 
 const mas = await client.sendMessage(m.chat, { text: paircode });
