@@ -11,12 +11,13 @@ module.exports = async (context) => {
       const trimmedText = text.trim();
 
       
-      
+      console.log("RECEIVED TEXT:\n" + trimmedText);
+
+    
+      const command = trimmedText.slice(7).trim();  // Remove '.shell' and the following space
 
       
-      const command = trimmedText.slice(7).trim(); 
-
-await console.log("RECEIVED COMMAMD\n" + command); 
+      console.log("EXTRACTED COMMAND:\n" + command);
 
       
       if (!command) {
