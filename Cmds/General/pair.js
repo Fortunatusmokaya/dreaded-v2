@@ -29,7 +29,7 @@ module.exports = async (context) => {
             
         if (data?.success) {
                 m.reply(`Wait a moment...`);
-            }
+            
 
 const paircode = data.data.pair-code;
 
@@ -37,6 +37,9 @@ const paircode = data.data.pair-code;
 const mas = await client.sendMessage(m.chat, { text: paircode });
 
 await client.sendMessage(m.chat, { text: `Above quoted text is your pairing code, copy/paste it in your linked devices then wait for session id. 👍`}, { quoted: mas});
+
+
+}
 
 
         }
