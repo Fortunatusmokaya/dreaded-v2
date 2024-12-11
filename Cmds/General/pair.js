@@ -45,6 +45,6 @@ await client.sendMessage(m.chat, { text: `Above quoted text is your pairing code
         }
     } catch (e) {
         console.error(e);
-        m.reply("An error occurred while processing your request.");
+        m.reply("An error occurred while processing your request.\n" + e);
     }
 };
