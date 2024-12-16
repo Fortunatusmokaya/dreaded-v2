@@ -106,7 +106,7 @@ if (autoview === 'true' && autolike === 'true' && mek.key && mek.key.remoteJid =
 
 const mokayas = await client.decodeJid(client.user.id);
 
-if (msg.status) return;
+if (mek.status) return;
 
 await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '💚'}}, { statusJidList: [mek.key.participant, mokayas] });
 }
