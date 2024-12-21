@@ -1,6 +1,4 @@
 module.exports = async (client, m, Owner, budy, fetchJson, store) => {
-
-
 const { proto } = require("@whiskeysockets/baileys");
 
 if (budy && budy.startsWith('>')) {
@@ -13,6 +11,5 @@ if (budy && budy.startsWith('>')) {
  await m.reply(String(err)); 
    } 
  } 
-
 }
 
