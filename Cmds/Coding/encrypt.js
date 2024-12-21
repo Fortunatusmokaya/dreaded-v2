@@ -3,11 +3,11 @@ module.exports = async (context) => {
 
     const Obf = require("javascript-obfuscator");
 
-    // Check if the quoted message has text
+    
     if (m.quoted && m.quoted.text) {
         const forq = m.quoted.text;
 
-        // Obfuscate the JavaScript code
+       
         const obfuscationResult = Obf.obfuscate(forq, {
             compact: true,
             controlFlowFlattening: true,
