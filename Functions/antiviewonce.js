@@ -1,13 +1,4 @@
 module.exports = async (client, m, antionce) => {
-
-
-
-        
-
-
-
-
-
     if (m.mtype == 'viewOnceMessageV2' && antionce === 'true') {
         if (m.fromMe) return;
 
