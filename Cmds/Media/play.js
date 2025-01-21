@@ -16,9 +16,7 @@ module.exports = async (context) => {
 
                     let data = await fetchJson(`https://api.dreaded.site/api/ytdl/audio?url=${urlYt}`);
 
-        if (!data || !data.result || !data.result.download || !data.result.download.url) {
-            return m.reply("Failed to fetch audio from the API.");
-        }
+
 
         const {
             metadata: { title, thumbnail, duration, author },
@@ -34,7 +32,7 @@ module.exports = async (context) => {
             {
                 document: { url: audioUrl },
                 mimetype: "audio/mpeg",
-                fileName: filename,
+                fileName: `${filename}.mp3`,
             },
             { quoted: m }
         );
