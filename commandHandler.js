@@ -73,7 +73,10 @@ yta: "ytmp3",
 ytv: "ytmp4", 
 mf: "mediafire",
 emojimix: "emix",  
-enc: "encrypt",                     
+enc: "encrypt",
+req: "requests",
+approve: "approve-all",
+reject: "reject-all",                        
     up: "uptime" 
 };
 
