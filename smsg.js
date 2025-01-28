@@ -119,7 +119,7 @@ m.reply = (text, chatId = m.chat, options = {}) => {
           previewType: "PHOTO",
           thumbnailUrl: 'https://telegra.ph/file/c75efecf7f0aef851fc02.jpg', 
           thumbnail: kali, 
-          sourceUrl: ''
+          sourceUrl: 'https://github.com/Fortunatusmokaya/dreaded-v2'
         }
       }
     }, 
