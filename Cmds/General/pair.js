@@ -1,3 +1,9 @@
+module.exports = {
+    name: "pair",
+    
+    run: async ({ client, m, text, fetchJson }) => {
+
+
 module.exports = async (context) => {
     const { client, m, text, fetchJson } = context;
 
@@ -47,4 +53,6 @@ await client.sendMessage(m.chat, { text: `Above quoted text is your pairing code
         console.error(e);
         m.reply("An error occurred while processing your request.\n" + e);
     }
+
+}
 };
