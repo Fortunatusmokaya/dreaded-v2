@@ -36,8 +36,10 @@ const aliases = {
     speed: "ping", 
 kick: "remove",
 mute: "close", 
+unmute: "open", 
     latency: "ping", 
-    runtime: "uptime", 
+    runtime: "uptime",
+oadmin: "admin",  
     up: "uptime" 
 };
 
