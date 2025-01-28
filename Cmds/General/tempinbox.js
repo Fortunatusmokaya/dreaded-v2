@@ -1,7 +1,7 @@
 module.exports = {
-    name: "tenpinbox",
+    name: "tempinbox",
   
-    run: async ({ client, m }) => {
+    run: async ({ client, m, text}) => {
 
 if (!text) return m.reply("To fetch messages from your temp mail, provide the email address which was issued.")
 
