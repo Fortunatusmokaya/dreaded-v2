@@ -1,6 +1,7 @@
-module.exports = async (context) => {
-        const { client, m, text } = context;
-
+module.exports = {
+    name: "random-anime",
+    aliases: ["ranime", "anime"], 
+    run: async ({ client, m }) => {
 const axios = require("axios");
 
   const link = "https://api.jikan.moe/v4/random/anime";
@@ -26,4 +27,5 @@ const axios = require("axios");
    m.reply('An error occured.');
   }
 
+}
 }
