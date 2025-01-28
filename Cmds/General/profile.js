@@ -1,5 +1,9 @@
-module.exports = async (context) => {
-    const { client, m } = context;
+module.exports = {
+    name: "profile",
+    
+    run: async ({ client, m }) => {
+
+
 
     let sender = null;
     let name = null;
@@ -55,4 +59,6 @@ module.exports = async (context) => {
 
         await client.sendMessage(m.chat, mess, { quoted: m });
     }
-};
+
+}
+}
