@@ -1,6 +1,7 @@
-module.exports = async (context) => {
-    const { client, m, text } = context;
-
+module.exports = {
+    name: "technews",
+  
+    run: async ({ client, m }) => {
 
 
     const response = await fetch('https://fantox001-scrappy-api.vercel.app/technews/random');
@@ -11,5 +12,6 @@ module.exports = async (context) => {
         await client.sendMessage(m.chat, { image: { url: thumbnail }, caption: news }, { quoted: m });
 
 
+}
 }
 
