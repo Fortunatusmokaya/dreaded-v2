@@ -1,7 +1,10 @@
-module.exports = async (context) => {
 
-const { client, m, text, botname } = context;
 
+
+module.exports = {
+    name: "screenshot",
+    aliases: ["ss", "ssweb"], 
+    run: async ({ client, m, text, botname }) => {
 
 
 try {
@@ -17,6 +20,8 @@ await client.sendMessage(m.chat, { image: { url: image }, caption: cap}, {quoted
 } catch (error) {
 
 m.reply("An error occured.")
+
+}
 
 }
 
