@@ -7,6 +7,8 @@ const { smsg, formatp, tanggal, formatDate, getTime, sleep, clockString, fetchJs
 const { exec, spawn, execSync } = require("child_process");
 const { TelegraPh, UploadFileUgu } = require("./lib/toUrl");
 const uploadtoimgur = require('./lib/Imgur');
+const { readFileSync } = require('fs'); 
+const pict = await fs.readFileSync('./dreaded.jpg');
 const ytmp3 = require('./lib/ytmp3');
 const { commands, aliases, totalCommands } = require('./commandHandler');
 const blocked_users = require('./Functions/blocked_users');
@@ -89,7 +91,7 @@ module.exports = dreaded = async (client, m, chatUpdate, store) => {
             client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, participants,
             pushname, body, budy, totalCommands, args, mime, qmsg, msgDreaded, botNumber, itsMe,
             packname, author, generateProfilePicture, groupMetadata, dreadedspeed, mycode,
-            fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antitag, antidelete, antionce, fetchBuffer, store, uploadtoimgur, chatUpdate, ytmp3, getGroupAdmins, Tag
+            fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antitag, antidelete, antionce, fetchBuffer, store, uploadtoimgur, chatUpdate, ytmp3, getGroupAdmins, pict, Tag
         };
 
         if (cmd && mode === 'private' && !itsMe && !Owner && m.sender !== dev) {
