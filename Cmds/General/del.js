@@ -14,3 +14,5 @@ if (m.quoted && m.quoted.fromMe === false) {
 
 await m.quoted.delete()
 }
+
+}
