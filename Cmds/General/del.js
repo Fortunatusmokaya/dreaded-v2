@@ -1,7 +1,8 @@
-module.exports = {
-    name: "del",
-  
-    run: async ({ client, m, prefix }) => {
+//del.js
+
+module.exports = async (context) => {
+    const { client, m, prefix } = context;
+
 
 
 
@@ -13,6 +14,4 @@ if (m.quoted && m.quoted.fromMe === false) {
 
 
 await m.quoted.delete()
-}
-
 }
