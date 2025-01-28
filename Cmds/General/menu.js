@@ -2,7 +2,7 @@ const { DateTime } = require('luxon');
 const fs = require('fs');
 
 module.exports = async (context) => {
-    const { client, m, totalCommands, mode, botname, prefix} = context;
+    const { client, m, totalCommands, mode, botname, prefix, pict} = context;
 
     try {
         const categories = [
@@ -83,13 +83,34 @@ menuText += `🔓 𝑴𝑶𝑫𝑬:- ${mode}\n`;
             menuText += '\n';
         }
 
-        await client.sendMessage(m.chat, {
+await client.sendMessage(m.chat, {
+                        text: menuText,
+                        contextInfo: {
+                            externalAdReply: {
+                                showAdAttribution: false,
+                                title: `DREADED V2`,
+                                body: `Hi ${m.pushName}`,
+                                thumbnail: pict,
+                                sourceUrl: `https://github.com/Fortunatusmokaya/dreaded-v2`,
+                                mediaType: 1,
+                                renderLargerThumbnail: true
+                            }
+                        }
+                    }, {
+                        quoted: m
+                    })
+
+
+
+     /*   await client.sendMessage(m.chat, {
             video: { url: "https://telegra.ph/file/db49f1db0ec49d2ed289f.mp4" },
             caption: menuText,
             gifPlayback: true
         }, {
             quoted: m
         });
+
+*/
 
     } catch (error) {
         console.error(error);
