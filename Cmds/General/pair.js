@@ -4,8 +4,7 @@ module.exports = {
     run: async ({ client, m, text, fetchJson }) => {
 
 
-module.exports = async (context) => {
-    const { client, m, text, fetchJson } = context;
+
 
     if (!text) {
         return m.reply("What number do you want to pair ?");
