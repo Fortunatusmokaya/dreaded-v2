@@ -1,10 +1,9 @@
+//advice.js
+
 const advice = require("badadvice");
 
-module.exports = {
-    name: "advice",
-    aliases: ["advise"], 
-    run: async ({ client, m }) => {
+module.exports = async (context) => {
+        const { client, m } = context;
 await m.reply(advice());
 
-}
 }
