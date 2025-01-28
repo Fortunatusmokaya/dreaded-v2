@@ -1,7 +1,7 @@
 module.exports = {
     name: "retrieve",
     aliases: ["vv", "extract"], 
-    run: async ({ client, m, dreadedspeed }) => {
+    run: async ({ client, m }) => {
 
 
 
