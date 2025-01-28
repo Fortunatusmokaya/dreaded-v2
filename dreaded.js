@@ -8,7 +8,7 @@ const { exec, spawn, execSync } = require("child_process");
 const { TelegraPh, UploadFileUgu } = require("./lib/toUrl");
 const uploadtoimgur = require('./lib/Imgur');
 const { readFileSync } = require('fs'); 
-const pict = await fs.readFileSync('./dreaded.jpg');
+
 const ytmp3 = require('./lib/ytmp3');
 const { commands, aliases, totalCommands } = require('./commandHandler');
 const blocked_users = require('./Functions/blocked_users');
@@ -50,6 +50,8 @@ module.exports = dreaded = async (client, m, chatUpdate, store) => {
 
         const timestamp = speed();
         const dreadedspeed = speed() - timestamp;
+
+const pict = await fs.readFileSync('./dreaded.jpg');
 
         const cmd = body.startsWith(prefix);
         const args = body.trim().split(/ +/).slice(1);
