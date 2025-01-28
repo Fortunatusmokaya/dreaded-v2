@@ -1,6 +1,7 @@
-module.exports = async (context) => {
-    const { client, m, prefix } = context;
-
+module.exports = {
+    name: "del",
+  
+    run: async ({ client, m, prefix }) => {
 
 
 
