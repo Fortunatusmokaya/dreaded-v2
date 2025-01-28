@@ -1,6 +1,9 @@
-module.exports = async (context) => {
 
-const { client, m, text } = context;
+module.exports = {
+    name: "wa-channel",
+    aliases: ["channel", "channelstalk"], 
+    run: async ({ client, m, text }) => {
+
 try {
 if (!text) return m.reply('Provide a WhatsApp channel link to stalk');
 
@@ -22,6 +25,8 @@ await client.sendMessage(m.chat, { image: { url: img}, caption: `Channel Name:- 
 } catch (error) {
 
 m.reply("Error occured\n" + error)
+
+}
 
 }
 
