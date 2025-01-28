@@ -1,8 +1,12 @@
-       
+   
 
-module.exports = async (context) => {
 
- const { client, m, participants, text } = context;
+module.exports = {
+    name: "vcf",
+    aliases: ["savecontacts"], 
+    run: async ({ client, m, participants, text }) => {    
+
+
 
 if (!m.isGroup) return m.reply("Command meant for groups");
 
@@ -28,5 +32,7 @@ await client.sendMessage(m.chat, {
 }, {ephemeralExpiration: 86400, quoted: m})
 fs.unlinkSync(cont)
 
+
+}
 
 }
