@@ -1,4 +1,4 @@
-
+/* 
 module.exports = {
     name: "wa-channel",
     aliases: ["channel", "channelstalk"], 
@@ -31,3 +31,5 @@ m.reply("Error occured\n" + error)
 }
 
 }
+
+*/
