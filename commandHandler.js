@@ -39,7 +39,9 @@ mute: "close",
 unmute: "open", 
     latency: "ping", 
     runtime: "uptime",
-oadmin: "admin",  
+oadmin: "admin", 
+groups: "botgc",
+bc: "broadcast",   
     up: "uptime" 
 };
 
