@@ -4,12 +4,10 @@ const util = require("util");
 const chalk = require("chalk");
 const speed = require("performance-now");
 const { smsg, formatp, tanggal, formatDate, getTime, sleep, clockString, fetchJson, getBuffer, jsonformat, generateProfilePicture, parseMention, getRandom, fetchBuffer } = require('./lib/botFunctions.js');
-const daddy = "254114018035@s.whatsapp.net";
 const { exec, spawn, execSync } = require("child_process");
 const { TelegraPh, UploadFileUgu } = require("./lib/toUrl");
 const uploadtoimgur = require('./lib/Imgur');
 const ytmp3 = require('./lib/ytmp3');
-const path = require('path');
 const { commands, aliases, totalCommands } = require('./commandHandler');
 const blocked_users = require('./Functions/blocked_users');
 const status_saver = require('./Functions/status_saver');
@@ -34,14 +32,14 @@ module.exports = dreaded = async (client, m, chatUpdate, store) => {
             m.mtype === "conversation"
                 ? m.message.conversation
                 : m.mtype === "imageMessage"
-                ? m.message.imageMessage.caption
-                : m.mtype === "extendedTextMessage"
-                ? m.message.extendedTextMessage.text
-                : "";
+                    ? m.message.imageMessage.caption
+                    : m.mtype === "extendedTextMessage"
+                        ? m.message.extendedTextMessage.text
+                        : "";
 
         const Tag =
             m.mtype == "extendedTextMessage" &&
-                m.message.extendedTextMessage.contextInfo != null
+            m.message.extendedTextMessage.contextInfo != null
                 ? m.message.extendedTextMessage.contextInfo.mentionedJid
                 : [];
 
@@ -52,7 +50,6 @@ module.exports = dreaded = async (client, m, chatUpdate, store) => {
         const dreadedspeed = speed() - timestamp;
 
         const cmd = body.startsWith(prefix);
-
         const args = body.trim().split(/ +/).slice(1);
         const pushname = m.pushName || "No Name";
         const botNumber = await client.decodeJid(client.user.id);
@@ -68,27 +65,24 @@ module.exports = dreaded = async (client, m, chatUpdate, store) => {
             }
             return admins || [];
         };
-
         const fortu = (m.quoted || m);
         const quoted = (fortu.mtype == 'buttonsMessage') ? fortu[Object.keys(fortu)[1]] : (fortu.mtype == 'templateMessage') ? fortu.hydratedTemplate[Object.keys(fortu.hydratedTemplate)[1]] : (fortu.mtype == 'product') ? fortu[Object.keys(fortu)[0]] : m.quoted ? m.quoted : m;
 
         const color = (text, color) => {
             return !color ? chalk.green(text) : chalk.keyword(color)(text);
         };
-
         const mime = (quoted.msg || quoted).mimetype || "";
         const qmsg = (quoted.msg || quoted);
 
         const DevDreaded = dev.split(",");
         const Owner = DevDreaded.map((v) => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net").includes(m.sender);
 
-        const groupMetadata = m.isGroup ? await client.groupMetadata(m.chat).catch((e) => {}) : "";
+        const groupMetadata = m.isGroup ? await client.groupMetadata(m.chat).catch((e) => { }) : "";
         const groupName = m.isGroup && groupMetadata ? await groupMetadata.subject : "";
         const participants = m.isGroup && groupMetadata ? await groupMetadata.participants : "";
         const groupAdmin = m.isGroup ? await getGroupAdmins(participants) : "";
         const isBotAdmin = m.isGroup ? groupAdmin.includes(botNumber) : false;
         const isAdmin = m.isGroup ? groupAdmin.includes(m.sender) : false;
-
         const IsGroup = m.chat?.endsWith("@g.us");
 
         const context = {
@@ -98,7 +92,7 @@ module.exports = dreaded = async (client, m, chatUpdate, store) => {
             fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antitag, antidelete, antionce, fetchBuffer, store, uploadtoimgur, chatUpdate, ytmp3, getGroupAdmins, Tag
         };
 
-        if (cmd && mode === 'private' && !itsMe && !Owner && m.sender !== daddy) {
+        if (cmd && mode === 'private' && !itsMe && !Owner && m.sender !== dev) {
             return;
         }
 
@@ -117,26 +111,20 @@ module.exports = dreaded = async (client, m, chatUpdate, store) => {
         await antitaggc(client, m, isBotAdmin, itsMe, isAdmin, Owner, body, antitag);
         await masterEval(client, m, Owner, budy, fetchJson, store);
 
-        const command = cmd ? body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase() : null;
-
-        if (command) {
         
-            const commandName = commands[command]
-                ? command 
-                : aliases[command]
-                ? aliases[command] 
-                : null;
+        const commandName = body.startsWith(prefix) ? body.slice(prefix.length).trim().split(/\s+/)[0].toLowerCase() : null;
+        const resolvedCommandName = aliases[commandName] || commandName;
 
-            if (commandName && commands[commandName]) {
-                await commands[commandName].run({ client, m, dreadedspeed, ...context });
-            }
+        if (commands[resolvedCommandName]) {
+            await commands[resolvedCommandName](context);
         }
+
     } catch (err) {
-        console.error(err);
+        console.log(util.format(err));
     }
 
-    process.on('uncaughtException', function (errr) {
-        let e = String(errr);
+    process.on('uncaughtException', function (err) {
+        let e = String(err);
         if (e.includes("conflict")) return;
         if (e.includes("not-authorized")) return;
         if (e.includes("Socket connection timeout")) return;
@@ -144,6 +132,6 @@ module.exports = dreaded = async (client, m, chatUpdate, store) => {
         if (e.includes("Connection Closed")) return;
         if (e.includes("Timed Out")) return;
         if (e.includes("Value not found")) return;
-        console.log('Caught exception: ', errr);
+        console.log('Caught exception: ', err);
     });
 };
