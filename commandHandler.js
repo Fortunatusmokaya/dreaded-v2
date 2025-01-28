@@ -5,7 +5,7 @@ const cmdsDir = path.join(__dirname, 'Cmds');
 
 function findAllCommandFiles(dir) {
     let commandFiles = [];
-    let totalCommands = 0; 
+    let totalCommands = 0;
 
     function findFiles(directory) {
         const files = fs.readdirSync(directory);
@@ -30,11 +30,23 @@ function findAllCommandFiles(dir) {
 const { commandFiles, totalCommands } = findAllCommandFiles(cmdsDir);
 
 const commands = {};
+const aliases = {};
+
 commandFiles.forEach(file => {
-    
-    const commandName = path.basename(file, '.js');
     const commandModule = require(file);
-    commands[commandName] = commandModule;
+    const commandName = path.basename(file, '.js');
+
+    if (!commandModule.name) {
+        commandModule.name = commandName;
+    }
+
+    commands[commandModule.name] = commandModule;
+
+    if (commandModule.aliases && Array.isArray(commandModule.aliases)) {
+        commandModule.aliases.forEach(alias => {
+            aliases[alias] = commandModule.name; 
+        });
+    }
 });
 
-module.exports = { commands, totalCommands };
+module.exports = { commands, aliases, totalCommands };
