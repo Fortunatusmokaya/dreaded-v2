@@ -1,7 +1,7 @@
-module.exports = async (context) => {
-        const { client, m } = context;
-
-
+module.exports = {
+    name: "tenpinbox",
+  
+    run: async ({ client, m }) => {
 
 if (!text) return m.reply("To fetch messages from your temp mail, provide the email address which was issued.")
 
@@ -43,7 +43,7 @@ const messages = data.messages;
 
 
 
-
+}
 
 
 }
