@@ -9,6 +9,8 @@ const {
   proto,
   getContentType,
 } = require("@whiskeysockets/baileys");
+const { readFileSync } = require('fs');
+const kali = readFileSync('./dreaded.jpg');
 
 
 function smsg(conn, m, store) {
@@ -104,7 +106,29 @@ function smsg(conn, m, store) {
    * @param {String|false} chatId
    * @param {Object} options
    */
-  m.reply = (text, chatId = m.chat, options = {}) => (Buffer.isBuffer(text) ? conn.sendMedia(chatId, text, "file", "", m, { ...options }) : conn.sendText(chatId, text, m, { ...options }));
+
+
+m.reply = (text, chatId = m.chat, options = {}) => {
+  return conn.sendMessage(chatId, 
+    {
+      text: text,
+      contextInfo: {
+        externalAdReply: {
+          title: `DREADED BOT`,
+          body: m.pushName,
+          previewType: "PHOTO",
+          thumbnailUrl: 'https://telegra.ph/file/c75efecf7f0aef851fc02.jpg', 
+          thumbnail: kali, 
+          sourceUrl: ''
+        }
+      }
+    }, 
+    { quoted: m, ...options }
+  );
+};
+
+
+  
   /**
    * Copy this message
    */
