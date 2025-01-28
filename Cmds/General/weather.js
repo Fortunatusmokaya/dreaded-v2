@@ -1,7 +1,8 @@
 
-module.exports = async (context) => {
-        const { m, text} = context;
-
+module.exports = {
+    name: "weather",
+    
+    run: async ({ client, m, text }) => {
 
 
 try {
@@ -42,4 +43,6 @@ await m.reply(`❄️ Weather in ${cityName}
 
 
 } catch (e) { m.reply("Unable to find that location.") }
+}
+
 }
