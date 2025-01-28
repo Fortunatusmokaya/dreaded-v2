@@ -1,7 +1,7 @@
-module.exports = {
-    name: "retrieve",
-    aliases: ["vv", "extract"], 
-    run: async ({ client, m }) => {
+//retrieve.js
+
+module.exports = async (context) => {
+        const { client, m } = context;
 
 
 
@@ -24,5 +24,3 @@ await client.sendMessage(m.chat, { image: media, caption: `Retrieved by Dreaded!
          } else m.reply("That is not a viewonce media. . .")
 
    }
-
-};
