@@ -55,4 +55,4 @@ await client.sendMessage(m.chat, { text: `Above quoted text is your pairing code
     }
 
 }
-};
+}
