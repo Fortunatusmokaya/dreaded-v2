@@ -114,7 +114,7 @@ m.reply = (text, chatId = m.chat, options = {}) => {
       text: text,
       contextInfo: {
         externalAdReply: {
-          title: `DREADED BOT`,
+          title: `DREADED V2`,
           body: m.pushName,
           previewType: "PHOTO",
           thumbnailUrl: 'https://telegra.ph/file/c75efecf7f0aef851fc02.jpg', 
