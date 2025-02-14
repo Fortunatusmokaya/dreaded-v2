@@ -23,7 +23,10 @@ let cont = './contacts.vcf'
 
 await m.reply('A moment, dreaded is compiling '+gcdata.participants.length+' contacts into a vcf...');
 
+
+
 await fs.writeFileSync(cont, vcard.trim())
+await m.reply("Import this vcf in a separate email account to avoid messing with your contacts...");
 
 await client.sendMessage(m.chat, {
     document: fs.readFileSync(cont), mimetype: 'text/vcard', fileName: 'Group contacts.vcf', caption: 'VCF for '+gcdata.subject+'\n'+gcdata.participants.length+' contacts'
