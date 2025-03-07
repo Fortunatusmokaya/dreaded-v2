@@ -120,10 +120,8 @@ await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '💚
 
             if (autoview === 'true' && mek.key && mek.key.remoteJid === "status@broadcast") { 
          await client.readMessages([mek.key]);}
-else if (autoread && mek.key && mek.key.remoteJid.endsWith('@s.whatsapp.net')) { 
-
-await client.readMessages([mek.key]);
-
+else if (String(autoread) === 'true' && mek.key && mek.key.remoteJid.endsWith('@s.whatsapp.net')) { 
+    await client.readMessages([mek.key]);
 }
 
 if (mek.key && mek.key.remoteJid.endsWith('@s.whatsapp.net')) { 
