@@ -4,9 +4,7 @@ console.log('[DB] Initializing database connection...');
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-    }
+    ssl: { rejectUnauthorized: false }
 });
 
 async function initializeDatabase() {
@@ -20,6 +18,14 @@ async function initializeDatabase() {
                 value TEXT NOT NULL
             );
         `);
+
+        
+        await client.query(`
+            INSERT INTO settings (key, value) 
+            VALUES ('prefix', '.') 
+            ON CONFLICT (key) DO NOTHING;
+        `);
+
         console.log('[DB] Database initialized successfully.');
     } catch (error) {
         console.error('[DB] Error initializing database:', error);
@@ -34,7 +40,7 @@ async function getSettings() {
         const res = await pool.query("SELECT key, value FROM settings");
         const settings = {};
         res.rows.forEach(row => {
-            settings[row.key] = row.value === 'true';
+            settings[row.key] = row.value; // Keep value as string
         });
         console.log('[DB] Settings fetched successfully.');
         return settings;
@@ -52,7 +58,7 @@ async function updateSetting(key, value) {
             VALUES ($1, $2)
             ON CONFLICT (key) DO UPDATE 
             SET value = EXCLUDED.value;
-        `, [key, value.toString()]);
+        `, [key, value]);
         console.log(`[DB] Setting updated successfully: ${key} -> ${value}`);
     } catch (error) {
         console.error(`[DB] Error updating setting: ${key}`, error);
