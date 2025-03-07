@@ -21,7 +21,7 @@ module.exports = async (context) => {
             await updateSetting('prefix', newPrefix);
             await m.reply(`✅ Prefix has been updated to: ${newPrefix}`);
         } else {
-            await m.reply(`📄 Current prefix: ${settings.prefix || 'No prefix set.'}\n\nUse 'prefix null' to remove the prefix or 'prefix <any symbol>' to set a specific prefix.`);
+            await m.reply(`📄 Current prefix: ${settings.prefix || 'No prefix set.'}\n\nUse _prefix null_ to remove the prefix or _prefix <any symbol>_ to set a specific prefix.`);
         }
     });
 };
