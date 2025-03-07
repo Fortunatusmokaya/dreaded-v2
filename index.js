@@ -31,8 +31,9 @@ const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream
 
 const authenticationn = require('./auth.js');
 const { smsg } = require('./smsg');
+const { getSettings } = require('./config');
 
-const { autoview, autoread, botname, autobio, mode, prefix, presence, autolike } = require('./settings');
+const { autoview, botname, autobio, mode, prefix, presence, autolike } = require('./settings');
 const { DateTime } = require('luxon');
 const { commands, totalCommands } = require('./commandHandler');
 authenticationn();
@@ -90,6 +91,11 @@ if (autobio === 'true'){
 }
 
   client.ev.on("messages.upsert", async (chatUpdate) => {
+
+let settings = await getSettings();
+        if (!settings) return;
+
+        const { autoread } = settings;
     
     try {
       mek = chatUpdate.messages[0];
@@ -114,7 +120,7 @@ await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '💚
 
             if (autoview === 'true' && mek.key && mek.key.remoteJid === "status@broadcast") { 
          await client.readMessages([mek.key]);}
-else if (autoread === 'true' && mek.key && mek.key.remoteJid.endsWith('@s.whatsapp.net')) { 
+else if (autoread && mek.key && mek.key.remoteJid.endsWith('@s.whatsapp.net')) { 
 
 await client.readMessages([mek.key]);
 
