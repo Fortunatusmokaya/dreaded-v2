@@ -40,7 +40,7 @@ async function getSettings() {
         const res = await pool.query("SELECT key, value FROM settings");
         const settings = {};
         res.rows.forEach(row => {
-            settings[row.key] = row.value; // Keep value as string
+            settings[row.key] = row.value;
         });
         console.log('[DB] Settings fetched successfully.');
         return settings;
