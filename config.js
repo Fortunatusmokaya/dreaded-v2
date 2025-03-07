@@ -40,7 +40,13 @@ async function getSettings() {
         const res = await pool.query("SELECT key, value FROM settings");
         const settings = {};
         res.rows.forEach(row => {
-            settings[row.key] = row.value;
+            if (row.value === 'true') {
+                settings[row.key] = true;
+            } else if (row.value === 'false') {
+                settings[row.key] = false;
+            } else {
+                settings[row.key] = row.value;
+            }
         });
         console.log('[DB] Settings fetched successfully.');
         return settings;
@@ -49,7 +55,6 @@ async function getSettings() {
         return {};
     }
 }
-
 async function updateSetting(key, value) {
     console.log(`[DB] Updating setting: ${key} -> ${value}`);
     try {
