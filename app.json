@@ -1,6 +1,6 @@
 {
   "name": "DREADED V2",
-  "description": "This is a simple whatsapp bot built with nodejs and baileys with MD support.",
+  "description": "This is a simple WhatsApp bot built with Node.js and Baileys with MD support.",
   "keywords": [
     "bot",
     "whatsapp",
@@ -19,13 +19,17 @@
   "logo": "https://telegra.ph/file/d6dab955fbaa42fce2280.jpg",
   "success_url": "/",
   "env": {
+    "DATABASE_URL": {
+      "description": "PostgreSQL database URL. This will be automatically set when deploying on Heroku.",
+      "required": false
+    },
     "PREFIX": {
-      "description": "choose your prefix for dreaded. To prevent errors and confusion you must set a prefix",
+      "description": "Choose your prefix for dreaded. To prevent errors and confusion you must set a prefix",
       "value": ".",
       "required": true
     },
     "DEV": {
-      "description": "Put any phone numbers you want to be bot owner without + or spaces \",\" Ex: 254114018035, 254741889898 ",
+      "description": "Put any phone numbers you want to be bot owner without + or spaces \",\" Ex: 254114018035, 254741889898",
       "required": false
     },
     "CODE": {
@@ -49,48 +53,44 @@
       "required": false
     },
     "SESSION": {
-      "description": "Paste the session id that you received in whatsapp after linking the bot. It's used for authentication.",
+      "description": "Paste the session ID that you received in WhatsApp after linking the bot. It's used for authentication.",
       "required": true
     },
     "AUTOVIEW_STATUS": {
-      "description": "Type true if you want bot to automatically read all status update",
+      "description": "Type true if you want bot to automatically read all status updates",
       "required": false
     },
-
- "AUTOLIKE_STATUS": {
+    "AUTOLIKE_STATUS": {
       "description": "Type true if you want bot to automatically like status updates, this will only work if AUTOVIEW_STATUS is true.",
       "required": false
     },
-
- "ANTIDELETE": {
+    "ANTIDELETE": {
       "description": "Type true if you want bot to automatically forward deleted messages in groups. The deleted messages will be forwarded to the <message yourself chat>. We are yet to implement antidelete for private chats.",
       "required": false
     },
-
-"EVENTS": {
-      "description": "choose whether to allow bot to detect events in groups such as promote, demote, remove and add. If set to true bot will send welcome/goodbye messages and signal when somebody is promoted or demoted.",
+    "EVENTS": {
+      "description": "Choose whether to allow bot to detect events in groups such as promote, demote, remove, and add. If set to true, bot will send welcome/goodbye messages and signal when somebody is promoted or demoted.",
       "value": "true",
       "required": true
     },
-"AUTOBIO": {
-      "description": "Type true if you want bot to autoupdate it's bio constantly",
+    "AUTOBIO": {
+      "description": "Type true if you want the bot to auto-update its bio constantly",
       "required": false
     },
-
-"ANTITAG": {
-      "description": "Type true if you want bot to automatically remove members who tagall or use hidetag.",
+    "ANTITAG": {
+      "description": "Type true if you want bot to automatically remove members who tag all or use hidetag.",
       "required": false
     },
-"ANTIVIEWONCE": {
-      "description": "Type true if you want bot to automatically read viewonce media",
+    "ANTIVIEWONCE": {
+      "description": "Type true if you want the bot to automatically read view-once media",
       "required": false
     },
     "AUTOREAD": {
-      "description": "Put here true if you want bot to automatically bluetick messages in private.",
+      "description": "Put true if you want the bot to automatically blue-tick messages in private.",
       "required": false
     },
     "WA_PRESENCE": {
-      "description": "This is your WhatsApp Presence Status: Here's how to set it up: Type *typing* if you want bot to show typing..., Type *recording* if you want bot to show recording..., Type *online* if you want bot to be always online, Leave this field blank if you want bot to show your actual presence.",
+      "description": "This is your WhatsApp Presence Status: Type *typing* to show typing..., Type *recording* to show recording..., Type *online* to be always online, Leave this field blank to show your actual presence.",
       "value": "typing",
       "required": false
     },
@@ -99,6 +99,11 @@
       "required": false
     }
   },
+  "addons": [
+    {
+      "plan": "heroku-postgresql"
+    }
+  ],
   "buildpacks": [
     {
       "url": "heroku/nodejs"
