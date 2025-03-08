@@ -11,17 +11,15 @@ module.exports = async (context) => {
             return await m.reply('❌ This command can only be used in groups.');
         }
 
-        const settings = await getSettings(); 
+        const settings = await getSettings();
         const prefix = settings.prefix;
 
-        const currentSetting = await getGroupSetting(jid, 'antitag');
-        const isEnabled = currentSetting === true;
+        let groupSettings = await getGroupSetting(jid);
+        let isEnabled = groupSettings?.antitag === true;
 
         const Myself = await client.decodeJid(client.user.id);
-
-        let groupMetadata = await client.groupMetadata(m.chat);
-        let userAdmins = groupMetadata.participants.filter(p => p.admin !== null).map(p => p.id);
-
+        const groupMetadata = await client.groupMetadata(m.chat);
+        const userAdmins = groupMetadata.participants.filter(p => p.admin !== null).map(p => p.id);
         const isBotAdmin = userAdmins.includes(Myself);
 
         if (value === 'on' && !isBotAdmin) {
@@ -30,14 +28,15 @@ module.exports = async (context) => {
 
         if (value === 'on' || value === 'off') {
             const action = value === 'on';
+
             if (isEnabled === action) {
                 return await m.reply(`✅ Antitag is already ${value.toUpperCase()}.`);
             }
 
-            await updateGroupSetting(jid, 'antitag', action);
+            await updateGroupSetting(jid, 'antitag', action ? 'true' : 'false');
             await m.reply(`✅ Antitag has been turned ${value.toUpperCase()} for this group.`);
         } else {
-            await m.reply(`📄 Current Antitag setting for this group: ${isEnabled ? 'ON' : 'OFF'}\n\nUse _${prefix}antitag on_ or _${prefix}antitag off_ to change it.`);
+            await m.reply(`📄 Current Antitag setting for this group: ${isEnabled ? 'ON' : 'OFF'}\n\n _Use ${prefix}antitag on or ${prefix}antitag off to change it._`);
         }
     });
 };
