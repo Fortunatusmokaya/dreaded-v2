@@ -1,13 +1,9 @@
-const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 const { getSettings, getGroupSetting, updateGroupSetting } = require('../../config');
+const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 
 module.exports = async (context) => {
     await ownerMiddleware(context, async () => {
         const { m, args } = context;
-        
-        const settings = await getSettings();
-        const prefix = settings.prefix;
-        
         const value = args[0]?.toLowerCase();
         const jid = m.chat;
 
@@ -15,27 +11,23 @@ module.exports = async (context) => {
             return await m.reply('❌ This command can only be used in groups.');
         }
 
-        let groupSettings = await getGroupSetting(jid, 'events');
-        
-        if (groupSettings === null) {
-            await updateGroupSetting(jid, 'events', false);
-            groupSettings = false;
-        }
+        const settings = await getSettings();
+        const prefix = settings.prefix;
 
-        if (value === 'on') {
-            if (groupSettings) {
-                return await m.reply(`✅ Events are already ON for this group.`);
+        let groupSettings = await getGroupSetting(jid);
+        let isEnabled = groupSettings?.events === true;
+
+        if (value === 'on' || value === 'off') {
+            const action = value === 'on';
+
+            if (isEnabled === action) {
+                return await m.reply(`✅ Events are already ${value.toUpperCase()} for this group.`);
             }
-            await updateGroupSetting(jid, 'events', true);
-            await m.reply(`✅ Events have been turned ON for this group. Bot will now send welcome and farewell messages!`);
-        } else if (value === 'off') {
-            if (!groupSettings) {
-                return await m.reply(`❌ Events are already OFF for this group.`);
-            }
-            await updateGroupSetting(jid, 'events', false);
-            await m.reply(`❌ Events have been turned OFF for this group.`);
+
+            await updateGroupSetting(jid, 'events', action ? 'true' : 'false');
+            await m.reply(`✅ Events have been turned ${value.toUpperCase()} for this group. Bot will now send welcome and farewell messages.`);
         } else {
-            await m.reply(`📄 Current events setting for this group: ${groupSettings ? 'ON' : 'OFF'}\n\n Use "${prefix}events on" or "${prefix}events off".`);
+            await m.reply(`📄 Current events setting for this group: ${isEnabled ? 'ON' : 'OFF'}\n\n _Use ${prefix}events on or ${prefix}events off to change it._`);
         }
     });
 };
