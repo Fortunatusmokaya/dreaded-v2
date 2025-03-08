@@ -87,7 +87,10 @@ const pict = await fs.readFileSync('./dreaded.jpg');
         const mime = (quoted.msg || quoted).mimetype || "";
         const qmsg = (quoted.msg || quoted);
 
-        const DevDreaded = sudoUsers.split(",");
+
+
+
+        const DevDreaded = Array.isArray(sudoUsers) ? sudoUsers : [];
         const Owner = DevDreaded.map((v) => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net").includes(m.sender);
 
         const groupMetadata = m.isGroup ? await client.groupMetadata(m.chat).catch((e) => { }) : "";
