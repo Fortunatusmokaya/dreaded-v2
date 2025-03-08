@@ -25,7 +25,7 @@ const antidel = require('./Functions/antidelete');
 const { getSettings } = require('./Database/config');
 
 const {
-    botname } = require('./settings');
+    botname, mycode } = require('./settings');
 
 module.exports = dreaded = async (client, m, chatUpdate, store) => {
 
@@ -34,7 +34,7 @@ try {
 let settings = await getSettings();
         if (!settings) return;
 
-        const { prefix, mode, mycode, gcpresence, antitag, antidelete, antilink} = settings;
+        const { prefix, mode, gcpresence, antitag, antidelete, antilink, packname } = settings;
 
     
         var body =
