@@ -30,7 +30,7 @@ module.exports = async (context) => {
             numberToBan = `${numberToBan.trim()}@s.whatsapp.net`;
         }
 
-        if (sudoUsers.includes(numberToBan)) {
+        if (sudoUsers.startsWith(numberToBan)) {
             return await m.reply('❌ Why do you want to ban a Sudo User?');
         }
 
