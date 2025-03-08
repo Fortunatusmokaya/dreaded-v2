@@ -15,7 +15,7 @@ module.exports = async (context) => {
         const prefix = settings.prefix;
 
         let groupSettings = await getGroupSetting(jid);
-        let isEnabled = groupSettings?.antiforeign === 'on';
+        let isEnabled = groupSettings?.antiforeign === true;
 
         const Myself = await client.decodeJid(client.user.id);
         const groupMetadata = await client.groupMetadata(m.chat);
@@ -23,7 +23,7 @@ module.exports = async (context) => {
         const isBotAdmin = userAdmins.includes(Myself);
 
         if (value === 'on' && !isBotAdmin) {
-            return await m.reply('❌ I need admin privileges to handle the antiforeign feature.');
+            return await m.reply('❌ I need admin privileges to enable Antiforeign.');
         }
 
         if (value === 'on' || value === 'off') {
@@ -33,11 +33,8 @@ module.exports = async (context) => {
                 return await m.reply(`✅ Antiforeign is already ${value.toUpperCase()}.`);
             }
 
-            await updateGroupSetting(jid, 'antiforeign', action ? 'on' : 'off');
-            await m.reply(
-                `✅ Antiforeign has been turned ${value.toUpperCase()} for this group.` +
-                (action ? ` _Bot will now automatically remove non-${mycode} numbers joining!_` : '')
-            );
+            await updateGroupSetting(jid, 'antiforeign', action);
+            await m.reply(`✅ Antiforeign has been turned ${value.toUpperCase()} for this group.`);
         } else {
             await m.reply(
                 `📄 Current Antiforeign setting for this group: ${isEnabled ? 'ON' : 'OFF'}\n\n` +
