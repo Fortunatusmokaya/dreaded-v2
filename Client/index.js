@@ -50,7 +50,7 @@ async function startDreaded() {
 let settingss = await getSettings();
         if (!settingss) return;
 
-const { autobio } = settingss;
+const { autobio, mode } = settingss;
 
 
         const {  saveCreds, state } = await useMultiFileAuthState(sessionName)
