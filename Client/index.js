@@ -10,7 +10,7 @@ const {
   getContentType,
 } = require("@whiskeysockets/baileys");
 
-const sessionName = "../Session"
+
 const pino = require("pino");
 const { Boom } = require("@hapi/boom");
 const fs = require("fs");
