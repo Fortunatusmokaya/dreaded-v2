@@ -115,7 +115,7 @@ async function getGroupSetting(jid) {
         `, [jid]);
 
         if (res.rows.length === 0) {
-            console.log(`[DB] No settings found for ${jid}, inserting default settings.`);
+            
             await initializeGroupSettings(jid);
             return defaultGroupSettings;  
         }
@@ -125,10 +125,10 @@ async function getGroupSetting(jid) {
             settings[row.key] = row.value === 'true' ? true : row.value === 'false' ? false : row.value;
         });
 
-        console.log(`[DB] Retrieved settings for ${jid}:`, settings);
+        
         return settings;
     } catch (error) {
-        console.error(`[DB] Error fetching settings for group ${jid}:`, error);
+        
         return {};
     }
 }
@@ -144,7 +144,7 @@ async function updateGroupSetting(jid, key, value) {
             SET value = EXCLUDED.value;
         `, [jid, key, valueToStore]);
 
-        console.log(`[DB] Group setting updated successfully: ${jid} - ${key} -> ${valueToStore}`);
+        
     } catch (error) {
         console.error(`[DB] Error updating setting for group ${jid}: ${key}`, error);
     }
@@ -157,10 +157,10 @@ async function getAllGroupSettings() {
             SELECT * FROM group_settings;
         `);
 
-        console.log(`[DB] Query result for all groups:`, JSON.stringify(res.rows));
+        
         return res.rows;
     } catch (error) {
-        console.error(`[DB] Error fetching settings for all groups:`, error);
+        
         return [];
     }
 }
