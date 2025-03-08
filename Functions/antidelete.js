@@ -1,15 +1,22 @@
 const fs = require("fs");
 const path = require("path");
+const { getGroupSetting } = require("../Database/config");
 
-module.exports = async (client, m, antidelete) => {
-    if (m.isGroup && antidelete === 'true' && m.message.protocolMessage && m.message.protocolMessage.type === 0) {
+module.exports = async (client, m) => {
+    if (!m.isGroup) return;
+
+    const jid = m.chat;
+    let groupSettings = await getGroupSetting(jid);
+
+    if (!groupSettings || groupSettings.antidelete !== true) return;
+
+    if (m.message.protocolMessage && m.message.protocolMessage.type === 0) {
         console.log("Deleted Message Detected!");
         let key = m.message.protocolMessage.key;
 
         try {
-           
-            const st = path.join(__dirname, '../store.json');
-            const datac = fs.readFileSync(st, 'utf8');
+            const st = path.join(__dirname, "../store.json");
+            const datac = fs.readFileSync(st, "utf8");
             const jsonData = JSON.parse(datac);
 
             let messagez = jsonData.messages[key.remoteJid];
@@ -28,8 +35,6 @@ module.exports = async (client, m, antidelete) => {
             }
 
             await client.sendMessage(client.user.id, { forward: msgb }, { quoted: msgb });
-            
-
         } catch (e) {
             console.log(e);
         }
