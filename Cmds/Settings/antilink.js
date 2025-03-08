@@ -1,4 +1,4 @@
-const { getGroupSetting, updateGroupSetting } = require('../../config');
+const { getGroupSetting, updateGroupSetting, getSettings } = require('../../config');
 const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 
 module.exports = async (context) => {
@@ -20,21 +20,25 @@ module.exports = async (context) => {
         const userAdmins = groupMetadata.participants.filter(p => p.admin !== null).map(p => p.id);
         const isBotAdmin = userAdmins.includes(Myself);
 
-        if ((value === 'kick' || value === 'del') && !isBotAdmin) {
-            return await m.reply('❌ I need admin privileges to handle the antilink feature.');
+        if (value === 'on' && !isBotAdmin) {
+            return await m.reply('❌ I need admin privileges to enforce antilink.');
         }
 
-        if (['kick', 'del', 'off'].includes(value)) {
+        if (value === 'on' || value === 'off') {
             if (currentSetting === value) {
-                return await m.reply(`✅ Antilink was already set to ${value.toUpperCase()}.`);
+                return await m.reply(`✅ Antilink was already ${value.toUpperCase()}.`);
             }
 
             await updateGroupSetting(jid, 'antilink', value);
-            await m.reply(`✅ Antilink has been set to ${value.toUpperCase()} for this group.`);
+            if (value === 'on') {
+                await m.reply('✅ Antilink has been turned ON for this group. _Bot will now delete messages containing links!_');
+            } else {
+                await m.reply('❌ Antilink has been turned OFF for this group.');
+            }
         } else {
             await m.reply(
                 `_📄 Current antilink setting for this group: ${currentSetting?.toUpperCase() || 'OFF'}_\n\n` +
-                `_Use "${prefix}antilink kick", "${prefix}antilink del", or "${prefix}antilink off"._`
+                `_Use "${prefix}antilink on" or "${prefix}antilink off"._`
             );
         }
     });
