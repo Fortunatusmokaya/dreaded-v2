@@ -22,13 +22,13 @@ const app = express();
 const port = process.env.PORT || 10000;
 const _ = require("lodash");
 const PhoneNumber = require("awesome-phonenumber");
-const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif');
- const { isUrl, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('./lib/botFunctions');
+const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('../lib/exif');
+ const { isUrl, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('../lib/botFunctions');
 const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
 
 const authenticationn = require('../auth.js');
 const { smsg } = require('../Handler/smsg');
-const { getSettings } = require('./Database/config');
+const { getSettings } = require('../Database/config');
 
 const { botname  } = require('../Env/settings');
 const { DateTime } = require('luxon');
