@@ -1,11 +1,14 @@
-const { updateSetting } = require('../../config');
-const { settings } = require('../../loadSettings');
+const { updateSetting, getSettings } = require('../../config'); 
 const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 
 module.exports = async (context) => {
     await ownerMiddleware(context, async () => {
         const { m, args } = context;
         const value = args[0]?.toLowerCase();
+        
+        
+        const settings = await getSettings();  
+        const prefix = settings.prefix;  
 
         if (value === 'public' || value === 'private') {
             if (settings.mode === value) {
@@ -14,7 +17,7 @@ module.exports = async (context) => {
             await updateSetting('mode', value);
             await m.reply(`✅ Bot mode has been set to: ${value}`);
         } else {
-            await m.reply(`📄 Current mode setting: ${settings.mode || 'undefined'}\n\nUse _${settings.prefix}mode public_ or _${settings.prefix}mode private_._`);
+            await m.reply(`📄 Current mode setting: ${settings.mode || 'undefined'}\n\nUse _${prefix}mode public_ or _${prefix}mode private_._`);
         }
     });
 };
