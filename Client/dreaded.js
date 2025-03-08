@@ -31,6 +31,8 @@ module.exports = dreaded = async (client, m, chatUpdate, store) => {
 
 try {
 
+    const sudoUsers = await getSudoUsers();
+
 let settings = await getSettings();
         if (!settings) return;
 
@@ -85,7 +87,7 @@ const pict = await fs.readFileSync('./dreaded.jpg');
         const mime = (quoted.msg || quoted).mimetype || "";
         const qmsg = (quoted.msg || quoted);
 
-        const DevDreaded = dev.split(",");
+        const DevDreaded = sudoUsers.split(",");
         const Owner = DevDreaded.map((v) => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net").includes(m.sender);
 
         const groupMetadata = m.isGroup ? await client.groupMetadata(m.chat).catch((e) => { }) : "";
@@ -103,7 +105,7 @@ const pict = await fs.readFileSync('./dreaded.jpg');
             fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antitag, antidelete, antionce, fetchBuffer, store, uploadtoimgur, chatUpdate, ytmp3, getGroupAdmins, pict, Tag
         };
 
-        if (cmd && mode === 'private' && !itsMe && !Owner && m.sender !== dev) {
+        if (cmd && mode === 'private' && !itsMe && !Owner && m.sender !== sudoUsers) {
             return;
         }
 
