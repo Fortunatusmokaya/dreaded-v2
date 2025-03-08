@@ -1,4 +1,4 @@
-const { getGroupSetting } = require('../../config');
+const { getGroupSetting } = require('../../Database/config');
 const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 
 module.exports = async (context) => {
