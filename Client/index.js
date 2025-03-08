@@ -126,47 +126,30 @@ client.ev.on("messages.upsert", async (chatUpdate) => {
         if (isGroup) {
             const antilink = await getGroupSetting(mek.key.remoteJid, "antilink");
 
-            if (antilink !== "off" && messageContent.includes("https")) {
+            if (antilink && messageContent.includes("https")) {
                 const groupMetadata = await client.groupMetadata(mek.key.remoteJid);
                 const groupAdmins = groupMetadata.participants.filter(p => p.admin).map(p => p.id);
                 const isAdmin = groupAdmins.includes(sender);
 
                 if (!isAdmin) {
-                    if (antilink === "kick") {
-                       
-                        await client.groupParticipantsUpdate(mek.key.remoteJid, [sender], "remove");
-
-                      
-                        await client.sendMessage(mek.key.remoteJid, {
-                            text: `🚫 @${sender.split("@")[0]}, sending links is prohibited! You have been removed.`,
-                            contextInfo: { mentionedJid: [sender] }
-                        }, { quoted: mek });
+                  
+                    await client.groupParticipantsUpdate(mek.key.remoteJid, [sender], "remove");
 
                    
-                        await client.sendMessage(mek.key.remoteJid, {
-                            delete: {
-                                remoteJid: mek.key.remoteJid,
-                                fromMe: false,
-                                id: mek.key.id,
-                                participant: sender
-                            }
-                        });
-                    } else if (antilink === "del") {
-                        // Just delete the message and warn the sender
-                        await client.sendMessage(mek.key.remoteJid, {
-                            delete: {
-                                remoteJid: mek.key.remoteJid,
-                                fromMe: false,
-                                id: mek.key.id,
-                                participant: sender
-                            }
-                        });
+                    await client.sendMessage(mek.key.remoteJid, {
+                        text: `🚫 @${sender.split("@")[0]}, sending links is prohibited! You have been removed.`,
+                        contextInfo: { mentionedJid: [sender] }
+                    }, { quoted: mek });
 
-                        await client.sendMessage(mek.key.remoteJid, {
-                            text: `⚠️ @${sender.split("@")[0]}, sending links is not allowed! Your message has been deleted.`,
-                            contextInfo: { mentionedJid: [sender] }
-                        }, { quoted: mek });
-                    }
+                  
+                    await client.sendMessage(mek.key.remoteJid, {
+                        delete: {
+                            remoteJid: mek.key.remoteJid,
+                            fromMe: false,
+                            id: mek.key.id,
+                            participant: sender
+                        }
+                    });
                 }
                 return;
             }
