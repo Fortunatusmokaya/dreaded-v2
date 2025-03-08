@@ -217,10 +217,10 @@ async function addUser(num) {
 }
 
 async function getSettings() {
-   
     try {
         const res = await pool.query("SELECT key, value FROM settings");
         const settings = {};
+        
         res.rows.forEach(row => {
             if (row.value === 'true') {
                 settings[row.key] = true;
@@ -230,7 +230,9 @@ async function getSettings() {
                 settings[row.key] = row.value;
             }
         });
-      
+
+        console.log('[DB] Current settings:', settings); 
+        
         return settings;
     } catch (error) {
         console.error('[DB] Error fetching settings:', error);
