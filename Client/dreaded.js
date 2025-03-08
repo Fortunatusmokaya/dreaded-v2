@@ -16,7 +16,7 @@ const status_saver = require('../Functions/status_saver');
 const eval2 = require('../Functions/eval2');
 const eval = require('../Functions/eval');
 const gcPresence = require('../Functions/gcPresence');
-const antilink = require('../Functions/antilink');
+const antilinkgc = require('../Functions/antilink');
 const antitaggc = require('../Functions/antitag');
 const masterEval = require('../Functions/masterEval');
 const antidel = require('../Functions/antidelete');
@@ -125,7 +125,7 @@ const pict = fs.readFileSync(filePath);
         await status_saver(client, m, Owner, prefix);
         await eval2(client, m, Owner, budy, fetchJson);
         await eval(client, m, Owner, budy, fetchJson, store);
-        await antilink(client, m, isBotAdmin, isAdmin, Owner, body);
+        await antilinkgc(client, m, isBotAdmin, isAdmin, Owner, body);
       
         await gcPresence(client, m, gcpresence);
         await antitaggc(client, m, isBotAdmin, itsMe, isAdmin, Owner, body, antitag);
