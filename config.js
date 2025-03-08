@@ -19,14 +19,33 @@ async function initializeDatabase() {
             );
         `);
 
-        
-        await client.query(`
-            INSERT INTO settings (key, value) 
-            VALUES ('prefix', '.') 
-            ON CONFLICT (key) DO NOTHING;
-        `);
+        const defaultSettings = {
+            prefix: '.',
+            mycode: '254',
+            author: 'fortunatus',
+            packname: 'dreaded md2 🤖',
+            botname: 'DREADED',
+            mode: 'public',
+            gcpresence: 'false',
+            antionce: 'true',
+            presence: 'online',
+            antitag: 'true',
+            antidelete: 'true',
+            autoview: 'true',
+            autolike: 'true',
+            autoread: 'true',
+            autobio: 'false'
+        };
 
-        console.log('[DB] Database initialized successfully.');
+        for (const [key, value] of Object.entries(defaultSettings)) {
+            await client.query(`
+                INSERT INTO settings (key, value) 
+                VALUES ($1, $2)
+                ON CONFLICT (key) DO NOTHING;
+            `, [key, value]);
+        }
+
+        console.log('[DB] Default settings initialized successfully.');
     } catch (error) {
         console.error('[DB] Error initializing database:', error);
     } finally {
@@ -55,6 +74,7 @@ async function getSettings() {
         return {};
     }
 }
+
 async function updateSetting(key, value) {
     console.log(`[DB] Updating setting: ${key} -> ${value}`);
     try {
