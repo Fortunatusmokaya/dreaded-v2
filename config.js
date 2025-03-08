@@ -11,7 +11,7 @@ async function initializeDatabase() {
     const client = await pool.connect();
     console.log('[DB] Checking and creating settings tables...');
     try {
-        
+
         await client.query(`
             CREATE TABLE IF NOT EXISTS settings (
                 id SERIAL PRIMARY KEY,
@@ -20,7 +20,6 @@ async function initializeDatabase() {
             );
         `);
 
-      
         await client.query(`
             CREATE TABLE IF NOT EXISTS group_settings (
                 jid TEXT NOT NULL,
@@ -30,14 +29,24 @@ async function initializeDatabase() {
             );
         `);
 
-     
         await client.query(`
             CREATE TABLE IF NOT EXISTS sudo_users (
                 num TEXT PRIMARY KEY
             );
         `);
 
-     
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS banned_users (
+                num TEXT PRIMARY KEY
+            );
+        `);
+
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS users (
+                num TEXT PRIMARY KEY
+            );
+        `);
+
         const defaultSettings = {
             prefix: '.',
             mycode: '254',
@@ -64,7 +73,7 @@ async function initializeDatabase() {
             `, [key, value]);
         }
 
-        console.log('[DB] Default settings initialized successfully.');
+        console.log('[DB] Database tables initialized successfully.');
     } catch (error) {
         console.error('[DB] Error initializing database:', error);
     } finally {
@@ -72,6 +81,98 @@ async function initializeDatabase() {
     }
 }
 
+async function addSudoUser(num) {
+    const client = await pool.connect();
+    try {
+        await client.query(`
+            INSERT INTO sudo_users (num)
+            VALUES ($1)
+            ON CONFLICT (num) DO NOTHING;
+        `, [num]);
+        console.log(`[DB] Sudo user ${num} added successfully.`);
+    } catch (error) {
+        console.error(`[DB] Error adding sudo user ${num}:`, error);
+    } finally {
+        client.release();
+    }
+}
+
+async function getSudoUsers() {
+    const client = await pool.connect();
+    try {
+        const res = await client.query('SELECT num FROM sudo_users');
+        return res.rows.map(row => row.num);
+    } catch (error) {
+        console.error('[DB] Error fetching sudo users:', error);
+        return [];
+    } finally {
+        client.release();
+    }
+}
+
+async function isSudoUser(num) {
+    const sudoUsers = await getSudoUsers();
+    return sudoUsers.includes(num);
+}
+
+async function banUser(num) {
+    const client = await pool.connect();
+    try {
+        await client.query(`
+            INSERT INTO banned_users (num)
+            VALUES ($1)
+            ON CONFLICT (num) DO NOTHING;
+        `, [num]);
+        console.log(`[DB] User ${num} banned successfully.`);
+    } catch (error) {
+        console.error(`[DB] Error banning user ${num}:`, error);
+    } finally {
+        client.release();
+    }
+}
+
+async function unbanUser(num) {
+    const client = await pool.connect();
+    try {
+        await client.query(`
+            DELETE FROM banned_users WHERE num = $1;
+        `, [num]);
+        console.log(`[DB] User ${num} unbanned successfully.`);
+    } catch (error) {
+        console.error(`[DB] Error unbanning user ${num}:`, error);
+    } finally {
+        client.release();
+    }
+}
+
+async function getBannedUsers() {
+    const client = await pool.connect();
+    try {
+        const res = await client.query('SELECT num FROM banned_users');
+        return res.rows.map(row => row.num);
+    } catch (error) {
+        console.error('[DB] Error fetching banned users:', error);
+        return [];
+    } finally {
+        client.release();
+    }
+}
+
+async function addUser(num) {
+    const client = await pool.connect();
+    try {
+        await client.query(`
+            INSERT INTO users (num)
+            VALUES ($1)
+            ON CONFLICT (num) DO NOTHING;
+        `, [num]);
+        console.log(`[DB] User ${num} added successfully.`);
+    } catch (error) {
+        console.error(`[DB] Error adding user ${num}:`, error);
+    } finally {
+        client.release();
+    }
+}
 
 async function getSettings() {
     console.log('[DB] Fetching settings...');
@@ -79,7 +180,13 @@ async function getSettings() {
         const res = await pool.query("SELECT key, value FROM settings");
         const settings = {};
         res.rows.forEach(row => {
-            settings[row.key] = row.value === 'true' ? true : row.value === 'false' ? false : row.value;
+            if (row.value === 'true') {
+                settings[row.key] = true;
+            } else if (row.value === 'false') {
+                settings[row.key] = false;
+            } else {
+                settings[row.key] = row.value;
+            }
         });
         console.log('[DB] Settings fetched successfully.');
         return settings;
@@ -88,7 +195,6 @@ async function getSettings() {
         return {};
     }
 }
-
 
 async function updateSetting(key, value) {
     console.log(`[DB] Updating setting: ${key} -> ${value}`);
@@ -105,7 +211,6 @@ async function updateSetting(key, value) {
     }
 }
 
-
 async function getGroupSetting(jid, key) {
     console.log(`[DB] Fetching group setting for ${jid}: ${key}`);
     try {
@@ -113,7 +218,8 @@ async function getGroupSetting(jid, key) {
             SELECT value FROM group_settings WHERE jid = $1 AND key = $2;
         `, [jid, key]);
         if (res.rows.length > 0) {
-            return res.rows[0].value === 'true' ? true : res.rows[0].value === 'false' ? false : res.rows[0].value;
+            const value = res.rows[0].value;
+            return value === 'true' ? true : value === 'false' ? false : value;
         }
         return null;
     } catch (error) {
@@ -121,7 +227,6 @@ async function getGroupSetting(jid, key) {
         return null;
     }
 }
-
 
 async function updateGroupSetting(jid, key, value) {
     console.log(`[DB] Updating group setting: ${jid} - ${key} -> ${value}`);
@@ -138,56 +243,18 @@ async function updateGroupSetting(jid, key, value) {
     }
 }
 
-
-async function getSudoUsers() {
-    console.log('[DB] Fetching sudo users...');
-    try {
-        const res = await pool.query("SELECT num FROM sudo_users");
-        const sudoUsers = res.rows.map(row => row.num);
-        console.log('[DB] Sudo users fetched successfully.');
-        return sudoUsers;
-    } catch (error) {
-        console.error('[DB] Error fetching sudo users:', error);
-        return [];
-    }
-}
-
-
-async function addSudoUser(num) {
-    console.log(`[DB] Adding sudo user: ${num}`);
-    try {
-        await pool.query(`
-            INSERT INTO sudo_users (num) 
-            VALUES ($1) 
-            ON CONFLICT (num) DO NOTHING;
-        `, [num]);
-        console.log(`[DB] Sudo user added successfully: ${num}`);
-    } catch (error) {
-        console.error(`[DB] Error adding sudo user: ${num}`, error);
-    }
-}
-
-
-async function removeSudoUser(num) {
-    console.log(`[DB] Removing sudo user: ${num}`);
-    try {
-        await pool.query(`
-            DELETE FROM sudo_users WHERE num = $1;
-        `, [num]);
-        console.log(`[DB] Sudo user removed successfully: ${num}`);
-    } catch (error) {
-        console.error(`[DB] Error removing sudo user: ${num}`, error);
-    }
-}
+initializeDatabase().catch(console.error);
 
 module.exports = {
+    addSudoUser,
+    getSudoUsers,
+    isSudoUser,
+    banUser,
+    unbanUser,
+    getBannedUsers,
+    addUser,
     getSettings,
     updateSetting,
     getGroupSetting,
-    updateGroupSetting,
-    getSudoUsers,
-    addSudoUser,
-    removeSudoUser
+    updateGroupSetting
 };
-
-initializeDatabase().catch(console.error);
