@@ -5,7 +5,7 @@ module.exports = async (client, m) => {
 
     const gcpresence = await getGroupSetting(m.chat, "gcpresence");
 
-    if (gcpresence === true) {
+    if (gcpresence) {
         let presenceTypes = ["recording", "composing"];
         let selectedPresence = presenceTypes[Math.floor(Math.random() * presenceTypes.length)];
         await client.sendPresenceUpdate(selectedPresence, m.chat);
