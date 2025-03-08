@@ -9,7 +9,7 @@ module.exports = async (client, m, isBotAdmin, isAdmin, Owner, body) => {
     
     const antilink = groupSettings?.antilink?.trim().toLowerCase(); 
 
-    console.log("Fetched antilink setting:", antilink); 
+    
 
     if (!antilink || antilink === "off") return; 
 
@@ -18,7 +18,7 @@ module.exports = async (client, m, isBotAdmin, isAdmin, Owner, body) => {
         const kid = m.sender;
 
         if (antilink === "del") {
-            console.log("Deleting message only..."); 
+           
 
             await client.sendMessage(m.chat, {
                 delete: {
@@ -35,7 +35,7 @@ module.exports = async (client, m, isBotAdmin, isAdmin, Owner, body) => {
             });
         } 
         else if (antilink === "kick") {
-            console.log("Deleting and kicking..."); 
+          
 
             await client.sendMessage(m.chat, {
                 delete: {
