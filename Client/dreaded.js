@@ -15,7 +15,6 @@ const blocked_users = require('../Functions/blocked_users');
 const status_saver = require('../Functions/status_saver');
 const eval2 = require('../Functions/eval2');
 const eval = require('../Functions/eval');
-const antiviewonce = require('../Functions/antiviewonce');
 const gcPresence = require('../Functions/gcPresence');
 const antilink = require('../Functions/antilink');
 const antitaggc = require('../Functions/antitag');
@@ -110,7 +109,7 @@ const pict = fs.readFileSync(filePath);
             client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, participants,
             pushname, body, budy, totalCommands, args, mime, qmsg, msgDreaded, botNumber, itsMe,
             packname, generateProfilePicture, groupMetadata, dreadedspeed, mycode,
-            fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antitag, antidelete, antionce, fetchBuffer, store, uploadtoimgur, chatUpdate, ytmp3, getGroupAdmins, pict, Tag
+            fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antitag, antidelete, fetchBuffer, store, uploadtoimgur, chatUpdate, ytmp3, getGroupAdmins, pict, Tag
         };
 
         if (cmd && mode === 'private' && !itsMe && !Owner && m.sender !== sudoUsers) {
@@ -127,7 +126,7 @@ const pict = fs.readFileSync(filePath);
         await eval2(client, m, Owner, budy, fetchJson);
         await eval(client, m, Owner, budy, fetchJson, store);
         await antilink(client, m, isBotAdmin, isAdmin, Owner, body);
-        await antiviewonce(client, m, antionce);
+      
         await gcPresence(client, m, gcpresence);
         await antitaggc(client, m, isBotAdmin, itsMe, isAdmin, Owner, body, antitag);
         await masterEval(client, m, Owner, budy, fetchJson, store);
