@@ -57,12 +57,7 @@ const connectionHandler = async (client, update, startDreaded) => {
     }
   } else if (connection === "open") {
     try {
-      console.log("📈 Connecting to PostgreSQL database...");
-      await connectToDB();
-      console.log("📉 Connected to PostgreSQL database.");
-    } catch (error) {
-      console.error("Error connecting to PostgreSQL:", error.message);
-    }
+      
 
     await client.groupAcceptInvite("HPik6o5GenqDBCosvXW3oe");
 
