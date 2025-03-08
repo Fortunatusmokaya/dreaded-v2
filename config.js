@@ -173,7 +173,7 @@ async function getSettings() {
             settings[row.key] = row.value === 'true' ? true : row.value === 'false' ? false : row.value;
         });
 
-        console.log('[DB] Current settings:', settings);
+    
         return settings;
     } catch (error) {
         console.error('[DB] Error fetching settings:', error);
