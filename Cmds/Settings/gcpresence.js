@@ -14,19 +14,20 @@ module.exports = async (context) => {
         const settings = await getSettings();
         const prefix = settings.prefix;
 
-        const currentSetting = await getGroupSetting(jid, 'gcpresence');
-        const isEnabled = currentSetting === true;
+        let groupSettings = await getGroupSetting(jid);
+        let isEnabled = groupSettings?.gcpresence === true;
 
         if (value === 'on' || value === 'off') {
             const action = value === 'on';
+
             if (isEnabled === action) {
                 return await m.reply(`✅ GCPresence is already ${value.toUpperCase()}.`);
             }
 
-            await updateGroupSetting(jid, 'gcpresence', action);
-            await m.reply(`✅ GCPresence has been turned ${value.toUpperCase()} for this group. Bot will now simulate a fake typing and recording.`);
+            await updateGroupSetting(jid, 'gcpresence', action ? 'true' : 'false');
+            await m.reply(`✅ GCPresence has been turned ${value.toUpperCase()} for this group. Bot will now simulate fake typing and recording.`);
         } else {
-            await m.reply(`📄 Current Presence setting for this group: ${isEnabled ? 'ON' : 'OFF'}\n\nUse _${prefix}gcpresence on_ or _${prefix}gcpresence off_ to change it.`);
+            await m.reply(`📄 Current GCPresence setting for this group: ${isEnabled ? 'ON' : 'OFF'}\n\n _Use ${prefix}gcpresence on or ${prefix}gcpresence off to change it._`);
         }
     });
 };
