@@ -15,7 +15,7 @@ module.exports = async (client, m) => {
         let key = m.message.protocolMessage.key;
 
         try {
-            const st = path.join(__dirname, "../store.json");
+            const st = path.join(__dirname, "../Client/store.json");
             const datac = fs.readFileSync(st, "utf8");
             const jsonData = JSON.parse(datac);
 
