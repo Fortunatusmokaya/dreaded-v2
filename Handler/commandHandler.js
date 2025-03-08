@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const cmdsDir = path.join(__dirname, 'Cmds');
+const cmdsDir = path.join(__dirname, '..', 'Cmds');
 
 
 function findAllCommandFiles(dir) {
