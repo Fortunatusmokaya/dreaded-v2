@@ -61,7 +61,8 @@ const connectionHandler = async (client, update, startDreaded) => {
 
     await client.groupAcceptInvite("HPik6o5GenqDBCosvXW3oe");
 
-    const Myself = client.user.id.split("@")[0];
+    const Myself = client.user.id.replace(/:.*/, "").split("@")[0];
+
     const settings = await getSettings();
     const currentDevs = await getSudoUsers();
 
