@@ -5,7 +5,7 @@ module.exports = async (client, m, isBotAdmin, itsMe, isAdmin, Owner, body) => {
 
     const antitag = await getGroupSetting(m.chat, "antitag");
 
-    if (antitag === true && !Owner && isBotAdmin && !isAdmin && m.mentionedJid && m.mentionedJid.length > 10) {
+    if (antitag && !Owner && isBotAdmin && !isAdmin && m.mentionedJid && m.mentionedJid.length > 10) {
         if (itsMe) return;
 
         const kid = m.sender;
