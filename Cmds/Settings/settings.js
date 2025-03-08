@@ -1,5 +1,5 @@
 const { getSettings, getSudoUsers } = require('../../Database/config');  
-const { getBannedUsers } = require('../../config');  
+const { getBannedUsers } = require('../../Database/config');  
 
 module.exports = async (context) => {
     const { client, m } = context;
