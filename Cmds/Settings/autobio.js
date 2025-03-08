@@ -1,4 +1,4 @@
-const { getSettings, updateSetting } = require('../../config');
+const { getSettings, updateSetting } = require('../../Database/config');
 
 const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 
