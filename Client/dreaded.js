@@ -60,7 +60,12 @@ let settings = await getSettings();
         const timestamp = speed();
         const dreadedspeed = speed() - timestamp;
 
-const pict = await fs.readFileSync('../dreaded.jpg');
+const path = require('path');
+
+const filePath = path.resolve(__dirname, '../dreaded.jpg'); 
+const pict = fs.readFileSync(filePath);
+
+
 
         const cmd = body.startsWith(prefix);
         const args = body.trim().split(/ +/).slice(1);
