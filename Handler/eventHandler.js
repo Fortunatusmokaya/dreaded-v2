@@ -14,10 +14,9 @@ const Events = async (client, Fortu) => {
 
 
 const groupSettings = await getGroupSetting(Fortu.id);
-    const events = await getGroupSetting(Fortu.id, "events");
-    const antidemote = await getGroupSetting(Fortu.id, "antidemote");
-    const antipromote = await getGroupSetting(Fortu.id, "antipromote");
-
+        const events = groupSettings?.events;
+        const antidemote = groupSettings?.antidemote;
+        const antipromote = groupSettings?.antipromote;
 const sudoUsers = await getSudoUsers();
 
 
@@ -35,7 +34,7 @@ const currentDevs = DevDreaded.map((v) => v.replace(/[^0-9]/g, "") + "@s.whatsap
                 dpuser = "https://telegra.ph/file/0a620a1cf04d3ba3874f5.jpg";
             }
 
-            if (Fortu.action === "add" && events) {
+            if (events && Fortu.action === "add") {
                 let userName = num;
 
                 let Welcometext = `Holla @${userName.split("@")[0]} 👋\n\nWelcome to ${metadata.subject}.\n\nGroup Description: ${desc}\n\nThank You.\n\nThis is an automated message sent by ${botname} via Baileys.`;
@@ -56,7 +55,7 @@ const currentDevs = DevDreaded.map((v) => v.replace(/[^0-9]/g, "") + "@s.whatsap
                     mentions: [num],
                 });
             } else if (Fortu.action === "demote") {
-                if (antidemote === true) {
+                if (antidemote) {
                     if (
                         Fortu.author == metadata.owner || 
                         Fortu.author == Myself || 
