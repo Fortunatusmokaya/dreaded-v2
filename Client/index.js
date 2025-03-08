@@ -105,6 +105,8 @@ if (autobio){
 
   const { getGroupSetting } = require("../Database/config");
 
+const { getGroupSetting } = require("../Database/config");
+
 client.ev.on("messages.upsert", async (chatUpdate) => {
     let settings = await getSettings();
     if (!settings) return;
@@ -130,27 +132,36 @@ client.ev.on("messages.upsert", async (chatUpdate) => {
                 const isAdmin = groupAdmins.includes(sender);
 
                 if (!isAdmin) {
-                   
-                    await client.sendMessage(mek.key.remoteJid, {
-                        delete: {
-                            remoteJid: mek.key.remoteJid,
-                            fromMe: false,
-                            id: mek.key.id,
-                            participant: sender
-                        }
-                    });
-
                     if (antilink === "kick") {
-                     
+                       
                         await client.groupParticipantsUpdate(mek.key.remoteJid, [sender], "remove");
 
-                     
+                      
                         await client.sendMessage(mek.key.remoteJid, {
                             text: `🚫 @${sender.split("@")[0]}, sending links is prohibited! You have been removed.`,
                             contextInfo: { mentionedJid: [sender] }
                         }, { quoted: mek });
+
+                   
+                        await client.sendMessage(mek.key.remoteJid, {
+                            delete: {
+                                remoteJid: mek.key.remoteJid,
+                                fromMe: false,
+                                id: mek.key.id,
+                                participant: sender
+                            }
+                        });
                     } else if (antilink === "del") {
-                       
+                        // Just delete the message and warn the sender
+                        await client.sendMessage(mek.key.remoteJid, {
+                            delete: {
+                                remoteJid: mek.key.remoteJid,
+                                fromMe: false,
+                                id: mek.key.id,
+                                participant: sender
+                            }
+                        });
+
                         await client.sendMessage(mek.key.remoteJid, {
                             text: `⚠️ @${sender.split("@")[0]}, sending links is not allowed! Your message has been deleted.`,
                             contextInfo: { mentionedJid: [sender] }
