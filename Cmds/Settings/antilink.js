@@ -15,33 +15,49 @@ module.exports = async (context) => {
         const prefix = settings.prefix;
 
         let groupSettings = await getGroupSetting(jid);
-        let isEnabled = groupSettings?.antilink === 'on';
+        let currentMode = groupSettings?.antilink || 'off';
 
         const Myself = await client.decodeJid(client.user.id);
         const groupMetadata = await client.groupMetadata(m.chat);
         const userAdmins = groupMetadata.participants.filter(p => p.admin !== null).map(p => p.id);
         const isBotAdmin = userAdmins.includes(Myself);
 
-        if (value === 'on' && !isBotAdmin) {
-            return await m.reply('❌ I need admin privileges to enforce antilink.');
+        if (value && !['kick', 'del', 'off'].includes(value)) {
+            return await m.reply(
+                `❌ Invalid option!\n\n_Use:_\n` +
+                `- \`${prefix}antilink kick\` → *Kick* users who send links.\n` +
+                `- \`${prefix}antilink del\` → *Delete* messages containing links.\n` +
+                `- \`${prefix}antilink off\` → *Disable* antilink protection.`
+            );
         }
 
-        if (value === 'on' || value === 'off') {
-            const action = value === 'on';
-
-            if (isEnabled === action) {
-                return await m.reply(`✅ Antilink is already ${value.toUpperCase()}.`);
+        if (value === 'kick' || value === 'del') {
+            if (!isBotAdmin) {
+                return await m.reply('❌ I need admin privileges to enforce antilink.');
             }
 
-            await updateGroupSetting(jid, 'antilink', action ? 'on' : 'off');
-            await m.reply(
-                `✅ Antilink has been turned ${value.toUpperCase()} for this group.` +
-                (action ? ` _Bot will now delete messages containing links!_` : '')
+            if (currentMode === value) {
+                return await m.reply(`✅ Antilink is already set to *${value.toUpperCase()}*.`);
+            }
+
+            await updateGroupSetting(jid, 'antilink', value);
+            await m.reply(`✅ Antilink mode updated to *${value.toUpperCase()}*.\n\n` +
+                (value === 'kick' ? `_Users sending links will be removed!_` : `_Messages with links will be deleted!_`)
             );
+        } else if (value === 'off') {
+            if (currentMode === 'off') {
+                return await m.reply(`✅ Antilink is already *OFF*.`);
+            }
+
+            await updateGroupSetting(jid, 'antilink', 'off');
+            await m.reply(`✅ Antilink has been turned *OFF* for this group.`);
         } else {
             await m.reply(
-                `📄 Current Antilink setting for this group: ${isEnabled ? 'ON' : 'OFF'}\n\n` +
-                `_Use ${prefix}antilink on or ${prefix}antilink off to change it._`
+                `📄 Current Antilink setting: *${currentMode.toUpperCase()}*\n\n` +
+                `_Use:_\n` +
+                `- \`${prefix}antilink kick\` → Kick users who send links.\n` +
+                `- \`${prefix}antilink del\` → Delete messages containing links.\n` +
+                `- \`${prefix}antilink off\` → Disable antilink.`
             );
         }
     });
