@@ -6,17 +6,25 @@ const Events = async (client, Fortu) => {
     const Myself = await client.decodeJid(client.user.id);
 
     try {
-        const groupSettings = await getGroupSettings(Fortu.id);
+        
 
         let metadata = await client.groupMetadata(Fortu.id);
         let participants = Fortu.participants;
         let desc = metadata.desc || "No Description";
 
 
-const settings = await getGroupSetting();
+const groupSettings = await getGroupSetting(Fortu.id);
+    const events = await getGroupSetting(Fortu.id, "events");
+    const antidemote = await getGroupSetting(Fortu.id, "antidemote");
+    const antipromote = await getGroupSetting(Fortu.id, "antipromote");
 
-      
-        const currentDevs = settings.dev.split(',').map((nums) => nums.trim()).map(num => `${num}@s.whatsapp.net`);
+const sudoUsers = await getSudoUsers();
+
+
+const DevDreaded = Array.isArray(sudoUsers) ? sudoUsers : [];
+const currentDevs = DevDreaded.map((v) => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net");
+
+
 
         for (let num of participants) {
             let dpuser;
@@ -27,7 +35,7 @@ const settings = await getGroupSetting();
                 dpuser = "https://telegra.ph/file/0a620a1cf04d3ba3874f5.jpg";
             }
 
-            if (Fortu.action === "add" && groupSettings.events) {
+            if (Fortu.action === "add" && events) {
                 let userName = num;
 
                 let Welcometext = `Holla @${userName.split("@")[0]} 👋\n\nWelcome to ${metadata.subject}.\n\nGroup Description: ${desc}\n\nThank You.\n\nThis is an automated message sent by ${botname} via Baileys.`;
@@ -37,7 +45,7 @@ const settings = await getGroupSetting();
                     caption: Welcometext,
                     mentions: [num],
                 });
-            } else if (Fortu.action === "remove" && groupSettings.events) {
+            } else if (Fortu.action === "remove" && events) {
                 let userName2 = num;
 
                 let Lefttext = `Goodbye @${userName2.split("@")[0]} 👋, probably not gonna miss you`;
@@ -48,7 +56,7 @@ const settings = await getGroupSetting();
                     mentions: [num],
                 });
             } else if (Fortu.action === "demote") {
-                if (groupSettings.antidemote === true) {
+                if (antidemote === true) {
                     if (
                         Fortu.author == metadata.owner || 
                         Fortu.author == Myself || 
@@ -74,7 +82,7 @@ const settings = await getGroupSetting();
                     );
                 }
             } else if (Fortu.action === "promote") {
-                if (groupSettings.antipromote === true) {
+                if (antipromote) {
                     if (
                         Fortu.author == metadata.owner || 
                         Fortu.author == Myself || 
