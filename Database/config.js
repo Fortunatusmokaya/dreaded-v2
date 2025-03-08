@@ -246,6 +246,16 @@ async function getSudoUsers() {
     }
 }
 
+async function getBannedUsers() {
+    try {
+        const res = await pool.query('SELECT num FROM banned_users');
+        return res.rows.map(row => row.num);
+    } catch (error) {
+        console.error('[DB] Error fetching banned users:', error);
+        return [];
+    }
+}
+
 initializeDatabase().catch(console.error);
 
 module.exports = {
@@ -254,6 +264,7 @@ module.exports = {
     removeSudoUser,
     banUser,
     unbanUser,
+    getBannedUsers,
     getSettings,
     updateSetting,
     getGroupSetting,
