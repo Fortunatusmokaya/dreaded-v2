@@ -1,4 +1,4 @@
-const { getSettings, updateSetting } = require('../../config');
+/* const { getSettings, updateSetting } = require('../../config');
 const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 
 module.exports = async (context) => {
@@ -25,3 +25,5 @@ module.exports = async (context) => {
         }
     });
 };
+
+*/
