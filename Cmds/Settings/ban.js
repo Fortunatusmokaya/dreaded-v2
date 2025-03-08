@@ -1,5 +1,5 @@
 const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
-const { getSettings, banUser, unbanUser, getBannedUsers, getSudoUsers } = require('../../config');
+const { getSettings, banUser, getBannedUsers, getSudoUsers } = require('../../config');
 
 module.exports = async (context) => {
     await ownerMiddleware(context, async () => {
@@ -30,8 +30,8 @@ module.exports = async (context) => {
             numberToBan = `${numberToBan.trim()}@s.whatsapp.net`;
         }
 
-        if (sudoUsers.startsWith(numberToBan)) {
-            return await m.reply('❌ Why do you want to ban a Sudo User?');
+        if (sudoUsers.includes(numberToBan)) {
+            return await m.reply('❌ You cannot ban a Sudo User.');
         }
 
         const bannedUsers = await getBannedUsers();
