@@ -5,7 +5,7 @@ module.exports = async (client, m, isBotAdmin, isAdmin, Owner, body) => {
 
     const antilink = await getGroupSetting(m.chat, "antilink");
 
-    if (!antilink || antilink === "off") return; 
+    if (!antilink || antilink === 'off') return; 
 
     if (body.includes("chat.whatsapp.com") && !Owner && isBotAdmin && !isAdmin) {
         m.reply("❌ Group link detected!");
@@ -22,7 +22,7 @@ module.exports = async (client, m, isBotAdmin, isAdmin, Owner, body) => {
             }
         });
 
-        if (antilink === "kick") {
+        if (antilink === 'kick') {
            
             await client.groupParticipantsUpdate(m.chat, [kid], "remove");
 
@@ -32,7 +32,7 @@ module.exports = async (client, m, isBotAdmin, isAdmin, Owner, body) => {
                     mentionedJid: [kid]
                 }
             }, { quoted: m });
-        } else if (antilink === "del") {
+        } else if (antilink === 'del') {
            
             await m.reply(`⚠️ @${kid.split("@")[0]}, group links are not allowed! Message deleted.`, {
                 contextInfo: { mentionedJid: [kid] }
