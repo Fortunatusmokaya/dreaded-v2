@@ -24,7 +24,7 @@ module.exports = async (context) => {
             }
 
             await updateGroupSetting(jid, 'antidemote', action);
-            await m.reply(`✅ Antidemote has been turned ${value.toUpperCase()} for this group. Bot will monitor promotions.`);
+            await m.reply(`✅ Antidemote has been turned ${value.toUpperCase()} for this group. Bot will monitor demotions.`);
         } else {
             await m.reply(`📄 Current Antidemote setting for this group: ${isEnabled ? 'ON' : 'OFF'}\n\n _Use ${prefix}antidemote on or ${prefix}antidemote off to change it._`);
         }
