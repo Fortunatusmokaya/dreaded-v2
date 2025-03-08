@@ -32,9 +32,9 @@ module.exports = async (context) => {
         .map((entry) => entry[1]);
     let anaa = groupzs.map((v) => v.id);
 
-    const { bannedCount } = await getBannedUsers();
+    const bannedCount = await getBannedUsers();
 
-    response += `🔘 *Banned Users*: ${bannedCount}\n`;  
+    response += `🔘 *Banned Users*: ${bannedCount.length}\n`;  
     response += `🔘 *Total Groups*: ${anaa.length}\n`; 
 
     await m.reply(response);
