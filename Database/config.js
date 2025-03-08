@@ -85,7 +85,7 @@ const defaultGroupSettings = {
     antidemote: 'false',      
     antipromote: 'true',
     events: 'true',
-    antilink: 'on'
+    antilink: 'true'
 };
 
 async function initializeGroupSettings(jid) {
