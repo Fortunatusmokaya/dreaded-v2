@@ -41,7 +41,7 @@ const groupEvents = require("../Handler/eventHandler");
 async function startDreaded() {
 
 let settingss = await getSettings();
-        if (!settings) return;
+        if (!settingss) return;
 
 const { autobio } = settingss;
 
