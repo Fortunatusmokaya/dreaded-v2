@@ -1,5 +1,4 @@
 const { getSettings, updateSetting } = require('../../config');
-
 const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 
 module.exports = async (context) => {
@@ -8,6 +7,7 @@ module.exports = async (context) => {
         const newEmoji = args[0];
 
         const settings = await getSettings();
+        const prefix = settings.prefix;
         const currentEmoji = settings.reactEmoji || 'No react emoji set.';
 
         if (newEmoji) {
@@ -25,7 +25,7 @@ module.exports = async (context) => {
                 await m.reply(`✅ Status react emoji has been updated to: ${newEmoji}`);
             }
         } else {
-            await m.reply(`📄 Current Status reaction emoji: ${currentEmoji}\n\nUse 'reaction random' to set it to random or 'reaction <emoji>' to set a specific emoji.`);
+            await m.reply(`📄 Current reaction emoji: ${currentEmoji}\n\nUse _${prefix}reaction random_ to set it to random or _${prefix}reaction <emoji>_ to set a specific emoji.`);
         }
     });
 };
