@@ -11,7 +11,7 @@ module.exports = async (context) => {
         }
 
         const sudoUsers = await getSudoUsers();
-        console.log('Sudo Users:', sudoUsers); 
+        
 
         let numberToBan;
 
@@ -27,11 +27,12 @@ module.exports = async (context) => {
             return await m.reply('❌ Please provide a valid number or quote a user.');
         }
 
-        if (!numberToBan.includes('@s.whatsapp.net')) {
-            numberToBan = `${numberToBan.trim()}@s.whatsapp.net`;
+      
+        if (numberToBan.includes('@s.whatsapp.net')) {
+            numberToBan = numberToBan.split('@')[0];
         }
 
-        console.log('Number to Ban:', numberToBan);
+        
 
         if (sudoUsers.includes(numberToBan)) {
             return await m.reply('❌ You cannot ban a Sudo User.');
@@ -44,6 +45,6 @@ module.exports = async (context) => {
         }
 
         await banUser(numberToBan);
-        await m.reply(`✅ ${numberToBan.split('@')[0]} has been banned.`);
+        await m.reply(`✅ ${numberToBan} has been banned.`);
     });
 };
