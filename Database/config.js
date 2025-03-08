@@ -89,7 +89,7 @@ const defaultGroupSettings = {
 };
 
 async function initializeGroupSettings(jid) {
-    console.log(`[DB] Initializing settings for group: ${jid}`);
+    
     try {
         for (const [key, value] of Object.entries(defaultGroupSettings)) {
             console.log(`[DB] Checking/Setting ${key} -> ${value} for group: ${jid}`);
@@ -100,7 +100,7 @@ async function initializeGroupSettings(jid) {
                 ON CONFLICT (jid, key) DO NOTHING;
             `, [jid, key, value]);
 
-            console.log(`[DB] Ensured setting exists: ${jid} - ${key} -> ${value}`);
+            
         }
     } catch (error) {
         console.error(`[DB] Error initializing group settings for ${jid}:`, error);
@@ -108,7 +108,7 @@ async function initializeGroupSettings(jid) {
 }
 
 async function getGroupSetting(jid) {
-    console.log(`[DB] Fetching all settings for group: ${jid}`);
+    
     try {
         const res = await pool.query(`
             SELECT key, value FROM group_settings WHERE jid = $1;
@@ -151,7 +151,7 @@ async function updateGroupSetting(jid, key, value) {
 }
 
 async function getAllGroupSettings() {
-    console.log(`[DB] Fetching settings for all groups`);
+    
     try {
         const res = await pool.query(`
             SELECT * FROM group_settings;
