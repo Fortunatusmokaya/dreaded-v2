@@ -14,16 +14,17 @@ module.exports = async (context) => {
         const settings = await getSettings();
         const prefix = settings.prefix;
 
-        const currentSetting = await getGroupSetting(jid, 'antipromote');
-        const isEnabled = currentSetting === true;
+        let groupSettings = await getGroupSetting(jid);
+        let isEnabled = groupSettings?.antipromote === true;
 
         if (value === 'on' || value === 'off') {
             const action = value === 'on';
+
             if (isEnabled === action) {
                 return await m.reply(`✅ Antipromote is already ${value.toUpperCase()}.`);
             }
 
-            await updateGroupSetting(jid, 'antipromote', action);
+            await updateGroupSetting(jid, 'antipromote', action ? 'true' : 'false');
             await m.reply(`✅ Antipromote has been turned ${value.toUpperCase()} for this group. Bot will now monitor promotions.`);
         } else {
             await m.reply(`📄 Current Antipromote setting for this group: ${isEnabled ? 'ON' : 'OFF'}\n\n _Use ${prefix}antipromote on or ${prefix}antipromote off to change it._`);
