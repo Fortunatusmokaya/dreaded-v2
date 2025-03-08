@@ -49,10 +49,10 @@ async function initializeDatabase() {
 
         const defaultSettings = {
             prefix: '.',
-            mycode: '254',
+          
             author: 'fortunatus',
             packname: 'dreaded md2 🤖',
-            botname: 'DREADED',
+           
             mode: 'public',
             presence: 'online',
             autoview: 'true',
