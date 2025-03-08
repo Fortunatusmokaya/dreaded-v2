@@ -22,9 +22,15 @@ const antitaggc = require('./Functions/antitag');
 const masterEval = require('./Functions/masterEval');
 const antidel = require('./Functions/antidelete');
 
+const { getSettings } = require('./config');
+let settings = await getSettings();
+        if (!settings) return;
+
+        const { prefix } = settings;
+
 const {
     presence, autoread, botname,
-    mode, prefix, mycode, author, packname,
+    mode, mycode, author, packname,
     dev, gcpresence, antionce, antitag, antidelete
 } = require('./settings');
 
