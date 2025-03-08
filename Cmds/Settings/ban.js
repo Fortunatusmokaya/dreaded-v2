@@ -11,6 +11,7 @@ module.exports = async (context) => {
         }
 
         const sudoUsers = await getSudoUsers();
+        console.log('Sudo Users:', sudoUsers); 
 
         let numberToBan;
 
@@ -29,6 +30,8 @@ module.exports = async (context) => {
         if (!numberToBan.includes('@s.whatsapp.net')) {
             numberToBan = `${numberToBan.trim()}@s.whatsapp.net`;
         }
+
+        console.log('Number to Ban:', numberToBan);
 
         if (sudoUsers.includes(numberToBan)) {
             return await m.reply('❌ You cannot ban a Sudo User.');
