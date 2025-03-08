@@ -1,12 +1,11 @@
-const { getSettings, updateSetting } = require('../../config');
+const { settings } = require('../../loadSettings'); 
+const { updateSetting } = require('../../config');
 const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 
 module.exports = async (context) => {
     await ownerMiddleware(context, async () => {
         const { m, args } = context;
         const newPrefix = args[0];
-
-        let settings = await getSettings();
 
         if (newPrefix === 'null') {
             if (!settings.prefix) {
@@ -24,4 +23,4 @@ module.exports = async (context) => {
             await m.reply(`📄 Current prefix: ${settings.prefix || 'No prefix set.'}\n\nUse _prefix null_ to remove the prefix or _prefix <any symbol>_ to set a specific prefix.`);
         }
     });
-}; 
+};
