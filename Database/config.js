@@ -114,7 +114,11 @@ async function getGroupSetting(jid) {
             SELECT key, value FROM group_settings WHERE jid = $1;
         `, [jid]);
 
-        console.log(`[DB] Query result for ${jid}:`, JSON.stringify(res.rows));
+        if (res.rows.length === 0) {
+            console.log(`[DB] No settings found for ${jid}, inserting default settings.`);
+            await initializeGroupSettings(jid);
+            return defaultGroupSettings;  
+        }
 
         let settings = {};
         res.rows.forEach(row => {
@@ -128,7 +132,6 @@ async function getGroupSetting(jid) {
         return {};
     }
 }
-
 async function updateGroupSetting(jid, key, value) {
     console.log(`[DB] Updating setting for group ${jid}: ${key} -> ${value}`);
     try {
