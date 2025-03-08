@@ -10,7 +10,12 @@ const {
   getContentType,
 } = require("@whiskeysockets/baileys");
 const { readFileSync } = require('fs');
-const kali = readFileSync('../dreaded.jpg');
+
+const path = require('path');
+
+const filePath = path.resolve(__dirname, '../dreaded.jpg'); 
+const kali = readFileSync(filePath);
+
 
 
 function smsg(conn, m, store) {
