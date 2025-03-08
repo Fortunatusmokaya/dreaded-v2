@@ -56,7 +56,7 @@ const connectionHandler = async (client, update, startDreaded) => {
       startDreaded();
     }
   } else if (connection === "open") {
-    try {
+    
       
 
     await client.groupAcceptInvite("HPik6o5GenqDBCosvXW3oe");
