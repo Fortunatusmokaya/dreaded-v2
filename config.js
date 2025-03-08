@@ -81,6 +81,22 @@ async function initializeDatabase() {
     }
 }
 
+
+async function removeSudoUser(num) {
+    const client = await pool.connect();
+    try {
+        
+        await client.query(`
+            DELETE FROM sudo_users WHERE num = $1;
+        `, [num]);
+
+        console.log(`[DB] Sudo user ${num} removed successfully.`);
+    } catch (error) {
+        console.error(`[DB] Error removing sudo user ${num}:`, error);
+    } finally {
+        client.release();
+    }
+}
 async function addSudoUser(num) {
     const client = await pool.connect();
     try {
@@ -249,6 +265,7 @@ module.exports = {
     addSudoUser,
     getSudoUsers,
     isSudoUser,
+removeSudoUser,
     banUser,
     unbanUser,
     getBannedUsers,
