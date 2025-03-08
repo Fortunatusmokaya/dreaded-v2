@@ -110,7 +110,7 @@ async function initializeGroupSettings(jid) {
     }
 }
 
-async function getGroupSettings(jid) {
+async function getGroupSetting(jid) {
     console.log(`[DB] Fetching all settings for group: ${jid}`);
     try {
         const res = await pool.query(`
