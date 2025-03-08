@@ -1,13 +1,20 @@
-module.exports = async (client, m, isBotAdmin, itsMe, isAdmin, Owner, body, antitag) => {
+const { getGroupSetting } = require("../Database/config");
 
+module.exports = async (client, m, isBotAdmin, itsMe, isAdmin, Owner, body) => {
+    if (!m.isGroup) return;
 
-if (m.isGroup && antitag === 'true' && !Owner && isBotAdmin && !isAdmin && m.mentionedJid && m.mentionedJid.length > 10) {
-if (itsMe) return;
-const kid = m.sender;
+    const antitag = await getGroupSetting(m.chat, "antitag");
 
-await client.sendMessage(m.chat, {text:`@${kid.split("@")[0]}, do not tag!`, contextInfo:{mentionedJid:[kid]}}, {quoted:m}); 
+    if (antitag === true && !Owner && isBotAdmin && !isAdmin && m.mentionedJid && m.mentionedJid.length > 10) {
+        if (itsMe) return;
 
-        
+        const kid = m.sender;
+
+        await client.sendMessage(m.chat, {
+            text: `@${kid.split("@")[0]}, do not tag!`,
+            contextInfo: { mentionedJid: [kid] }
+        }, { quoted: m });
+
         await client.sendMessage(m.chat, {
             delete: {
                 remoteJid: m.chat,
@@ -17,11 +24,6 @@ await client.sendMessage(m.chat, {text:`@${kid.split("@")[0]}, do not tag!`, con
             }
         });
 
-
-await client.groupParticipantsUpdate(m.chat, [kid], 'remove')
-
-
-
-}
-
-}
+        await client.groupParticipantsUpdate(m.chat, [kid], "remove");
+    }
+};
