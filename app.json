@@ -1,19 +1,6 @@
 {
   "name": "DREADED V2",
   "description": "This is a simple WhatsApp bot built with Node.js and Baileys with MD support.",
-  "keywords": [
-    "bot",
-    "whatsapp",
-    "dreaded",
-    "whatsapp-stickers",
-    "anime",
-    "whatsapp-bot",
-    "whatsapp-sticker-bot",
-    "whatsapp-botto",
-    "baileys",
-    "baileys-md",
-    "md-bot"
-  ],
   "website": "https://github.com/Fortunatusmokaya/dreaded-v2#readme",
   "repository": "https://github.com/Fortunatusmokaya/dreaded-v2.git",
   "logo": "https://telegra.ph/file/d6dab955fbaa42fce2280.jpg",
@@ -23,80 +10,17 @@
       "description": "PostgreSQL database URL. This will be automatically set when deploying on Heroku.",
       "required": false
     },
-    "PREFIX": {
-      "description": "Choose your prefix for dreaded. To prevent errors and confusion you must set a prefix",
-      "value": ".",
-      "required": true
-    },
-    "DEV": {
-      "description": "Put any phone numbers you want to be bot owner without + or spaces \",\" Ex: 254114018035, 254741889898",
-      "required": false
-    },
     "CODE": {
-      "description": "Enter your country code without +. Example: 254 for Kenya. This will allow bot to detect and remove foreigners if commanded",
+      "description": "Enter your country code without +. Example: 254 for Kenya.",
       "required": true
-    },
-    "STICKER_AUTHOR": {
-      "description": "Put your sticker author data",
-      "required": false
-    },
-    "STICKER_PACKNAME": {
-      "description": "Put your sticker packname data",
-      "required": false
     },
     "BOTNAME": {
       "description": "Enter name for your bot.",
       "required": false
     },
-    "GC_PRESENCE": {
-      "description": "Type true if you want bot to show fake recording/typing in group chats.",
-      "required": false
-    },
     "SESSION": {
       "description": "Paste the session ID that you received in WhatsApp after linking the bot. It's used for authentication.",
       "required": true
-    },
-    "AUTOVIEW_STATUS": {
-      "description": "Type true if you want bot to automatically read all status updates",
-      "required": false
-    },
-    "AUTOLIKE_STATUS": {
-      "description": "Type true if you want bot to automatically like status updates, this will only work if AUTOVIEW_STATUS is true.",
-      "required": false
-    },
-    "ANTIDELETE": {
-      "description": "Type true if you want bot to automatically forward deleted messages in groups. The deleted messages will be forwarded to the <message yourself chat>. We are yet to implement antidelete for private chats.",
-      "required": false
-    },
-    "EVENTS": {
-      "description": "Choose whether to allow bot to detect events in groups such as promote, demote, remove, and add. If set to true, bot will send welcome/goodbye messages and signal when somebody is promoted or demoted.",
-      "value": "true",
-      "required": true
-    },
-    "AUTOBIO": {
-      "description": "Type true if you want the bot to auto-update its bio constantly",
-      "required": false
-    },
-    "ANTITAG": {
-      "description": "Type true if you want bot to automatically remove members who tag all or use hidetag.",
-      "required": false
-    },
-    "ANTIVIEWONCE": {
-      "description": "Type true if you want the bot to automatically read view-once media",
-      "required": false
-    },
-    "AUTOREAD": {
-      "description": "Put true if you want the bot to automatically blue-tick messages in private.",
-      "required": false
-    },
-    "WA_PRESENCE": {
-      "description": "This is your WhatsApp Presence Status: Type *typing* to show typing..., Type *recording* to show recording..., Type *online* to be always online, Leave this field blank to show your actual presence.",
-      "value": "typing",
-      "required": false
-    },
-    "MODE": {
-      "description": "Type private if you don't want other people to use the bot or public if you want everyone to access.",
-      "required": false
     }
   },
   "addons": [
