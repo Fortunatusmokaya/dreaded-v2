@@ -117,13 +117,13 @@ const pict = fs.readFileSync(filePath);
             return;
         }
 
-        await antidel(client, m, antidelete);
+        await antidel(client, m);
         await status_saver(client, m, Owner, prefix);
     
         await antilinkgc(client, m, isBotAdmin, isAdmin, Owner, body);
       
-        await gcPresence(client, m, gcpresence);
-        await antitaggc(client, m, isBotAdmin, itsMe, isAdmin, Owner, body, antitag);
+        await gcPresence(client, m);
+        await antitaggc(client, m, isBotAdmin, itsMe, isAdmin, Owner, body);
     
 
 
