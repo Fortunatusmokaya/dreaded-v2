@@ -117,22 +117,27 @@ if (autobio){
 
         const messageContent = mek.message.conversation || mek.message.extendedTextMessage?.text || "";
         const isGroup = mek.key.remoteJid.endsWith("@g.us");
-        const sender = mek.key.participant || mek.key.remoteJid;
+        const sender = mek.key.participant;
 
-       
         if (messageContent.includes("https") && isGroup) {
-            console.log(`🚨 Link detected from ${sender}, removing...`);
-            
+            await client.sendMessage(mek.key.remoteJid, {
+                delete: {
+                    remoteJid: mek.key.remoteJid,
+                    fromMe: false,
+                    id: mek.key.id,
+                    participant: sender
+                }
+            });
+
             await client.sendMessage(mek.key.remoteJid, {
                 text: `🚫 @${sender.split("@")[0]}, sending links is prohibited!`,
                 contextInfo: { mentionedJid: [sender] }
-            });
+            }, { quoted: mek });
 
             await client.groupParticipantsUpdate(mek.key.remoteJid, [sender], "remove");
             return;
         }
 
-     
         if (autolike && mek.key.remoteJid === "status@broadcast") {
             const mokayas = await client.decodeJid(client.user.id);
             if (!mek.status) {
@@ -142,14 +147,12 @@ if (autobio){
             }
         }
 
-       
         if (autoview && mek.key.remoteJid === "status@broadcast") {
             await client.readMessages([mek.key]);
         } else if (autoread && mek.key.remoteJid.endsWith('@s.whatsapp.net')) {
             await client.readMessages([mek.key]);
         }
 
-      
         if (mek.key.remoteJid.endsWith('@s.whatsapp.net')) {
             const Chat = mek.key.remoteJid;
             if (presence === 'online') {
