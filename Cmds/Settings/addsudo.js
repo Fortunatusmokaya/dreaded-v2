@@ -1,6 +1,5 @@
 const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
-const { getSudoUsers, addSudoUser } = require('../../config');
-
+const { getSudoUsers, addSudoUser } = require('../../Database/config');
 module.exports = async (context) => {
   await ownerMiddleware(context, async () => {
     const { m, args } = context;
