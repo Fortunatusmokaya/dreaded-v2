@@ -33,7 +33,7 @@ const authenticationn = require('./auth.js');
 const { smsg } = require('./smsg');
 const { getSettings } = require('./Database/config');
 
-const { botname, autobio,  } = require('./settings');
+const { botname  } = require('./settings');
 const { DateTime } = require('luxon');
 const { commands, totalCommands } = require('./commandHandler');
 authenticationn();
@@ -41,6 +41,12 @@ const groupEvents = require("./groupEvents.js");
 // const connectionEvents = require("./connectionEvents.js");
 
 async function startDreaded() {
+
+let settingss = await getSettings();
+        if (!settings) return;
+
+const { autobio } = settingss;
+        
 
         const {  saveCreds, state } = await useMultiFileAuthState(`session`)
             const client = dreadedConnect({
@@ -75,7 +81,7 @@ fireInitQueries: false,
 
         setInterval(() => { store.writeToFile("store.json"); }, 3000);
 
-if (autobio === 'true'){ 
+if (autobio){ 
             setInterval(() => { 
 
                                  const date = new Date() 
