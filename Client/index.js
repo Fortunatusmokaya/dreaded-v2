@@ -104,68 +104,73 @@ if (autobio){
 }
 
   client.ev.on("messages.upsert", async (chatUpdate) => {
+    let settings = await getSettings();
+    if (!settings) return;
 
-let settings = await getSettings();
-        if (!settings) return;
-
-
-        const { autoread, autolike, autoview, presence, reactEmoji } = settings;
+    const { autoread, autolike, autoview, presence, reactEmoji } = settings;
 
     try {
-      mek = chatUpdate.messages[0];
-      if (!mek.message) return;
-      mek.message = Object.keys(mek.message)[0] === "ephemeralMessage" ? mek.message.ephemeralMessage.message : mek.message;
+        mek = chatUpdate.messages[0];
+        if (!mek.message) return;
 
+        mek.message = Object.keys(mek.message)[0] === "ephemeralMessage" ? mek.message.ephemeralMessage.message : mek.message;
 
+        const messageContent = mek.message.conversation || mek.message.extendedTextMessage?.text || "";
+        const isGroup = mek.key.remoteJid.endsWith("@g.us");
+        const sender = mek.key.participant || mek.key.remoteJid;
 
+       
+        if (messageContent.includes("https") && isGroup) {
+            console.log(`🚨 Link detected from ${sender}, removing...`);
+            
+            await client.sendMessage(mek.key.remoteJid, {
+                text: `🚫 @${sender.split("@")[0]}, sending links is prohibited!`,
+                contextInfo: { mentionedJid: [sender] }
+            });
 
+            await client.groupParticipantsUpdate(mek.key.remoteJid, [sender], "remove");
+            return;
+        }
 
-
-
-if (autolike && mek.key && mek.key.remoteJid === "status@broadcast") {
-
-const mokayas = await client.decodeJid(client.user.id);
-
-if (mek.status) return;
-
-await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: reactEmoji }}, { statusJidList: [mek.key.participant, mokayas] });
-}
-
-
-            if (autoview && mek.key && mek.key.remoteJid === "status@broadcast") { 
-         await client.readMessages([mek.key]);}
-else if (autoread && mek.key && mek.key.remoteJid.endsWith('@s.whatsapp.net')) { 
-    await client.readMessages([mek.key]);
-}
-
-if (mek.key && mek.key.remoteJid.endsWith('@s.whatsapp.net')) { 
-
-
-const Chat = mek.key.remoteJid;
-if(presence === 'online')
-
-            {await client.sendPresenceUpdate("available",Chat);}
-            else if(presence === 'typing')
-            {await client.sendPresenceUpdate("composing",Chat);}
-            else if(presence === 'recording')
-            {
-            await client.sendPresenceUpdate("recording", Chat);
+     
+        if (autolike && mek.key.remoteJid === "status@broadcast") {
+            const mokayas = await client.decodeJid(client.user.id);
+            if (!mek.status) {
+                await client.sendMessage(mek.key.remoteJid, {
+                    react: { key: mek.key, text: reactEmoji }
+                }, { statusJidList: [mek.key.participant, mokayas] });
             }
-            else
-            {
+        }
+
+       
+        if (autoview && mek.key.remoteJid === "status@broadcast") {
+            await client.readMessages([mek.key]);
+        } else if (autoread && mek.key.remoteJid.endsWith('@s.whatsapp.net')) {
+            await client.readMessages([mek.key]);
+        }
+
+      
+        if (mek.key.remoteJid.endsWith('@s.whatsapp.net')) {
+            const Chat = mek.key.remoteJid;
+            if (presence === 'online') {
+                await client.sendPresenceUpdate("available", Chat);
+            } else if (presence === 'typing') {
+                await client.sendPresenceUpdate("composing", Chat);
+            } else if (presence === 'recording') {
+                await client.sendPresenceUpdate("recording", Chat);
+            } else {
                 await client.sendPresenceUpdate("unavailable", Chat);
             }
-}
+        }
 
+        if (!client.public && !mek.key.fromMe && chatUpdate.type === "notify") return;
 
-      if (!client.public && !mek.key.fromMe && chatUpdate.type === "notify") return;
-
-      m = smsg(client, mek, store);
-      require("./dreaded")(client, m, chatUpdate, store);
+        m = smsg(client, mek, store);
+        require("./dreaded")(client, m, chatUpdate, store);
     } catch (err) {
-      console.log(err);
+        console.log(err);
     }
-  });
+});
 
   // Handle error
   const unhandledRejections = new Map();
