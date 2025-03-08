@@ -22,7 +22,7 @@ module.exports = async (context) => {
             
             await m.reply('❌ Autolike has been turned OFF.');
         } else {
-            await m.reply(`📄 Current autolike setting: ${settings.autolike ? 'ON' : 'OFF'}\n\nUse _autolike on_ or _autolike off_.`);
+            await m.reply(`📄 Current autolike setting: ${settings.autolike ? 'ON' : 'OFF'}\n\nUse _${settings.prefix}autolike on_ or _${settings.prefix}autolike off_._`);
         }
     });
 };
