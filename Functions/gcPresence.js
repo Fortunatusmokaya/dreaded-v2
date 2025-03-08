@@ -1,9 +1,13 @@
+const { getGroupSetting } = require("../Database/config");
 
+module.exports = async (client, m) => {
+    if (!m.isGroup) return;
 
-module.exports = async (client, m, gcpresence) => {
-    if (m.isGroup && gcpresence === 'true') {
-        let dreadrecordin = ['recording', 'composing'];
-        let dreadrecordinfinal = dreadrecordin[Math.floor(Math.random() * dreadrecordin.length)];
-        await client.sendPresenceUpdate(dreadrecordinfinal, m.chat);
+    const gcpresence = await getGroupSetting(m.chat, "gcpresence");
+
+    if (gcpresence === true) {
+        let presenceTypes = ["recording", "composing"];
+        let selectedPresence = presenceTypes[Math.floor(Math.random() * presenceTypes.length)];
+        await client.sendPresenceUpdate(selectedPresence, m.chat);
     }
 };
