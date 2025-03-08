@@ -35,9 +35,9 @@ const { getSettings } = require('./Database/config');
 
 const { botname  } = require('./settings');
 const { DateTime } = require('luxon');
-const { commands, totalCommands } = require('./commandHandler');
+const { commands, totalCommands } = require('./Handler/commandHandler');
 authenticationn();
-const groupEvents = require("./groupEvents.js");
+const groupEvents = require("./eventHandler/");
 // const connectionEvents = require("./connectionEvents.js");
 
 async function startDreaded() {
