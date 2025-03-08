@@ -1,4 +1,4 @@
-module.exports = async (client, m, antionce) => {
+/* module.exports = async (client, m, antionce) => {
     if (m.mtype == 'viewOnceMessageV2' && antionce === 'true') {
         if (m.fromMe) return;
 
@@ -10,3 +10,5 @@ module.exports = async (client, m, antionce) => {
         await client.sendMessage(client.user.id, { forward: mokaya }, { quoted: m });
     }
 };
+
+*/
