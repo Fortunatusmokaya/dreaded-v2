@@ -43,6 +43,7 @@ const sessionName = path.join(__dirname, '..', 'Session');
 
 
 const groupEvents = require("../Handler/eventHandler");
+const groupEvents2 = require("../Handler/eventHandler2");
 const connectionHandler = require('../Handler/connectionHandler');
 
 // const connectionEvents = require("./connectionEvents.js");
@@ -248,6 +249,7 @@ await client.sendMessage(mek.key.remoteJid, {
 
   client.ev.on("group-participants.update", async (m) => {
     groupEvents(client, m);
+groupEvents2(client, m);
   });
 
 client.ev.on("connection.update", async (update) => {
