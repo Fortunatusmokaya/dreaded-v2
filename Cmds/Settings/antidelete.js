@@ -14,19 +14,27 @@ module.exports = async (context) => {
         const settings = await getSettings();
         const prefix = settings.prefix;
 
-        const currentSetting = await getGroupSetting(jid, 'antidelete');
-        const isEnabled = currentSetting === true;
+        let groupSettings = await getGroupSetting(jid, 'antidelete');
 
-        if (value === 'on' || value === 'off') {
-            const action = value === 'on';
-            if (isEnabled === action) {
-                return await m.reply(`✅ Antidelete is already ${value.toUpperCase()}.`);
+        if (groupSettings === null) {
+            await updateGroupSetting(jid, 'antidelete', false);
+            groupSettings = false;
+        }
+
+        if (value === 'on') {
+            if (groupSettings) {
+                return await m.reply(`✅ Antidelete is already ON.`);
             }
-
-            await updateGroupSetting(jid, 'antidelete', action);
-            await m.reply(`✅ Antidelete has been turned ${value.toUpperCase()} for this group. Deleted messages will be forwarded to your inbox.`);
+            await updateGroupSetting(jid, 'antidelete', true);
+            await m.reply(`✅ Antidelete has been turned ON for this group. Deleted messages will be forwarded to your inbox.`);
+        } else if (value === 'off') {
+            if (!groupSettings) {
+                return await m.reply(`❌ Antidelete is already OFF.`);
+            }
+            await updateGroupSetting(jid, 'antidelete', false);
+            await m.reply(`❌ Antidelete has been turned OFF for this group.`);
         } else {
-            await m.reply(`📄 Current Antidelete setting for this group: ${isEnabled ? 'ON' : 'OFF'}\n\n_Use ${prefix}antidelete on or ${prefix}antidelete off to change it._`);
+            await m.reply(`📄 Current Antidelete setting for this group: ${groupSettings ? 'ON' : 'OFF'}\n\n_Use ${prefix}antidelete on or ${prefix}antidelete off._`);
         }
     });
 };
