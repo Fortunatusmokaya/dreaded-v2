@@ -14,34 +14,20 @@ module.exports = async (context) => {
         const settings = await getSettings();
         const prefix = settings.prefix;
 
-        let currentSetting = await getGroupSetting(jid, 'antidemote');
-        
-      
-        const isEnabled = Boolean(currentSetting);
-        const isDisabled = !isEnabled;
+        let groupSettings = await getGroupSetting(jid);
+        let isEnabled = groupSettings?.antidemote === true;  
 
         if (value === 'on' || value === 'off') {
             const action = value === 'on';
 
-            if (action === isEnabled) {
+            if (isEnabled === action) {
                 return await m.reply(`✅ Antidemote is already ${value.toUpperCase()}.`);
             }
 
-            await updateGroupSetting(jid, 'antidemote', action);
-
-          
-            const newSetting = await getGroupSetting(jid, 'antidemote');
-
-            if (Boolean(newSetting) === action) {
-                await m.reply(`✅ Antidemote has been turned ${value.toUpperCase()} for this group. Bot will monitor demotions.`);
-            } else {
-                await m.reply(`⚠️ Failed to update Antidemote. Please try again.`);
-            }
+            await updateGroupSetting(jid, 'antidemote', action ? 'true' : 'false');
+            await m.reply(`✅ Antidemote has been turned ${value.toUpperCase()} for this group. Bot will monitor demotions.`);
         } else {
-            await m.reply(
-                `📄 Current Antidemote setting for this group: ${isEnabled ? 'ON' : 'OFF'}\n\n` +
-                `_Use ${prefix}antidemote on or ${prefix}antidemote off to change it._`
-            );
+            await m.reply(`📄 Current Antidemote setting for this group: ${isEnabled ? 'ON' : 'OFF'}\n\n _Use ${prefix}antidemote on or ${prefix}antidemote off to change it._`);
         }
     });
 };
