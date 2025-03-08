@@ -1,4 +1,4 @@
-const { getGroupSetting, updateGroupSetting, getSettings } = require('../../config');
+const { getSettings, getGroupSetting, updateGroupSetting } = require('../../config');
 const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 
 module.exports = async (context) => {
@@ -13,7 +13,9 @@ module.exports = async (context) => {
 
         const settings = await getSettings();
         const prefix = settings.prefix;
-        const currentSetting = await getGroupSetting(jid, 'antilink');
+
+        let groupSettings = await getGroupSetting(jid);
+        let isEnabled = groupSettings?.antilink === 'on';
 
         const Myself = await client.decodeJid(client.user.id);
         const groupMetadata = await client.groupMetadata(m.chat);
@@ -25,20 +27,21 @@ module.exports = async (context) => {
         }
 
         if (value === 'on' || value === 'off') {
-            if (currentSetting === value) {
-                return await m.reply(`✅ Antilink was already ${value.toUpperCase()}.`);
+            const action = value === 'on';
+
+            if (isEnabled === action) {
+                return await m.reply(`✅ Antilink is already ${value.toUpperCase()}.`);
             }
 
-            await updateGroupSetting(jid, 'antilink', value);
-            if (value === 'on') {
-                await m.reply('✅ Antilink has been turned ON for this group. _Bot will now delete messages containing links!_');
-            } else {
-                await m.reply('❌ Antilink has been turned OFF for this group.');
-            }
+            await updateGroupSetting(jid, 'antilink', action ? 'on' : 'off');
+            await m.reply(
+                `✅ Antilink has been turned ${value.toUpperCase()} for this group.` +
+                (action ? ` _Bot will now delete messages containing links!_` : '')
+            );
         } else {
             await m.reply(
-                `_📄 Current antilink setting for this group: ${currentSetting?.toUpperCase() || 'OFF'}_\n\n` +
-                `_Use "${prefix}antilink on" or "${prefix}antilink off"._`
+                `📄 Current Antilink setting for this group: ${isEnabled ? 'ON' : 'OFF'}\n\n` +
+                `_Use ${prefix}antilink on or ${prefix}antilink off to change it._`
             );
         }
     });
