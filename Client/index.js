@@ -43,6 +43,8 @@ const sessionName = path.join(__dirname, '..', 'Session');
 
 
 const groupEvents = require("../Handler/eventHandler");
+const connectionHandler = require('../Handler/connectionHandler');
+
 // const connectionEvents = require("./connectionEvents.js");
 
 async function startDreaded() {
@@ -220,7 +222,18 @@ if(presence === 'online')
     groupEvents(client, m);
   });
 
+client.ev.on("connection.update", async (update) => {
+  await connectionHandler(client, update, startDreaded);
+});
 
+
+
+
+
+
+
+
+/*
     client.ev.on("connection.update", async (update) => {
     const { connection, lastDisconnect } = update;
     if (connection === "close") {
@@ -300,6 +313,8 @@ message += `▞▚▞▚▞▚▞▚▞▚▞▚▞`
 
 
   });
+
+*/
 
   client.ev.on("creds.update", saveCreds);
 
