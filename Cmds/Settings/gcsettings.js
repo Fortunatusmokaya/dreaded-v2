@@ -11,7 +11,7 @@ module.exports = async (context) => {
             return await m.reply('❌ This command can only be used in groups.');
         }
 
-        let groupSettings = await getGroupSettings(jid);
+        let groupSettings = await getGroupSetting(jid);
 
         if (!groupSettings) {
             return await m.reply('❌ No group settings found.');
