@@ -14,8 +14,15 @@ module.exports = async (context) => {
         const settings = await getSettings();
         const prefix = settings.prefix;
 
-        const currentSetting = await getGroupSetting(jid, 'antidemote');
-        const isEnabled = currentSetting === true;
+        let currentSetting = await getGroupSetting(jid, 'antidemote');
+        
+       
+        if (currentSetting == null) {
+            currentSetting = false;
+            await updateGroupSetting(jid, 'antidemote', false);
+        }
+
+        const isEnabled = Boolean(currentSetting);
 
         if (value === 'on' || value === 'off') {
             const action = value === 'on';
