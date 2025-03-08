@@ -2,7 +2,7 @@ const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 const { getSudoUsers } = require('../../Database/config');
 
 module.exports = async (context) => {
-  await ownerMiddleware(context, async () => {
+  
     const { m } = context;
 
     const sudoUsers = await getSudoUsers();
@@ -12,5 +12,5 @@ module.exports = async (context) => {
     }
 
     await m.reply(`📄 Current Sudo Users:\n\n${sudoUsers.map((jid) => `- ${jid}`).join('\n')}`);
-  });
+ 
 };
