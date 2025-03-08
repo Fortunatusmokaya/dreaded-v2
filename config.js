@@ -9,13 +9,24 @@ const pool = new Pool({
 
 async function initializeDatabase() {
     const client = await pool.connect();
-    console.log('[DB] Checking and creating settings table...');
+    console.log('[DB] Checking and creating settings tables...');
     try {
+        
         await client.query(`
             CREATE TABLE IF NOT EXISTS settings (
                 id SERIAL PRIMARY KEY,
                 key TEXT UNIQUE NOT NULL,
                 value TEXT NOT NULL
+            );
+        `);
+
+        
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS group_settings (
+                jid TEXT NOT NULL,
+                key TEXT NOT NULL,
+                value TEXT NOT NULL,
+                PRIMARY KEY (jid, key)
             );
         `);
 
@@ -90,6 +101,38 @@ async function updateSetting(key, value) {
     }
 }
 
-module.exports = { getSettings, updateSetting };
+async function getGroupSetting(jid, key) {
+    console.log(`[DB] Fetching group setting for ${jid}: ${key}`);
+    try {
+        const res = await pool.query(`
+            SELECT value FROM group_settings WHERE jid = $1 AND key = $2;
+        `, [jid, key]);
+        if (res.rows.length > 0) {
+            const value = res.rows[0].value;
+            return value === 'true' ? true : value === 'false' ? false : value;
+        }
+        return null;
+    } catch (error) {
+        console.error(`[DB] Error fetching group setting for ${jid}: ${key}`, error);
+        return null;
+    }
+}
+
+async function updateGroupSetting(jid, key, value) {
+    console.log(`[DB] Updating group setting: ${jid} - ${key} -> ${value}`);
+    try {
+        await pool.query(`
+            INSERT INTO group_settings (jid, key, value) 
+            VALUES ($1, $2, $3)
+            ON CONFLICT (jid, key) DO UPDATE 
+            SET value = EXCLUDED.value;
+        `, [jid, key, value]);
+        console.log(`[DB] Group setting updated successfully: ${jid} - ${key} -> ${value}`);
+    } catch (error) {
+        console.error(`[DB] Error updating group setting: ${jid} - ${key}`, error);
+    }
+}
+
+module.exports = { getSettings, updateSetting, getGroupSetting, updateGroupSetting };
 
 initializeDatabase().catch(console.error);
