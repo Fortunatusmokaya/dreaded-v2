@@ -47,6 +47,32 @@ async function initializeDatabase() {
             );
         `);
 
+
+const defaultGroupSettings = {
+    antitag: 'true',         
+    antidelete: 'true',               
+    gcpresence: 'false',    
+    antiforeign: 'true',   
+    antidemote: 'true',      
+    antipromote: 'true'      
+};
+
+async function initializeGroupSettings(jid) {
+    try {
+        for (const [key, value] of Object.entries(defaultGroupSettings)) {
+            await pool.query(`
+                INSERT INTO group_settings (jid, key, value)
+                VALUES ($1, $2, $3)
+                ON CONFLICT (jid, key) DO NOTHING;
+            `, [jid, key, value]);
+        }
+
+        console.log(`[DB] Default group settings initialized for group: ${jid}`);
+    } catch (error) {
+        console.error('[DB] Error initializing group settings:', error);
+    }
+}
+
         const defaultSettings = {
             prefix: '.',
             mycode: '254',
@@ -54,11 +80,11 @@ async function initializeDatabase() {
             packname: 'dreaded md2 🤖',
             botname: 'DREADED',
             mode: 'public',
-            gcpresence: 'false',
-            antionce: 'true',
+           
+          
             presence: 'online',
-            antitag: 'true',
-            antidelete: 'true',
+          
+           
             autoview: 'true',
             autolike: 'true',
             autoread: 'true',
@@ -230,23 +256,20 @@ async function updateSetting(key, value) {
 async function getGroupSetting(jid, key) {
     console.log(`[DB] Fetching group setting for ${jid}: ${key}`);
     try {
-        const query = `
+        const res = await pool.query(`
             SELECT value FROM group_settings WHERE jid = $1 AND key = $2;
-        `;
-        console.log(`[DB] Executing query: ${query} with values jid: ${jid}, key: ${key}`);
-        
-        const res = await pool.query(query, [jid, key]);
+        `, [jid, key]);
 
         console.log(`[DB] Query result: ${JSON.stringify(res.rows)}`);
-
+        
         if (res.rows.length > 0) {
             const value = res.rows[0].value;
-            console.log(`[DB] Found value for ${key}: ${value}`);
-            return value === 'true' ? true : value === 'false' ? false : value;
+            
+            if (value === 'true') return true;
+            if (value === 'false') return false;
+            return value;  
         }
-        
-        console.log(`[DB] No value found for ${key} for group: ${jid}`);
-        return null;
+        return null;  
     } catch (error) {
         console.error(`[DB] Error fetching group setting for ${jid}: ${key}`, error);
         return null;
@@ -256,17 +279,17 @@ async function getGroupSetting(jid, key) {
 async function updateGroupSetting(jid, key, value) {
     console.log(`[DB] Updating group setting: ${jid} - ${key} -> ${value}`);
     try {
-        const query = `
-            INSERT INTO group_settings (jid, key, value) 
+      
+        const valueToStore = typeof value === 'boolean' ? (value ? 'true' : 'false') : value;
+
+        await pool.query(`
+            INSERT INTO group_settings (jid, key, value)
             VALUES ($1, $2, $3)
-            ON CONFLICT (jid, key) DO UPDATE 
+            ON CONFLICT (jid, key) DO UPDATE
             SET value = EXCLUDED.value;
-        `;
-        console.log(`[DB] Executing query: ${query} with values jid: ${jid}, key: ${key}, value: ${value}`);
-        
-        await pool.query(query, [jid, key, value]);
-        
-        console.log(`[DB] Group setting updated successfully: ${jid} - ${key} -> ${value}`);
+        `, [jid, key, valueToStore]);
+
+        console.log(`[DB] Group setting updated successfully: ${jid} - ${key} -> ${valueToStore}`);
     } catch (error) {
         console.error(`[DB] Error updating group setting: ${jid} - ${key}`, error);
     }
