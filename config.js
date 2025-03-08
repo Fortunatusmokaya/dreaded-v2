@@ -81,33 +81,89 @@ async function initializeDatabase() {
 
 
 const defaultGroupSettings = {
-    antitag: 'true',
-    antidelete: 'true',
-    gcpresence: 'false',
-    antiforeign: 'true',
-    antidemote: 'true',
+    antitag: 'true',         
+    antidelete: 'true',               
+    gcpresence: 'false',    
+    antiforeign: 'true',   
+    antidemote: 'true',      
     antipromote: 'true',
-    events: 'true', 
-    antilink: 'true'
+    events: 'true',
+    antilink: 'del'
 };
 
 async function initializeGroupSettings(jid) {
+    console.log(`[DB] Initializing settings for group: ${jid}`);
     try {
         for (const [key, value] of Object.entries(defaultGroupSettings)) {
+            console.log(`[DB] Checking/Setting ${key} -> ${value} for group: ${jid}`);
+
             await pool.query(`
                 INSERT INTO group_settings (jid, key, value)
                 VALUES ($1, $2, $3)
                 ON CONFLICT (jid, key) DO NOTHING;
             `, [jid, key, value]);
-        }
 
-        console.log(`[DB] Default group settings initialized for group: ${jid}`);
+            console.log(`[DB] Ensured setting exists: ${jid} - ${key} -> ${value}`);
+        }
     } catch (error) {
-        console.error('[DB] Error initializing group settings:', error);
+        console.error(`[DB] Error initializing group settings for ${jid}:`, error);
     }
 }
 
+async function getGroupSettings(jid) {
+    console.log(`[DB] Fetching all settings for group: ${jid}`);
+    try {
+        const res = await pool.query(`
+            SELECT key, value FROM group_settings WHERE jid = $1;
+        `, [jid]);
 
+        console.log(`[DB] Query result for ${jid}:`, JSON.stringify(res.rows));
+
+        let settings = {};
+        res.rows.forEach(row => {
+            settings[row.key] = row.value === 'true' ? true : row.value === 'false' ? false : row.value;
+        });
+
+        console.log(`[DB] Retrieved settings for ${jid}:`, settings);
+        return settings;
+    } catch (error) {
+        console.error(`[DB] Error fetching settings for group ${jid}:`, error);
+        return {};
+    }
+}
+
+async function updateGroupSetting(jid, key, value) {
+    console.log(`[DB] Updating setting for group ${jid}: ${key} -> ${value}`);
+    try {
+        const valueToStore = typeof value === 'boolean' ? (value ? 'true' : 'false') : value;
+
+        await pool.query(`
+            INSERT INTO group_settings (jid, key, value)
+            VALUES ($1, $2, $3)
+            ON CONFLICT (jid, key) DO UPDATE
+            SET value = EXCLUDED.value;
+        `, [jid, key, valueToStore]);
+
+        console.log(`[DB] Group setting updated successfully: ${jid} - ${key} -> ${valueToStore}`);
+    } catch (error) {
+        console.error(`[DB] Error updating setting for group ${jid}: ${key}`, error);
+    }
+}
+
+async function getAllGroupSettings() {
+    console.log(`[DB] Fetching settings for all groups`);
+    try {
+        const res = await pool.query(`
+            SELECT * FROM group_settings;
+        `);
+
+        console.log(`[DB] Query result for all groups:`, JSON.stringify(res.rows));
+        return res.rows;
+    } catch (error) {
+        console.error(`[DB] Error fetching settings for all groups:`, error);
+        return [];
+    }
+}
 async function getSettings() {
     try {
         const res = await pool.query("SELECT key, value FROM settings");
@@ -143,40 +199,7 @@ async function updateSetting(key, value) {
 }
 
 
-async function getGroupSetting(jid, key) {
-    console.log(`[DB] Fetching group setting for ${jid}: ${key}`);
-    try {
-        const res = await pool.query(`
-            SELECT value FROM group_settings WHERE jid = $1 AND key = $2;
-        `, [jid, key]);
 
-        if (res.rows.length > 0) {
-            const value = res.rows[0].value;
-            return value === 'true' ? true : value === 'false' ? false : value;
-        }
-        return null;
-    } catch (error) {
-        console.error(`[DB] Error fetching group setting for ${jid}: ${key}`, error);
-        return null;
-    }
-}
-
-
-async function updateGroupSetting(jid, key, value) {
-    console.log(`[DB] Updating group setting: ${jid} - ${key} -> ${value}`);
-    try {
-        await pool.query(`
-            INSERT INTO group_settings (jid, key, value)
-            VALUES ($1, $2, $3)
-            ON CONFLICT (jid, key) DO UPDATE
-            SET value = EXCLUDED.value;
-        `, [jid, key, value]);
-
-        console.log(`[DB] Group setting updated successfully: ${jid} - ${key} -> ${value}`);
-    } catch (error) {
-        console.error(`[DB] Error updating group setting: ${jid} - ${key}`, error);
-    }
-}
 
 
 async function banUser(num) {
