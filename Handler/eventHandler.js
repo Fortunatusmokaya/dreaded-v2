@@ -1,13 +1,22 @@
-const events = process.env.EVENTS || 'false';
+const { getGroupSetting, getSudoUsers } = require("../Database/config");
 const botname = process.env.BOTNAME || 'DREADED';
+
 
 const Events = async (client, Fortu) => {
     const Myself = await client.decodeJid(client.user.id);
 
     try {
+        const groupSettings = await getGroupSettings(Fortu.id);
+
         let metadata = await client.groupMetadata(Fortu.id);
         let participants = Fortu.participants;
         let desc = metadata.desc || "No Description";
+
+
+const settings = await getGroupSetting();
+
+      
+        const currentDevs = settings.dev.split(',').map((nums) => nums.trim()).map(num => `${num}@s.whatsapp.net`);
 
         for (let num of participants) {
             let dpuser;
@@ -18,53 +27,82 @@ const Events = async (client, Fortu) => {
                 dpuser = "https://telegra.ph/file/0a620a1cf04d3ba3874f5.jpg";
             }
 
-            if (Fortu.action == "add") {
+            if (Fortu.action === "add" && groupSettings.events) {
                 let userName = num;
 
-                let Welcometext = ` Holla @${userName.split("@")[0]} 👋\n\nWelcome to ${metadata.subject}.\n\nGroup Description:-  ${desc}\n\nThank You.\n\nThis is an automated message sent by ${botname} via baileys.`;
-                if (events === 'true') {
-                    await client.sendMessage(Fortu.id, {
-                        image: { url: dpuser },
-                        caption: Welcometext,
-                        mentions: [num],
-                    });
-                }
-            } else if (Fortu.action == "remove") {
+                let Welcometext = `Holla @${userName.split("@")[0]} 👋\n\nWelcome to ${metadata.subject}.\n\nGroup Description: ${desc}\n\nThank You.\n\nThis is an automated message sent by ${botname} via Baileys.`;
+
+                await client.sendMessage(Fortu.id, {
+                    image: { url: dpuser },
+                    caption: Welcometext,
+                    mentions: [num],
+                });
+            } else if (Fortu.action === "remove" && groupSettings.events) {
                 let userName2 = num;
 
-                let Lefttext = `
-          Good bye @${userName2.split("@")[0]} 👋, probably not gonna miss you `;
-                if (events === 'true') {
-                    await client.sendMessage(Fortu.id, {
-                        image: { url: dpuser },
-                        caption: Lefttext,
-                        mentions: [num],
-                    });
-                }
-            } else if (Fortu.action == "demote" && events === 'true') {
-                await client.sendMessage(
-                    Fortu.id,
-                    {
-                        text: `@${(Fortu.author).split("@")[0]}, has demoted @${(Fortu.participants[0]).split("@")[0]} from admin 👀`,
-                        mentions: [Fortu.author, Fortu.participants[0]]
-                    }
-                );
-            } else if (Fortu.action == "promote" && events === 'true') {
+                let Lefttext = `Goodbye @${userName2.split("@")[0]} 👋, probably not gonna miss you`;
 
-                    await client.sendMessage(
+                await client.sendMessage(Fortu.id, {
+                    image: { url: dpuser },
+                    caption: Lefttext,
+                    mentions: [num],
+                });
+            } else if (Fortu.action === "demote") {
+                if (groupSettings.antidemote === true) {
+                    if (
+                        Fortu.author == metadata.owner || 
+                        Fortu.author == Myself || 
+                        Fortu.author == Fortu.participants[0] || 
+                        currentDevs.includes(Fortu.author)
+                    ) {
+                        await client.sendMessage(Fortu.id, {
+                            text: `A super user has demoted @${(Fortu.participants[0]).split("@")[0]}`,
+                            mentions: [Fortu.participants[0]]
+                        });
+                        return;
+                    }
+
+                    await client.groupParticipantsUpdate(Fortu.id, [Fortu.author], "demote");
+                    await client.groupParticipantsUpdate(Fortu.id, [Fortu.participants[0]], "promote");
+
+                    client.sendMessage(
                         Fortu.id,
                         {
-                            text: `@${(Fortu.author).split("@")[0]} has promoted @${(Fortu.participants[0]).split("@")[0]} to admin. 👀`,
+                            text: `@${(Fortu.author).split("@")[0]} you will be demoted for demoting @${(Fortu.participants[0]).split("@")[0]}.\n\nAntidemote is active and only super users are allowed to demote!`,
+                            mentions: [Fortu.author, Fortu.participants[0]]
+                        }
+                    );
+                }
+            } else if (Fortu.action === "promote") {
+                if (groupSettings.antipromote === true) {
+                    if (
+                        Fortu.author == metadata.owner || 
+                        Fortu.author == Myself || 
+                        Fortu.author == Fortu.participants[0] || 
+                        currentDevs.includes(Fortu.author)
+                    ) {
+                        await client.sendMessage(Fortu.id, {
+                            text: `A super user has promoted @${(Fortu.participants[0]).split("@")[0]}`,
+                            mentions: [Fortu.participants[0]]
+                        });
+                        return;
+                    }
+
+                    await client.groupParticipantsUpdate(Fortu.id, [Fortu.author, Fortu.participants[0]], "demote");
+
+                    client.sendMessage(
+                        Fortu.id,
+                        {
+                            text: `@${(Fortu.author).split("@")[0]} you have been demoted for promoting @${(Fortu.participants[0]).split("@")[0]} to admin. @${(Fortu.participants[0]).split("@")[0]} has also been demoted.\n\nAntipromote is active and only super users can promote!`,
                             mentions: [Fortu.author, Fortu.participants[0]]
                         }
                     );
                 }
             }
-
+        }
     } catch (err) {
         console.log(err);
     }
 };
 
-
-module.exports = Events;
+module.exports = Events; 
