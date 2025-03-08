@@ -22,7 +22,7 @@ const antitaggc = require('../Functions/antitag');
 const masterEval = require('../Functions/masterEval');
 const antidel = require('../Functions/antidelete');
 
-const { getSettings } = require('../Database/config');
+const { getSettings, getSudoUsers } = require('../Database/config');
 
 const {
     botname, mycode } = require('../Env/settings');
