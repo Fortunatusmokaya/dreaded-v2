@@ -26,7 +26,7 @@ const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('../lib
  const { isUrl, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('../lib/botFunctions');
 const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
 
-const authenticationn = require('../auth.js');
+const authenticationn = require('../Auth/auth.js');
 const { smsg } = require('../Handler/smsg');
 const { getSettings } = require('../Database/config');
 
