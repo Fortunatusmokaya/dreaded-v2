@@ -85,7 +85,7 @@ const defaultGroupSettings = {
     antidelete: 'true',               
     gcpresence: 'false',    
     antiforeign: 'true',   
-    antidemote: 'true',      
+    antidemote: 'false',      
     antipromote: 'true',
     events: 'true',
     antilink: 'on'
