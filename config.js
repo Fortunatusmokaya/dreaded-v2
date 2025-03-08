@@ -191,7 +191,7 @@ async function addUser(num) {
 }
 
 async function getSettings() {
-    console.log('[DB] Fetching settings...');
+   
     try {
         const res = await pool.query("SELECT key, value FROM settings");
         const settings = {};
@@ -204,7 +204,7 @@ async function getSettings() {
                 settings[row.key] = row.value;
             }
         });
-        console.log('[DB] Settings fetched successfully.');
+      
         return settings;
     } catch (error) {
         console.error('[DB] Error fetching settings:', error);
