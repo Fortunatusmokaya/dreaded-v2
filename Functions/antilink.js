@@ -3,14 +3,23 @@ const { getGroupSetting } = require("../Database/config");
 module.exports = async (client, m, isBotAdmin, isAdmin, Owner, body) => {
     if (!m.isGroup) return;
 
-    const antilink = await getGroupSetting(m.chat, "antilink");
+  
+    const groupSettings = await getGroupSetting(m.chat);
 
-    if (!antilink || antilink === "off") return;
+    
+    const antilink = groupSettings?.antilink?.trim().toLowerCase(); 
 
+    console.log("Fetched antilink setting:", antilink); 
+
+    if (!antilink || antilink === "off") return; 
+
+   
     if (body.includes("chat.whatsapp.com") && !Owner && isBotAdmin && !isAdmin) {
         const kid = m.sender;
 
         if (antilink === "del") {
+            console.log("Deleting message only..."); 
+
             await client.sendMessage(m.chat, {
                 delete: {
                     remoteJid: m.chat,
@@ -26,6 +35,8 @@ module.exports = async (client, m, isBotAdmin, isAdmin, Owner, body) => {
             });
         } 
         else if (antilink === "kick") {
+            console.log("Deleting and kicking..."); 
+
             await client.sendMessage(m.chat, {
                 delete: {
                     remoteJid: m.chat,
@@ -43,6 +54,8 @@ module.exports = async (client, m, isBotAdmin, isAdmin, Owner, body) => {
                     mentionedJid: [kid]
                 }
             });
+        } else {
+            console.log("Unexpected antilink value:", antilink);
         }
     }
 };
