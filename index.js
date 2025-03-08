@@ -30,14 +30,15 @@ const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/
 const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
 
 const authenticationn = require('./auth.js');
-const { smsg } = require('./smsg');
+const { smsg } = require('../Handler/smsg');
 const { getSettings } = require('./Database/config');
 
 const { botname  } = require('./settings');
 const { DateTime } = require('luxon');
-const { commands, totalCommands } = require('./Handler/commandHandler');
+const { commands, totalCommands } = require('../Handler/commandHandler');
 authenticationn();
-const groupEvents = require("./eventHandler/");
+
+const groupEvents = require("../Handler/eventHandler");
 // const connectionEvents = require("./connectionEvents.js");
 
 async function startDreaded() {
