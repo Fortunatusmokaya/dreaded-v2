@@ -1,5 +1,5 @@
 const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
-const { setSudoUser, isSudoUser } = require('../../config');
+const { getSudoUsers, addSudoUser } = require('../../config');
 
 module.exports = async (context) => {
   await ownerMiddleware(context, async () => {
@@ -19,12 +19,14 @@ module.exports = async (context) => {
       return await m.reply('❌ Please provide a valid number or quote a user.');
     }
 
-    const alreadySudo = await isSudoUser(numberToAdd);
-    if (alreadySudo) {
+    
+    const sudoUsers = await getSudoUsers();
+    if (sudoUsers.includes(numberToAdd)) {
       return await m.reply('⚠️ This number is already a sudo user.');
     }
 
-    await setSudoUser(numberToAdd, true);
+    
+    await addSudoUser(numberToAdd);
     await m.reply(`✅ ${numberToAdd} is now a Sudo User!`);
   });
 };
