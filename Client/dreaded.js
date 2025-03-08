@@ -60,7 +60,7 @@ let settings = await getSettings();
         const timestamp = speed();
         const dreadedspeed = speed() - timestamp;
 
-const pict = await fs.readFileSync('./dreaded.jpg');
+const pict = await fs.readFileSync('../dreaded.jpg');
 
         const cmd = body.startsWith(prefix);
         const args = body.trim().split(/ +/).slice(1);
@@ -104,7 +104,7 @@ const pict = await fs.readFileSync('./dreaded.jpg');
         const context = {
             client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, participants,
             pushname, body, budy, totalCommands, args, mime, qmsg, msgDreaded, botNumber, itsMe,
-            packname, author, generateProfilePicture, groupMetadata, dreadedspeed, mycode,
+            packname, generateProfilePicture, groupMetadata, dreadedspeed, mycode,
             fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antitag, antidelete, antionce, fetchBuffer, store, uploadtoimgur, chatUpdate, ytmp3, getGroupAdmins, pict, Tag
         };
 
