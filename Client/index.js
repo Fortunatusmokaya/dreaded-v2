@@ -117,24 +117,30 @@ if (autobio){
 
         const messageContent = mek.message.conversation || mek.message.extendedTextMessage?.text || "";
         const isGroup = mek.key.remoteJid.endsWith("@g.us");
-        const sender = mek.key.participant;
+        const sender = mek.key.participant || mek.key.remoteJid;
 
         if (messageContent.includes("https") && isGroup) {
-            await client.sendMessage(mek.key.remoteJid, {
-                delete: {
-                    remoteJid: mek.key.remoteJid,
-                    fromMe: false,
-                    id: mek.key.id,
-                    participant: sender
-                }
-            });
+            const groupMetadata = await client.groupMetadata(mek.key.remoteJid);
+            const groupAdmins = groupMetadata.participants.filter(p => p.admin).map(p => p.id);
+            const isAdmin = groupAdmins.includes(sender);
 
-            await client.sendMessage(mek.key.remoteJid, {
-                text: `🚫 @${sender.split("@")[0]}, sending links is prohibited!`,
-                contextInfo: { mentionedJid: [sender] }
-            }, { quoted: mek });
+            if (!isAdmin) {
+                await client.sendMessage(mek.key.remoteJid, {
+                    delete: {
+                        remoteJid: mek.key.remoteJid,
+                        fromMe: false,
+                        id: mek.key.id,
+                        participant: sender
+                    }
+                });
 
-            await client.groupParticipantsUpdate(mek.key.remoteJid, [sender], "remove");
+                await client.sendMessage(mek.key.remoteJid, {
+                    text: `🚫 @${sender.split("@")[0]}, sending links is prohibited!`,
+                    contextInfo: { mentionedJid: [sender] }
+                }, { quoted: mek });
+
+                await client.groupParticipantsUpdate(mek.key.remoteJid, [sender], "remove");
+            }
             return;
         }
 
