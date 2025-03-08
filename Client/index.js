@@ -9,6 +9,8 @@ const {
   proto,
   getContentType,
 } = require("@whiskeysockets/baileys");
+
+const sessionName = "../Session"
 const pino = require("pino");
 const { Boom } = require("@hapi/boom");
 const fs = require("fs");
@@ -35,6 +37,11 @@ const { DateTime } = require('luxon');
 const { commands, totalCommands } = require('../Handler/commandHandler');
 authenticationn();
 
+const path = require('path');
+
+const sessionName = path.join(__dirname, '..', 'Session'); 
+
+
 const groupEvents = require("../Handler/eventHandler");
 // const connectionEvents = require("./connectionEvents.js");
 
@@ -46,7 +53,7 @@ let settingss = await getSettings();
 const { autobio } = settingss;
 
 
-        const {  saveCreds, state } = await useMultiFileAuthState(`Session`)
+        const {  saveCreds, state } = await useMultiFileAuthState(sessionName)
             const client = dreadedConnect({
         logger: pino({ level: 'silent' }),
         printQRInTerminal: true,
