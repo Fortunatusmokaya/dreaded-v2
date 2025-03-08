@@ -31,9 +31,9 @@ const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream
 
 const authenticationn = require('./auth.js');
 const { smsg } = require('./smsg');
-const { getSettings } = require('./config');
+const { getSettings } = require('./Database/config');
 
-const { autoview, botname, autobio, mode, prefix, presence, autolike } = require('./settings');
+const { botname, autobio,  } = require('./settings');
 const { DateTime } = require('luxon');
 const { commands, totalCommands } = require('./commandHandler');
 authenticationn();
@@ -95,7 +95,8 @@ if (autobio === 'true'){
 let settings = await getSettings();
         if (!settings) return;
 
-        const { autoread } = settings;
+        
+        const { autoread, autolike, autoview, presence, reactEmoji } = settings;
     
     try {
       mek = chatUpdate.messages[0];
@@ -108,17 +109,17 @@ let settings = await getSettings();
 
 
 
-if (autoview === 'true' && autolike === 'true' && mek.key && mek.key.remoteJid === "status@broadcast") {
+if (autolike && mek.key && mek.key.remoteJid === "status@broadcast") {
 
 const mokayas = await client.decodeJid(client.user.id);
 
 if (mek.status) return;
 
-await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: '💚'}}, { statusJidList: [mek.key.participant, mokayas] });
+await client.sendMessage(mek.key.remoteJid, { react: { key: mek.key, text: reactEmoji }}, { statusJidList: [mek.key.participant, mokayas] });
 }
 
 
-            if (autoview === 'true' && mek.key && mek.key.remoteJid === "status@broadcast") { 
+            if (autoview && mek.key && mek.key.remoteJid === "status@broadcast") { 
          await client.readMessages([mek.key]);}
 else if (autoread && mek.key && mek.key.remoteJid.endsWith('@s.whatsapp.net')) { 
     await client.readMessages([mek.key]);
