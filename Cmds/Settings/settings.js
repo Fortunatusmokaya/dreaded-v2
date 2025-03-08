@@ -1,4 +1,4 @@
-const { getSettings, getSudoUsers } = require('../../config');  
+const { getSettings, getSudoUsers } = require('../../Database/config');  
 const { getBannedUsers } = require('../../config');  
 
 module.exports = async (context) => {
