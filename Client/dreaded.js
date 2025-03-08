@@ -9,16 +9,12 @@ const { TelegraPh, UploadFileUgu } = require("../lib/toUrl");
 const uploadtoimgur = require('../lib/Imgur');
 const { readFileSync } = require('fs'); 
 
-const ytmp3 = require('../lib/ytmp3');
 const { commands, aliases, totalCommands } = require('../Handler/commandHandler');
 const blocked_users = require('../Functions/blocked_users');
 const status_saver = require('../Functions/status_saver');
-const eval2 = require('../Functions/eval2');
-const eval = require('../Functions/eval');
 const gcPresence = require('../Functions/gcPresence');
 const antilinkgc = require('../Functions/antilink');
 const antitaggc = require('../Functions/antitag');
-const masterEval = require('../Functions/masterEval');
 const antidel = require('../Functions/antidelete');
 
 const { getSettings, getSudoUsers } = require('../Database/config');
@@ -123,13 +119,12 @@ const pict = fs.readFileSync(filePath);
 
         await antidel(client, m, antidelete);
         await status_saver(client, m, Owner, prefix);
-        await eval2(client, m, Owner, budy, fetchJson);
-        await eval(client, m, Owner, budy, fetchJson, store);
+    
         await antilinkgc(client, m, isBotAdmin, isAdmin, Owner, body);
       
         await gcPresence(client, m, gcpresence);
         await antitaggc(client, m, isBotAdmin, itsMe, isAdmin, Owner, body, antitag);
-        await masterEval(client, m, Owner, budy, fetchJson, store);
+    
 
 
         const commandName = body.startsWith(prefix) ? body.slice(prefix.length).trim().split(/\s+/)[0].toLowerCase() : null;
