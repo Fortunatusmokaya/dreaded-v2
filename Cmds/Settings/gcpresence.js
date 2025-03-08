@@ -11,23 +11,22 @@ module.exports = async (context) => {
             return await m.reply('❌ This command can only be used in groups.');
         }
 
-        let groupSettings = await getGroupSettings(jid);
-        let settings = await getSettings();
+        const settings = await getSettings();
+        const prefix = settings.prefix;
 
-        if (value === 'on') {
-            if (groupSettings.gcpresence) {
-                return await m.reply('✅ Presence is already ON for this group.');
+        const currentSetting = await getGroupSetting(jid, 'gcpresence');
+        const isEnabled = currentSetting === true;
+
+        if (value === 'on' || value === 'off') {
+            const action = value === 'on';
+            if (isEnabled === action) {
+                return await m.reply(`✅ GCPresence is already ${value.toUpperCase()}.`);
             }
-            await updateGroupSetting(jid, 'gcpresence', 'true');
-            await m.reply('✅ Presence has been turned ON for this group. Bot will now simulate typing or recording.');
-        } else if (value === 'off') {
-            if (!groupSettings.gcpresence) {
-                return await m.reply('❌ Presence is already OFF for this group.');
-            }
-            await updateGroupSetting(jid, 'gcpresence', 'false');
-            await m.reply('❌ Presence has been turned OFF for this group.');
+
+            await updateGroupSetting(jid, 'gcpresence', action);
+            await m.reply(`✅ GCPresence has been turned ${value.toUpperCase()} for this group. Bot will now simulate a fake typing and recording.`);
         } else {
-            await m.reply(`📄 Current GCPresence setting for this group: ${groupSettings.gcpresence ? 'ON' : 'OFF'}\n\nUse _${settings.prefix}gcpresence on_ or _${settings.prefix}gcpresence off_._`);
+            await m.reply(`📄 Current Presence setting for this group: ${isEnabled ? 'ON' : 'OFF'}\n\nUse _${prefix}gcpresence on_ or _${prefix}gcpresence off_ to change it.`);
         }
     });
 };
