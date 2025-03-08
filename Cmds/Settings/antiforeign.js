@@ -1,4 +1,4 @@
-const { getGroupSetting, updateGroupSetting, getSettings } = require('../../config');
+const { getSettings, getGroupSetting, updateGroupSetting } = require('../../config');
 const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 
 module.exports = async (context) => {
@@ -13,7 +13,9 @@ module.exports = async (context) => {
 
         const settings = await getSettings();
         const prefix = settings.prefix;
-        const currentSetting = await getGroupSetting(jid, 'antiforeign');
+
+        let groupSettings = await getGroupSetting(jid);
+        let isEnabled = groupSettings?.antiforeign === 'on';
 
         const Myself = await client.decodeJid(client.user.id);
         const groupMetadata = await client.groupMetadata(m.chat);
@@ -25,20 +27,21 @@ module.exports = async (context) => {
         }
 
         if (value === 'on' || value === 'off') {
-            if (currentSetting === value) {
-                return await m.reply(`✅ Antiforeign was already ${value.toUpperCase()}.`);
+            const action = value === 'on';
+
+            if (isEnabled === action) {
+                return await m.reply(`✅ Antiforeign is already ${value.toUpperCase()}.`);
             }
 
-            await updateGroupSetting(jid, 'antiforeign', value);
-            if (value === 'on') {
-                await m.reply(`✅ Antiforeign has been turned ON for this group. _Bot will now automatically remove non-${mycode} numbers joining!_`);
-            } else {
-                await m.reply(`❌ Antiforeign has been turned OFF for this group.`);
-            }
+            await updateGroupSetting(jid, 'antiforeign', action ? 'on' : 'off');
+            await m.reply(
+                `✅ Antiforeign has been turned ${value.toUpperCase()} for this group.` +
+                (action ? ` _Bot will now automatically remove non-${mycode} numbers joining!_` : '')
+            );
         } else {
             await m.reply(
-                `_📄 Current antiforeign setting for this group: ${currentSetting?.toUpperCase() || 'OFF'}_\n\n` +
-                `_Use "${prefix}antiforeign on" or "${prefix}antiforeign off"._`
+                `📄 Current Antiforeign setting for this group: ${isEnabled ? 'ON' : 'OFF'}\n\n` +
+                `_Use ${prefix}antiforeign on or ${prefix}antiforeign off to change it._`
             );
         }
     });
