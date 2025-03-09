@@ -25,7 +25,7 @@ module.exports = async (context) => {
             }
 
             await updateGroupSetting(jid, 'events', action ? 'true' : 'false');
-            await m.reply(`✅ Events have been turned ${value.toUpperCase()} for this group. Bot will now send welcome and farewell messages.`);
+            await m.reply(`✅ Events have been turned ${value.toUpperCase()} for this group.`);
         } else {
             await m.reply(`📄 Current events setting for this group: ${isEnabled ? 'ON' : 'OFF'}\n\n _Use ${prefix}events on or ${prefix}events off to change it._`);
         }
