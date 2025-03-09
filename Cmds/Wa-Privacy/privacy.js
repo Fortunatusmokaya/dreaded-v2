@@ -1,6 +1,6 @@
 module.exports = async (context) => {
 
-const ownerMiddleware = require('../../Middleware/ownerMiddleware');
+const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
     await ownerMiddleware(context, async () => {
 
     const { client, m } = context;
