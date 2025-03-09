@@ -5,18 +5,16 @@
 | [![Fortunatus Mokaya](https://github.com/Fortunatusmokaya.png?lenght=50width=50)](https://github.com/Fortunatusmokaya)|
 |----|
 
+<p align="center">
+<a href="https://github.com/Fortunatusmokaya"><img title="Author" src="https://img.shields.io/badge/Fortunatus-skyblue?style=for-the-badge&logo=telegram"></a>
+<p/>
+<p align="center">
+<a href="https://github.com/Fortunatusmokaya/dreaded-v2/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/Fortunatusmokaya/dreaded-v2?&style=social"></a>
+<a href="https://github.com/Fortunatusmokaya/dreaded-v2/network/members"><img title="Fork" src="https://img.shields.io/github/forks/Fortunatusmokaya/dreaded-v2?style=social"></a>
+<a href="https://github.com/Fortunatusmokaya/dreaded-v2/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/Fortunatusmokaya/dreaded-v2?label=Watching&style=social"></a>
+</p>
 
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Rockstar-ExtraBold&size=30&pause=1000&color=0000FF&center=true&vCenter=true&width=500&height=60&lines=HOLLA+WELCOME+TO+THIS+REPO!)](https://git.io/typing-svg)
 
-   [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Rockstar-ExtraBold&color=F33A6A&lines=FORK+AND+MAYBE+GIVE+US+A+STAR)](https://git.io/typing-svg)
-
----
-
-> [CAUTION]
-
-> This bot is not created nor endorsed by WhatsApp. Your account might be banned. Be careful not to cause spam.
-
----
 
 
 ## SET-UP
