@@ -4,33 +4,25 @@ const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 module.exports = async (context) => {
     await ownerMiddleware(context, async () => {
         const { m, args } = context;
+        const value = args[0]?.toLowerCase();
 
         let settings = await getSettings();
         const prefix = settings.prefix;
-        const value = args[0]?.toLowerCase();
+        let isEnabled = settings.anticall === true;
 
-        if (value === 'reject') {
-            if (settings.anticall === 'reject') {
-                return await m.reply('✅ Anti-call was already set to REJECT.');
+        if (value === 'on' || value === 'off') {
+            const action = value === 'on';
+
+            if (isEnabled === action) {
+                return await m.reply(`✅ Anti-call is already ${value.toUpperCase()}.`);
             }
-            await updateSetting('anticall', 'reject');
-            await m.reply('✅ Anti-call has been set to REJECT. Calls will now be politely rejected.');
-        } else if (value === 'block') {
-            if (settings.anticall === 'block') {
-                return await m.reply('✅ Anti-call was already set to BLOCK.');
-            }
-            await updateSetting('anticall', 'block');
-            await m.reply('✅ Anti-call has been set to BLOCK. Calls will now be REJECTED and the caller blocked and banned.');
-        } else if (value === 'off') {
-            if (settings.anticall === 'off') {
-                return await m.reply('✅ Anti-call was already OFF.');
-            }
-            await updateSetting('anticall', 'off');
-            await m.reply('❌ Anti-call has been turned OFF.');
+
+            await updateSetting('anticall', action ? true : false);
+            await m.reply(`✅ Anti-call has been turned ${value.toUpperCase()}.`);
         } else {
             await m.reply(
-                `📄 Current anti-call setting: ${settings.anticall?.toUpperCase() || 'OFF'}\n\n` +
-                `_Use "${prefix}anticall reject", "${prefix}anticall block", or "${prefix}anticall off"._`
+                `📄 Current Anti-call setting: ${isEnabled ? 'ON' : 'OFF'}\n\n` +
+                `_Use "${prefix}anticall on" or "${prefix}anticall off" to change it._`
             );
         }
     });
