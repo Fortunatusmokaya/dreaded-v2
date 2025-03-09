@@ -17,7 +17,7 @@ module.exports = async (context) => {
             { name: 'Media', emoji: '🎥' },
             { name: 'Editting', emoji: '✂️' },
             { name: 'Groups', emoji: '👥' },
-            { name: 'Random', emoji: '👾' }
+            { name: 'Utils', emoji: '👾' }
         ];
 
         const getGreeting = () => {
