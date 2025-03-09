@@ -1,5 +1,4 @@
 const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
-
 const { getBannedUsers, unbanUser } = require('../../Database/config');
 
 module.exports = async (context) => {
@@ -8,7 +7,6 @@ module.exports = async (context) => {
 
         let numberToUnban;
 
-      
         if (m.quoted) {
             numberToUnban = m.quoted.sender;
         } else if (m.mentionedJid && m.mentionedJid.length > 0) {
@@ -21,9 +19,8 @@ module.exports = async (context) => {
             return await m.reply('❌ Please provide a valid number or quote a user.');
         }
 
-        if (!numberToUnban.includes('@s.whatsapp.net')) {
-            numberToUnban = `${numberToUnban.trim()}@s.whatsapp.net`;
-        }
+       
+        numberToUnban = numberToUnban.replace('@s.whatsapp.net', '').trim();
 
         const bannedUsers = await getBannedUsers();
 
@@ -31,9 +28,7 @@ module.exports = async (context) => {
             return await m.reply('⚠️ This user was not banned before.');
         }
 
-        
         await unbanUser(numberToUnban);
-
-        await m.reply(`✅ ${numberToUnban.split('@')[0]} has been unbanned.`);
+        await m.reply(`✅ ${numberToUnban} has been unbanned.`);
     });
 };
