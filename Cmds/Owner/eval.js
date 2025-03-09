@@ -1,8 +1,9 @@
 const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 
-    await ownerMiddleware(context, async () => {
-
+    
 module.exports = async (context) => {
+await ownerMiddleware(context, async () => {
+
   const { 
     client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, 
     participants, pushname, body, budy, totalCommands, args, mime, qmsg, msgDreaded, 
