@@ -17,7 +17,7 @@ const gcPresence = require('../Functions/gcPresence');
 const antitaggc = require('../Functions/antitag');
 const antidel = require('../Functions/antidelete');
 
-const { getSettings, getSudoUsers } = require('../Database/config');
+const { getSettings, getSudoUsers, getBannedUsers } = require('../Database/config');
 
 const {
 botname, mycode } = require('../Env/settings');
@@ -27,6 +27,7 @@ module.exports = dreaded = async (client, m, chatUpdate, store) => {
 try {
 
 const sudoUsers = await getSudoUsers();
+const bannedUsers = await getBannedUsers();
 
 let settings = await getSettings();
 if (!settings) return;
@@ -60,7 +61,11 @@ const path = require('path');
 const filePath = path.resolve(__dirname, '../dreaded.jpg');
 const pict = fs.readFileSync(filePath);
 
-const cmd = body.startsWith(prefix);  
+const commandName = body.startsWith(prefix) ? body.slice(prefix.length).trim().split(/\s+/)[0].toLowerCase() : null;  
+    const resolvedCommandName = aliases[commandName] || commandName;
+
+const cmd = body.startsWith(prefix) && commands[resolvedCommandName] || commands[resolvedCommandName];
+ 
     const args = body.trim().split(/ +/).slice(1);  
     const pushname = m.pushName || "No Name";  
     const botNumber = await client.decodeJid(client.user.id);  
@@ -106,6 +111,12 @@ const cmd = body.startsWith(prefix);
         fetchJson, exec, getRandom, UploadFileUgu, TelegraPh, prefix, cmd, botname, mode, gcpresence, antitag, antidelete, fetchBuffer, store, uploadtoimgur, chatUpdate, getGroupAdmins, pict, Tag  
     };  
 
+
+if (cmd && bannedUsers.includes(m.sender)) {
+            await client.sendMessage(m.chat, { text: "_You are banned from using bot commands._" }, { quoted: m });
+            return;
+        }
+
     if (cmd && mode === 'private' && !itsMe && !Owner && m.sender !== sudoUsers) {  
         return;  
     }  
@@ -127,8 +138,7 @@ await antidel(client, m);
 
 
 
-    const commandName = body.startsWith(prefix) ? body.slice(prefix.length).trim().split(/\s+/)[0].toLowerCase() : null;  
-    const resolvedCommandName = aliases[commandName] || commandName;  
+      
 
     if (commands[resolvedCommandName]) {  
         await commands[resolvedCommandName](context);  
