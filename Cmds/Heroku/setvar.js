@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { herokuAppName, herokuApiKey } = require("../../config");
+const { herokuAppName, herokuApiKey } = require("../../Env/settings");
 const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware'); 
 
 module.exports = async (context) => {
