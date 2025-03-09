@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 
-const database = require('../../Env/settings');
+const database = require('../Env/settings');
 
 console.log('[DB] Initializing database connection...');
 
