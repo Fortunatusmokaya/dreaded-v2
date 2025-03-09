@@ -1,4 +1,4 @@
-const { getGroupSetting } = require("../Database/config");
+/* const { getGroupSetting } = require("../Database/config");
 
 module.exports = async (client, m, isBotAdmin, isAdmin, Owner, body) => {
     if (!m.isGroup) return;
@@ -59,3 +59,5 @@ module.exports = async (client, m, isBotAdmin, isAdmin, Owner, body) => {
         }
     }
 };
+
+*/
