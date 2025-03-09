@@ -165,6 +165,11 @@ client.ev.on("messages.upsert", async (chatUpdate) => {
                 const groupAdmins = groupMetadata.participants.filter(p => p.admin).map(p => p.id);
                 const isAdmin = groupAdmins.includes(sender);
 
+const Myself = await client.decodeJid(client.user.id);
+                const isBotAdmin = groupAdmins.includes(Myself);
+
+                if (!isBotAdmin) return;
+
                 if (!isAdmin) {
 
 await client.sendMessage(mek.key.remoteJid, {
