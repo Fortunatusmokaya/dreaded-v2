@@ -5,7 +5,7 @@ const database = require('../Env/settings');
 console.log('[DB] Initializing database connection...');
 
 const pool = new Pool({
-    connectionString: database,
+    connectionString: process.env.DATABASE_URL,
     ssl: { rejectUnauthorized: false }
 });
 
