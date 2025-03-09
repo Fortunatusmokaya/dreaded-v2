@@ -19,22 +19,18 @@
 
 ## SET-UP
 
-## Fork
 
 <h2 align="center">   
 
-- ***You MUST `fork` this repo before fetching pairing code. Fork this repo by tapping  [`here`](https://github.com/Fortunatusmokaya/dreaded-v2/fork)***
 
-
-## Pairing:
-
-
-- ***`Get your Session Id` by  [`PAIRING CODE HERE`](https://pair.dreaded.site). `or` [`HERE`](https://pair.dreaded.site).***
-
-
-
-- Then `Go-to WhatsApp > Three dots > Linked Devices`
-   - You will get a session ID in your WhatsApp. Copy it.
+<p align="center">
+  <a href='https://github.com/Fortunatusmokaya/dreaded-v2/fork' target="_blank" style="margin-right: 10px;">
+    <img alt='Fork Repo' src='https://img.shields.io/badge/Fork Repo-100000?style=for-the-badge&logo=scan&logoColor=white&labelColor=orange&color=darkgreen'/>
+  </a>
+  <a href='https://pair.dreaded.site' target="_blank">
+    <img alt='REQUEST PAIR CODE' src='https://img.shields.io/badge/Pair_code-100000?style=for-the-badge&logo=scan&logoColor=white&labelColor=darkorange&color=darkorange'/>
+  </a>
+</p>
 
 ## Heroku Setup:
 
