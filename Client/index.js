@@ -30,7 +30,8 @@ const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream
 
 const authenticationn = require('../Auth/auth.js');
 const { smsg } = require('../Handler/smsg');
-const { getSettings } = require('../Database/config');
+const { getSettings, getBannedUsers, banUser, getGroupSetting } = require("../Database/config");
+
 
 const { botname  } = require('../Env/settings');
 const { DateTime } = require('luxon');
@@ -53,7 +54,7 @@ async function startDreaded() {
 let settingss = await getSettings();
         if (!settingss) return;
 
-const { autobio, mode } = settingss;
+const { autobio, mode, anticall } = settingss;
 
 
         const {  saveCreds, state } = await useMultiFileAuthState(sessionName)
@@ -105,8 +106,40 @@ if (autobio){
 }
 
  
+const processedCalls = new Set();
 
-const { getGroupSetting } = require("../Database/config");
+client.ws.on('CB:call', async (json) => {
+    const callId = json.content[0].attrs['call-id'];
+    const callerJid = json.content[0].attrs['call-creator']; 
+    const callerNumber = callerJid.replace(/[@.a-z]/g, ""); 
+
+    if (processedCalls.has(callId)) {
+        return;
+    }
+    processedCalls.add(callId);
+
+  
+  
+    if (!anticall) return; 
+
+    try {
+      
+        await client.rejectCall(callId, callerJid);
+        await client.sendMessage(callerJid, { text: "Do not call !" });
+
+       
+        const bannedUsers = await getBannedUsers();
+        if (bannedUsers.includes(callerNumber)) {
+            return;
+        }
+
+        
+        await banUser(callerNumber);
+    } catch (error) {
+        console.error('Error handling call:', error);
+    }
+});
+
 
 client.ev.on("messages.upsert", async (chatUpdate) => {
     let settings = await getSettings();
