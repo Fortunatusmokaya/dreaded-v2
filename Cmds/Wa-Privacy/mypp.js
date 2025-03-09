@@ -6,7 +6,7 @@ const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
     const { client, m, text} = context;
 
 if (!text) {
-      m.reply("Provide a setting to be updated. Example:\nmydp all");
+      m.reply("Provide a setting to be updated. Example:\nmypp all");
       return;
     }
 
