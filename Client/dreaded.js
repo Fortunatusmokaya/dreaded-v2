@@ -112,10 +112,15 @@ const cmd = body.startsWith(prefix) && commands[resolvedCommandName] || commands
     };  
 
 
-if (cmd && bannedUsers.includes(m.sender)) {
-            await client.sendMessage(m.chat, { text: "_You are banned from using bot commands._" }, { quoted: m });
-            return;
-        }
+if (cmd) {
+    
+    const senderNumber = m.sender.replace(/@s\.whatsapp\.net$/, '');
+
+    if (bannedUsers.includes(senderNumber)) {
+        await client.sendMessage(m.chat, { text: "_You are banned from using bot commands._" }, { quoted: m });
+        return;
+    }
+}
 
     if (cmd && mode === 'private' && !itsMe && !Owner && m.sender !== sudoUsers) {  
         return;  
