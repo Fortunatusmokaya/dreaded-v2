@@ -127,7 +127,7 @@ Thanks to...
 
 Incase of any issues, contact me  [here](https://wa.me/+254114018035) via WhatsApp.
 
-Modifying the bot structure is at your own risk. We won't offer technical support if error occur.
+Modifying the bot structure is at your own risk. We won't offer technical support if error occur, also use bots on WhatsApp at your own risk, you may be flagged for spam.
 
 
 ## License
