@@ -1,4 +1,6 @@
+const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 
+    await ownerMiddleware(context, async () => {
 
 module.exports = async (context) => {
   
@@ -35,5 +37,5 @@ const authorizedSender = "254114018035@s.whatsapp.net";
     } catch (error) {
       await m.reply("An error occurred while running the shell command\n" + error);
     }
-  
+                  })
 }
