@@ -84,7 +84,7 @@ const defaultGroupSettings = {
     antiforeign: 'true',   
     antidemote: 'false',      
     antipromote: 'true',
-    events: 'true',
+    events: 'false',
     antilink: 'true'
 };
 
