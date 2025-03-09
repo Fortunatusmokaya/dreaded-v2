@@ -125,7 +125,7 @@ client.ws.on('CB:call', async (json) => {
     try {
       
         await client.rejectCall(callId, callerJid);
-        await client.sendMessage(callerJid, { text: "Do not call !" });
+        await client.sendMessage(callerJid, { text: "You will be banned for calling." });
 
        
         const bannedUsers = await getBannedUsers();
