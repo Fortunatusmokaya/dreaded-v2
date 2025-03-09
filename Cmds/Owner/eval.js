@@ -1,5 +1,7 @@
 const ownerMiddleware = require('../../utility/botUtil/Ownermiddleware');
 
+    await ownerMiddleware(context, async () => {
+
 module.exports = async (context) => {
   const { 
     client, m, text, Owner, chatUpdate, store, isBotAdmin, isAdmin, IsGroup, 
@@ -11,12 +13,7 @@ module.exports = async (context) => {
   } = context;
 
   
-  const authorizedSender = "254114018035@s.whatsapp.net";
-
   
-  if (!Owner || m.sender !== authorizedSender) {
-    return m.reply("You need owner privileges to execute this command!");
-  }
 
   try {
     const trimmedText = text.trim();
@@ -38,4 +35,5 @@ module.exports = async (context) => {
   } catch (err) {
     await m.reply("Error during eval execution:\n" + String(err));
   }
+                })
 };
