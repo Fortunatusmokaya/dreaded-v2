@@ -13,7 +13,7 @@ const { commands, aliases, totalCommands } = require('../Handler/commandHandler'
 // const blocked_users = require('../Functions/blocked_users');
 const status_saver = require('../Functions/status_saver');
 const gcPresence = require('../Functions/gcPresence');
-const antilinkgc = require('../Functions/antilink');
+// const antilinkgc = require('../Functions/antilink');
 const antitaggc = require('../Functions/antitag');
 const antidel = require('../Functions/antidelete');
 
@@ -122,7 +122,7 @@ const pict = fs.readFileSync(filePath);
         await antidel(client, m);
         await status_saver(client, m, Owner, prefix);
     
-        await antilinkgc(client, m, isBotAdmin, isAdmin, Owner, body);
+        // await antilinkgc(client, m, isBotAdmin, isAdmin, Owner, body);
       
         await gcPresence(client, m);
         await antitaggc(client, m, isBotAdmin, itsMe, isAdmin, Owner, body);
