@@ -10,6 +10,7 @@ module.exports = async (context) => {
             { name: 'General', emoji: '✍️' },
             { name: 'Settings', emoji: '⚙️' },
 { name: 'Owner', emoji: '👑' },
+{ name: 'Heroku', emoji: '🏷️' },
 { name: 'Wa-Privacy', emoji: '🪀' },
 { name: 'Groups', emoji: '👥' },
 { name: 'AI', emoji: '🤖' },
