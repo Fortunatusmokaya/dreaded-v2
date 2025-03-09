@@ -117,7 +117,7 @@ if (cmd) {
     const senderNumber = m.sender.replace(/@s\.whatsapp\.net$/, '');
 
     if (bannedUsers.includes(senderNumber)) {
-        await client.sendMessage(m.chat, { text: "_You are banned from using bot commands._" }, { quoted: m });
+        await client.sendMessage(m.chat, { text: "❗You are banned from using bot commands." }, { quoted: m });
         return;
     }
 }
