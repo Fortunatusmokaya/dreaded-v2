@@ -6,6 +6,15 @@
   "logo": "https://telegra.ph/file/d6dab955fbaa42fce2280.jpg",
   "success_url": "/",
   "env": {
+
+    "HEROKU_APP_NAME": {
+      "description": "Re-enter the same app name you just provided above.",
+      "required": false
+    },
+    "HEROKU_API_KEY": {
+      "description": "This is your Heroku API key. To enable auto-deployment, you must provide this key. You can get it by logging into your Heroku account, going to 'Account Settings', and clicking 'Reveal API Key'. Copy and paste it here.",
+      "required": false
+    },
     "DATABASE_URL": {
       "description": "PostgreSQL database URL. This will be automatically set when deploying on Heroku.",
       "required": false
