@@ -28,21 +28,31 @@
     <img alt='Fork Repo' src='https://img.shields.io/badge/Fork Repo-100000?style=for-the-badge&logo=scan&logoColor=white&labelColor=orange&color=darkgreen'/>
   </a>
   <a href='https://pair.dreaded.site' target="_blank">
-    <img alt='REQUEST PAIR CODE' src='https://img.shields.io/badge/Pair_code-100000?style=for-the-badge&logo=scan&logoColor=white&labelColor=darkorange&color=darkorange'/>
+    <img alt='REQUEST PAIR CODE' src='https://img.shields.io/badge/Get_Pair_code-100000?style=for-the-badge&logo=scan&logoColor=white&labelColor=darkorange&color=darkorange'/>
   </a>
 </p>
 
-## Heroku Setup:
+## DEPLOYMENT
 
-   - ***[`CREATE HEROKU ACCOUNT`](https://signup.heroku.com/) `if you don't have one.`***
+<p align="center">
+  <a href="https://dashboard.heroku.com/new?template=https://github.com/Fortunatusmokaya/dreaded-v2" target="_blank" style="margin-right: 10px;">
+    <img alt="Deploy" src="https://www.herokucdn.com/deploy/button.svg"/>
+  </a>
+</p>
+<p align="center">
+  Heroku safety 💯 guaranteed.
+</p>
 
 
-- ***Now [`DEPLOY TO HEROKU`](https://dashboard.heroku.com/new?template=https://github.com/Fortunatusmokaya/dreaded-v2).***
+<details>
+<summary>MANUAL INSTALLATION</summary>
 
--***`Fill in all the required variables and deploy the bot.`***
-
--***`If you plan to host the bot in your server, vps, locally or panel you can carefully edit the file settings.js and add the session id in the session constant (if you know what that is), or you can still autheticate with qr`***
-
+## `REQUIREMENTS`
+* [Node.js](https://nodejs.org/en/)
+* [Git](https://git-scm.com/downloads)
+* [FFmpeg](https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2020-12-08-13-03/ffmpeg-n4.3.1-26-gca55240b8c-win64-gpl-4.3.zip)
+* [Libwebp](https://developers.google.com/speed/webp/download)
+* Any text editor
 
 
 ## FOR TERMUX/UBUNTU/SSH VPS DEPLOY
@@ -76,6 +86,8 @@ pm2 start index.js
 ## STOPPING BOT
 
 _CTRL + C_
+
+</details>
 
 ## FEATURES
 `This bot is a modification of the predecessor ***`dreaded-md`*** but we changed the module to commonJs. It has group management features, some media commands, image manipulation commands as well as AI and many other features incorporated.`
@@ -111,18 +123,6 @@ Thanks to...
 
 
 ---
-
-***Tap the WhatsApp logo below to join our channel and group for updates***
-
-<p align="left">
-  <a aria-label="Join our channel for updates" href="https://whatsapp.com/channel/0029VaeZVGaFsn0Yr8xSAM35" target="_blank">
-    <img alt="whatsapp" src="https://img.shields.io/badge/CHANNEL-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
-  </a>
-
-<p align="left">
-  <a aria-label="Join our channel for updates" href="https://chat.whatsapp.com/HPik6o5GenqDBCosvXW3oe" target="_blank">
-    <img alt="whatsapp" src="https://img.shields.io/badge/WA GROUP-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
-  </a>
 
 
 Incase of any issues, contact me  [here](https://wa.me/+254114018035) via WhatsApp.
