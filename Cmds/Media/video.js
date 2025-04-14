@@ -1,97 +1,40 @@
-const axios = require("axios");
-
 module.exports = async (context) => {
-    const { client, m, text, fetchJson } = context;
+    const { client, m, text } = context;
     const yts = require("yt-search");
+    const fetch = require("node-fetch");
+
+    if (!text) {
+        return m.reply("Please provide a song name!");
+    }
 
     try {
-        if (!text) return m.reply("What video do you want to download?");
-
         const { videos } = await yts(text);
         if (!videos || videos.length === 0) {
-            return m.reply("No videos found!");
+            throw new Error("No songs found!");
         }
 
-        const urlYt = videos[0].url;
+        const song = videos[0];
 
-        try {
-
-            const primaryData = await fetchJson(`https://api.dreaded.site/api/ytdl/video?url=${urlYt}`);
-            if (!primaryData.success || !primaryData.result || !primaryData.result.download) {
-                throw new Error("Invalid response from primary API");
+        const response = await fetch(`http://music.dreaded.site:3000/api/yt?url=${song.url}&format=mp4`, {
+            method: 'GET',
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
+                'Accept': 'video/mpeg'
             }
+        });
 
-            const {
-                metadata: { title: name },
-                download: { url: videoUrl, filename },
-            } = primaryData.result;
-
-            await m.reply(`_Downloading ${name}_. . .`);
-            await client.sendMessage(
-                m.chat,
-                {
-                    video: { url: videoUrl },
-                    mimetype: "video/mp4",
-                    caption: name,
-                    fileName: filename || `${name}.mp4`,
-                },
-                { quoted: m }
-            );
-
-await client.sendMessage(
-                m.chat,
-                {
-                    document: { url: videoUrl },
-                    mimetype: "video/mp4",
-                    caption: name,
-                    fileName: filename || `${name}.mp4`,
-                },
-                { quoted: m }
-            );
-
-
-        } catch (primaryError) {
-            console.error("Primary API failed:", primaryError.message);
-
-
-            try {
-                const fallbackData = await fetchJson(`https://api.dreaded.site/api/ytdl2/video?url=${urlYt}`);
-                if (!fallbackData.success || !fallbackData.downloadUrl || !fallbackData.title) {
-                    throw new Error("Invalid response from fallback API");
-                }
-
-                const { title: name, downloadUrl: videoUrl } = fallbackData;
-
-                await m.reply(`_Downloading ${name}_`);
-                await client.sendMessage(
-                    m.chat,
-                    {
-                        video: { url: videoUrl },
-                        mimetype: "video/mp4",
-                        caption: name,
-                        fileName: `${name}.mp4`,
-                    },
-                    { quoted: m }
-                );
-
-await client.sendMessage(
-                    m.chat,
-                    {
-                        document: { url: videoUrl },
-                        mimetype: "video/mp4",
-                        caption: name,
-                        fileName: `${name}.mp4`,
-                    },
-                    { quoted: m }
-                );
-
-
-            } catch (fallbackError) {
-                console.error("Fallback API failed:", fallbackError.message);
-                m.reply("Download failed: Unable to retrieve video from both APIs.");
-            }
+        if (!response.ok) {
+            throw new Error(`Download failed with status ${response.status}`);
         }
+
+        await client.sendMessage(m.chat, {
+            video: { url: response.url },
+            mimetype: "video/mp3",
+            fileName: `${song.title}.mp4`
+        }, { quoted: m });
+
     } catch (error) {
-        m.reply("Download failed\n" + error.message);
+        console.error("Error in video command:", error.message);
+        return m.reply("Download failed: " + error.message);
     }
 };
