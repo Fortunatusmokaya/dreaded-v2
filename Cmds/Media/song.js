@@ -27,6 +27,8 @@ module.exports = async (context) => {
             throw new Error(`Download failed with status ${response.status}`);
         }
 
+await m.reply(`_Downloading ${song.title}_`);
+
         await client.sendMessage(m.chat, {
             audio: { url: response.url },
             mimetype: "audio/mp3",
