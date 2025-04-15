@@ -272,15 +272,15 @@ async function saveConversation(num, role, message) {
     }
 }
 
-async function getRecentMessages(num, limit = 5) {
+async function getRecentMessages(num) {
     try {
         const res = await pool.query(
-            'SELECT role, message FROM conversation_history WHERE num = $1 ORDER BY timestamp DESC LIMIT $2',
-            [num, limit]
+            'SELECT role, message FROM conversation_history WHERE num = $1 ORDER BY timestamp ASC',
+            [num]
         );
-        return res.rows.reverse();
+        return res.rows;
     } catch (error) {
-        console.error('[DB] Error retrieving recent messages:', error);
+        console.error('[DB] Error retrieving conversation history:', error);
         return [];
     }
 }
