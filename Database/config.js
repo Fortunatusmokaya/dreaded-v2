@@ -30,6 +30,17 @@ async function initializeDatabase() {
             );
         `);
 
+await client.query(`
+    CREATE TABLE IF NOT EXISTS conversation_history (
+        id SERIAL PRIMARY KEY,
+        num TEXT NOT NULL,
+        role TEXT NOT NULL, -- 'user' or 'bot'
+        message TEXT NOT NULL,
+        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+`);
+
+
         await client.query(`
             CREATE TABLE IF NOT EXISTS sudo_users (
                 num TEXT PRIMARY KEY
@@ -250,6 +261,29 @@ async function getSudoUsers() {
         return [];
     }
 }
+async function saveConversation(num, role, message) {
+    try {
+        await pool.query(
+            'INSERT INTO conversation_history (num, role, message) VALUES ($1, $2, $3)',
+            [num, role, message]
+        );
+    } catch (error) {
+        console.error('[DB] Error saving conversation:', error);
+    }
+}
+
+async function getRecentMessages(num, limit = 5) {
+    try {
+        const res = await pool.query(
+            'SELECT role, message FROM conversation_history WHERE num = $1 ORDER BY timestamp DESC LIMIT $2',
+            [num, limit]
+        );
+        return res.rows.reverse();
+    } catch (error) {
+        console.error('[DB] Error retrieving recent messages:', error);
+        return [];
+    }
+}
 
 async function getBannedUsers() {
     try {
@@ -265,6 +299,8 @@ initializeDatabase().catch(console.error);
 
 module.exports = {
     addSudoUser,
+saveConversation,
+getRecentMessages,
     getSudoUsers,
     removeSudoUser,
     banUser,
