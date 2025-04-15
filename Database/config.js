@@ -285,6 +285,15 @@ async function getRecentMessages(num) {
     }
 }
 
+async function deleteUserHistory(num) {
+    try {
+        await pool.query('DELETE FROM conversation_history WHERE num = $1', [num]);
+        console.log(`[DB] Deleted conversation history for ${num}`);
+    } catch (error) {
+        console.error('[DB] Error deleting conversation history:', error);
+    }
+}
+
 async function getBannedUsers() {
     try {
         const res = await pool.query('SELECT num FROM banned_users');
@@ -301,6 +310,7 @@ module.exports = {
     addSudoUser,
 saveConversation,
 getRecentMessages,
+deleteUserHistory,
     getSudoUsers,
     removeSudoUser,
     banUser,
