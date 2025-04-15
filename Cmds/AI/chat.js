@@ -2,10 +2,10 @@ const { saveConversation, getRecentMessages } = require('../../Database/config')
 const { deleteUserHistory } = require('../../Database/config'); 
 
 module.exports = async (context) => {
-    const { client, m, text, botname, fetchJson } = context;
+    const { client, m, text, botname, fetchJson, prefix } = context;
     const num = m.sender;
 
-    if (!text) return m.reply("Provide some text or query for AI chat.");
+    if (!text) return m.reply(`Provide some text or query for AI chat. Your chats with the AI are stored indefinitely to create context, to delete your chat history send *${prefix}chat --reset*`);
 
     
     if (text.toLowerCase().includes('--reset')) {
