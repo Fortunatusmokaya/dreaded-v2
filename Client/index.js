@@ -109,27 +109,28 @@ if (autobio){
 const processedCalls = new Set();
 
 client.ws.on('CB:call', async (json) => {
-    if (anticall) {
-        const callId = json.content[0].attrs['call-id'];
-        const callerJid = json.content[0].attrs['call-creator']; 
-        const callerNumber = callerJid.replace(/[@.a-z]/g, ""); 
+    const settingszs = await getSettings();
+    if (!settingszs?.anticall) return;
 
-        if (processedCalls.has(callId)) {
-            return;
+    const callId = json.content[0].attrs['call-id'];
+    const callerJid = json.content[0].attrs['call-creator'];
+    const callerNumber = callerJid.replace(/[@.a-z]/g, "");
+
+    if (processedCalls.has(callId)) {
+        return;
+    }
+    processedCalls.add(callId);
+
+    try {
+        await client.rejectCall(callId, callerJid);
+        await client.sendMessage(callerJid, { text: "You will be banned for calling. Contact the owner!" });
+
+        const bannedUsers = await getBannedUsers();
+        if (!bannedUsers.includes(callerNumber)) {
+            await banUser(callerNumber);
         }
-        processedCalls.add(callId);
-
-        try {
-            await client.rejectCall(callId, callerJid);
-            await client.sendMessage(callerJid, { text: "You will be banned for calling. Contact the owner!" });
-
-            const bannedUsers = await getBannedUsers();
-            if (!bannedUsers.includes(callerNumber)) {
-                await banUser(callerNumber);
-            }
-        } catch (error) {
-            console.error('Error handling call:', error);
-        }
+    } catch (error) {
+        console.error('Error handling call:', error);
     }
 });
 
