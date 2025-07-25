@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const REPO = 'https://github.com/Fortunatusmokaya/dreaded-v2.git';
+const REPO = 'https://github.com/Fortunatusmokaya/botfiles-v2.git';
 const DIR = path.join(__dirname, 'bot');
 
 function exec(cmd, cwd = process.cwd()) {
