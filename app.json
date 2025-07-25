@@ -1,0 +1,53 @@
+{
+  "name": "DREADED V2",
+  "description": "This is a simple WhatsApp bot built with Node.js and Baileys with MD support.",
+  "website": "https://github.com/Fortunatusmokaya/dreaded-v2#readme",
+  "repository": "https://github.com/Fortunatusmokaya/dreaded-v2.git",
+  "logo": "https://telegra.ph/file/d6dab955fbaa42fce2280.jpg",
+  "success_url": "/",
+  "env": {
+    "HEROKU_APP_NAME": {
+      "description": "Re-enter the same app name you just provided above.",
+      "required": false
+    },
+    "HEROKU_API_KEY": {
+      "description": "This is your Heroku API key. To enable auto-deployment, you must provide this key. You can get it from your Heroku Account Settings.",
+      "required": false
+    },
+    "DATABASE_URL": {
+      "description": "PostgreSQL database URL. This will be automatically set when deploying on Heroku.",
+      "required": false
+    },
+    "CODE": {
+      "description": "Enter your country code without +. Example: 254 for Kenya.",
+      "required": true
+    },
+    "BOTNAME": {
+      "description": "Enter name for your bot.",
+      "required": false
+    },
+    "SESSION": {
+      "description": "Paste the session ID you received in WhatsApp after linking the bot.",
+      "required": true
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-apt"
+    },
+    {
+      "url": "https://github.com/clhuang/heroku-buildpack-webp-binaries.git"
+    },
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+    }
+  ]
+}
